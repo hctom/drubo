@@ -9,9 +9,8 @@
       "role": "Developer"
     }
   ],
-  "require": {},
-  "require-dev": {
-    "codegyre/robo": "*"
+  "require": {
+    "codegyre/robo": "^1.0"
   },
   "autoload": {
     "psr-4": {
