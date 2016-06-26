@@ -1,0 +1,21 @@
+{
+  "name": "hctom/drubo",
+  "description": "Robo for Drupal.",
+  "authors": [
+    {
+      "name": "hctom (Thomas Keitel)",
+      "email": "info@hctom.net",
+      "homepage": "http://www.hctom.net/",
+      "role": "Developer"
+    }
+  ],
+  "require": {},
+  "require-dev": {
+    "codegyre/robo": "*"
+  }  
+  "autoload": {
+    "psr-4": {
+      "Drubo\\": "src/"
+    }
+  }
+}
