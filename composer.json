@@ -11,7 +11,8 @@
   ],
   "require": {
     "codegyre/robo": "^1.0",
-    "drupal/console": "^1.0"
+    "drupal/console": "^1.0",
+    "drush/drush": "8.*"
   },
   "autoload": {
     "psr-4": {
