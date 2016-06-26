@@ -10,7 +10,8 @@
     }
   ],
   "require": {
-    "codegyre/robo": "^1.0"
+    "codegyre/robo": "^1.0",
+    "drupal/console": "^1.0"
   },
   "autoload": {
     "psr-4": {
