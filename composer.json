@@ -12,7 +12,7 @@
   "require": {},
   "require-dev": {
     "codegyre/robo": "*"
-  }  
+  },
   "autoload": {
     "psr-4": {
       "Drubo\\": "src/"
