@@ -35,10 +35,13 @@ trait ConfigTrait {
   /**
    * {@inheritdoc}
    */
-  public function get($key) {
-    $keyParts = explode('.', $key);
-    $tmp = $this->data;
+  public function get($key = NULL) {
+    if (empty($key)) {
+      return $this->data;
+    }
 
+    $tmp = $this->data;
+    $keyParts = explode('.', $key);
     foreach ($keyParts as $i => $keyPart) {
       if (!array_key_exists($keyPart, $tmp)) {
         throw new \InvalidArgumentException('Unknown configuration key: ' . $key);

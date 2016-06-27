@@ -19,8 +19,8 @@ interface ConfigInterface {
   /**
    * Return configuration value.
    *
-   * @param $key
-   *   The configuration key.
+   * @param string|null $key
+   *   An optional configuraton key. Pass NULL to return whole config.
    *
    * @return mixed
    *   The configuration value on success.
