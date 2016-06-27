@@ -5,6 +5,7 @@ namespace Drubo\Robo;
 use Drubo\Config\Config;
 use Drubo\Config\ConfigSchema;
 use Robo\Config as RoboConfig;
+use Robo\ResultData;
 use Robo\Tasks as RoboTasks;
 
 /**
@@ -49,6 +50,15 @@ abstract class Tasks extends RoboTasks {
     }
 
     return $container->get('drubo.config');
+  }
+
+  /**
+   * Dump configuration values.
+   */
+  public function configDump() {
+    $config = $this->config()->get();
+
+    return ResultData::message($config);
   }
 
   /**
