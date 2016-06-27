@@ -13,6 +13,7 @@
     "codegyre/robo": "^1.0",
     "drupal/console": "^1.0",
     "drush/drush": "8.*",
+    "symfony/config": "~2.8|~3.0.0",
     "symfony/yaml": "~2.8|~3.0.0"
   },
   "autoload": {
