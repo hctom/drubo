@@ -3,7 +3,7 @@
 namespace Drubo\Robo;
 
 use Drubo\Config\Config;
-use Drubo\Config\Schema;
+use Drubo\Config\ConfigSchema;
 use Robo\Config as RoboConfig;
 use Robo\Tasks as RoboTasks;
 
@@ -22,7 +22,7 @@ abstract class Tasks extends RoboTasks {
     $container->add('drubo.config.class', new Config());
 
     // Add configuration schema service to container.
-    $container->add('drubo.config.schema', new Schema());
+    $container->add('drubo.config.schema', new ConfigSchema());
   }
 
   /**

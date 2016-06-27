@@ -11,7 +11,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 /**
  * Schema class for drubo configuration files.
  */
-class Schema implements ConfigurationInterface {
+class ConfigSchema implements ConfigurationInterface {
 
   /**
    * @param $name

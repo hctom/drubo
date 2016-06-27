@@ -8,7 +8,7 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Loader for drubo configuration files.
  */
-class Loader extends FileLoader {
+class ConfigLoader extends FileLoader {
 
   /**
    * {@inheritdoc}

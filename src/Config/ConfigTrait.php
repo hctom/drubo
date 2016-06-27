@@ -89,7 +89,7 @@ trait ConfigTrait {
    */
   public function load() {
     $locator = new FileLocator($this->getConfigDirectoryCandidates());
-    $loader = new Loader($locator);
+    $loader = new ConfigLoader($locator);
 
     // Config validation.
     $processor = new Processor();
