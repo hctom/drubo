@@ -5,6 +5,7 @@ namespace Drubo\Robo;
 use Drubo\Drubo;
 use Robo\ResultData;
 use Robo\Tasks as RoboTasks;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Base class for drubo-enabled RoboFile console commands configuration classes.
@@ -43,7 +44,7 @@ abstract class Tasks extends RoboTasks {
     // Load configuration.
     $config = $this->config($environment)->get();
 
-    return ResultData::message($config);
+    return ResultData::message(Yaml::dump($config));
   }
 
   /**
