@@ -14,7 +14,7 @@ interface ConfigInterface {
    *
    * @var string
    */
-  const FILENAME = '.drubo.yml';
+  const FILENAME = 'config.yml';
 
   /**
    * Return configuration value.
@@ -46,9 +46,13 @@ interface ConfigInterface {
   /**
    * Load configuration.
    *
+   * @param string|null $environment
+   *   An optional environment indicator. Leave empty to ignore environment-specific
+   *   configuration overrides.
+   *
    * @return static
    */
-  public function load();
+  public function load($environment = NULL);
 
   /**
    * Set configuration schema.

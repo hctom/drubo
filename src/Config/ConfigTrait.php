@@ -58,19 +58,25 @@ trait ConfigTrait {
   /**
    * Return configuration directory candidates.
    *
+   * @param string|null $environment
+   *   An optional environment indicator. Leave empty to ignore environment-specific
+   *   configuration overrides.
+   *
    * @return array
    *   An array of directory paths to locate drubo configuration files in.
    */
-  protected function getConfigDirectoryCandidates() {
-    $path = '';
+  protected function getConfigDirectoryCandidates($environment = NULL) {
     $paths = [];
 
-    foreach (explode(DIRECTORY_SEPARATOR, $this->workingDirectory) as $part) {
-      $path .= $part . DIRECTORY_SEPARATOR;
-      $paths[] = rtrim($path, DIRECTORY_SEPARATOR);
+    // Path candidate for default configuration.
+    $paths[] = rtrim($this->getWorkingDirectory(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . '.drubo';
+
+    // Path candidate for environment-specific configuration.
+    if (!empty($environment)) {
+      $paths[] = $paths[0] . DIRECTORY_SEPARATOR . $environment;
     }
 
-    return array_reverse($paths);
+    return $paths;
   }
 
   /**
@@ -90,17 +96,21 @@ trait ConfigTrait {
   /**
    * {@inheritdoc}
    */
-  public function load() {
-    $locator = new FileLocator($this->getConfigDirectoryCandidates());
+  public function load($environment = NULL) {
+    $configs = [];
+    $locator = new FileLocator($this->getConfigDirectoryCandidates($environment));
     $loader = new ConfigLoader($locator);
 
-    // Config validation.
-    $processor = new Processor();
+    // Locate and load configration files (if any).
+    if (($files = $locator->locate(static::FILENAME, NULL, FALSE))) {
+      foreach ($files as $file) {
+        $configs[] = $loader->load($file);
+      }
+    }
 
-    if (($file = $locator->locate(static::FILENAME, NULL, TRUE))) {
-      $this->data = $processor->processConfiguration($this->getSchema(), [
-        'drubo' => $loader->load($file)
-      ]);
+    // Process configuration (if any).
+    if (!empty($configs)) {
+      $this->data = (new Processor())->processConfiguration($this->getSchema(), $configs);
     }
     else {
       $this->data = [];

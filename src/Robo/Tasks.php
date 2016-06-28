@@ -2,9 +2,7 @@
 
 namespace Drubo\Robo;
 
-use Drubo\Config\Config;
-use Drubo\Config\ConfigSchema;
-use Robo\Config as RoboConfig;
+use Drubo\Drubo;
 use Robo\ResultData;
 use Robo\Tasks as RoboTasks;
 
@@ -17,13 +15,8 @@ abstract class Tasks extends RoboTasks {
    * Constructor.
    */
   public function __construct() {
-    $container = RoboConfig::getContainer();
-
-    // Add configuration service to container.
-    $container->add('drubo.config.class', new Config());
-
-    // Add configuration schema service to container.
-    $container->add('drubo.config.schema', new ConfigSchema());
+    // Register services.
+    Drubo::registerServices();
   }
 
   /**
@@ -32,47 +25,70 @@ abstract class Tasks extends RoboTasks {
    * @return \Drubo\Config\Config
    *   The configuration object.
    */
-  protected function config() {
-    $container = RoboConfig::getContainer();
-
-    if (!$container->has('drubo.config')) {
-      /** @var \Drubo\Config\ConfigInterface $config */
-      $config = $container->get('drubo.config.class');
-
-      // Initialize configuration object.
-      $config
-        ->setSchema($container->get('drubo.config.schema'))
-        ->setWorkingDirectory(getcwd())
-        ->load();
-
-      // Save initialized configuration object to container.
-      $container->add('drubo.config', $config);
-    }
-
-    return $container->get('drubo.config');
+  protected function config($environment = NULL) {
+    return Drubo::config($environment);
   }
 
   /**
    * Dump configuration values.
+   *
+   * @param string|null $environment
+   *   An optional environment indicator. Leave empty to ignore environment-specific
+   *   configuration overrides.
    */
-  public function configDump() {
-    $config = $this->config()->get();
+  public function configDump($environment = NULL) {
+    // Validate environment.
+    $this->validateEnvironment($environment);
+
+    // Load configuration.
+    $config = $this->config($environment)->get();
 
     return ResultData::message($config);
   }
 
   /**
    * Install Drupal site.
+   *
+   * @param string $environment
+   *   An environment identifier.
    */
-  public function siteInstall() {
+  public function siteInstall($environment) {
+    // Validate environment.
+    $this->validateEnvironment($environment);
+
     // TODO Implement Tasks::siteInstall().
   }
 
   /**
    * Update Drupal site.
+   *
+   * @param string $environment
+   *   An environment identifier.
    */
-  public function siteUpdate() {
+  public function siteUpdate($environment) {
+    // Validate environment.
+    $this->validateEnvironment($environment);
+
     // TODO Implement Tasks::siteUpdate().
+  }
+
+  /**
+   * Validate environment identifier.
+   *
+   * @param string|null $environment
+   *   An environment identifier.
+   *
+   * @return bool
+   *   Whether the environment identifier is valid.
+   *
+   * @throws \RuntimeException
+   */
+  protected function validateEnvironment($environment) {
+    if (!empty($environment) && !Drubo::environment()->exists($environment)) {
+      throw new \RuntimeException('Unknown environment: ' . $environment);
+    }
+
+    return TRUE;
   }
 
 }
