@@ -106,8 +106,6 @@ trait ConfigTrait {
       $this->data = [];
     }
 
-    dump($this->data);
-
     return $this;
   }
 
