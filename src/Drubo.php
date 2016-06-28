@@ -7,6 +7,7 @@ use Drubo\Config\ConfigSchema;
 use Drubo\Environment\Environment;
 use Drubo\Environment\EnvironmentInterface;
 use Drubo\Environment\EnvironmentList;
+use Drubo\Environment\EnvironmentListInterface;
 use Robo\Config as RoboConfig;
 
 /**
@@ -58,6 +59,15 @@ class Drubo {
    */
   public static function environment() {
     return static::container()->get('drubo.environment');
+  }
+
+  /**
+   * Return environment list service.
+   *
+   * @return \Drubo\Environment\EnvironmentListInterface
+   */
+  public static function environmentList() {
+    return static::container()->get('drubo.environment.list');
   }
 
   /**

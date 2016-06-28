@@ -38,12 +38,9 @@ class EnvironmentList implements EnvironmentListInterface {
   }
 
   /**
-   * Return available environment identifiers.
-   *
-   * @return array
-   *   An array of environment identifiers.
+   * {@inheritdoc}
    */
-  protected function environments() {
+  public function environments() {
     return [
       'develop',
       'staging',

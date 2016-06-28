@@ -2,6 +2,8 @@
 
 namespace Drubo\Robo;
 
+use Consolidation\OutputFormatters\StructuredData\AssociativeList;
+use Consolidation\OutputFormatters\StructuredData\RowsOfFields;
 use Drubo\Drubo;
 use Robo\ResultData;
 use Robo\Tasks as RoboTasks;
@@ -45,6 +47,13 @@ abstract class Tasks extends RoboTasks {
     $config = $this->config($environment)->get();
 
     return ResultData::message(Yaml::dump($config));
+  }
+
+  /**
+   * List all available environments.
+   */
+  public function environments() {
+    return ResultData::message(Yaml::dump(Drubo::environmentList()->environments()));
   }
 
   /**
