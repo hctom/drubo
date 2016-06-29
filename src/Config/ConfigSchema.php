@@ -37,9 +37,11 @@ class ConfigSchema implements ConfigurationInterface {
     $treeBuilder = new TreeBuilder();
     $rootNode = $treeBuilder->root('drubo');
 
-    $rootNode->children()
-      ->append($this->nodeAccount())
-      ->append($this->nodeSite())
+    $rootNode
+      ->children()
+        ->append($this->nodeAccount())
+        ->append($this->nodeBinaries())
+        ->append($this->nodeSite())
       ->end();
 
     return $treeBuilder;
@@ -58,6 +60,21 @@ class ConfigSchema implements ConfigurationInterface {
         ->scalarNode('name')->defaultValue('admin')->end()
         ->scalarNode('mail')->defaultValue('admin@example.com')->end()
         ->scalarNode('pass')->defaultValue(NULL)->end()
+      ->end();
+  }
+
+  /**
+   * Create 'binaries' node.
+   *
+   * @return ArrayNodeDefinition
+   *   The 'binaries' node.
+   */
+  protected function nodeBinaries() {
+    return $this->createNode('binaries')
+      ->addDefaultsIfNotSet()
+      ->children()
+        ->scalarNode('drupal')->defaultValue('bin/drupal')->end()
+        ->scalarNode('drush')->defaultValue('bin/drush')->end()
       ->end();
   }
 
