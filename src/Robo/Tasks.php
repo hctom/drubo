@@ -2,8 +2,6 @@
 
 namespace Drubo\Robo;
 
-use Consolidation\OutputFormatters\StructuredData\AssociativeList;
-use Consolidation\OutputFormatters\StructuredData\RowsOfFields;
 use Drubo\Drubo;
 use Robo\ResultData;
 use Robo\Tasks as RoboTasks;
