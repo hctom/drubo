@@ -5,10 +5,11 @@ namespace Drubo;
 use Drubo\Config\Config;
 use Drubo\Config\ConfigSchema;
 use Drubo\Environment\Environment;
-use Drubo\Environment\EnvironmentInterface;
 use Drubo\Environment\EnvironmentList;
-use Drubo\Environment\EnvironmentListInterface;
 use Robo\Config as RoboConfig;
+use Symfony\Component\Console\ConsoleEvents;
+use Symfony\Component\Console\Event\ConsoleCommandEvent;
+use Symfony\Component\Console\Input\InputOption;
 
 /**
  * Helper class for drubo.
@@ -68,6 +69,43 @@ class Drubo {
    */
   public static function environmentList() {
     return static::container()->get('drubo.environment.list');
+  }
+
+  /**
+   * Handle execution environment.
+   *
+   * @param array $environmentUnspecificCommands
+   *   An array of command names that do not require an environment identifier.
+   */
+  public static function handleEnvironment(array $environmentUnspecificCommands = []) {
+    $container = static::container();
+
+    /** @var \Robo\Application $application */
+    $application = $container->get('application');
+
+    // Add global environment command option.
+    $application->getDefinition()->addOption(new InputOption('env', 'e', InputOption::VALUE_OPTIONAL, 'The environment to operate in.', NULL));
+
+    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher */
+    $dispatcher = $container->get('eventDispatcher');
+
+    // Add event listener for environment handling.
+    $dispatcher->addListener(ConsoleEvents::COMMAND, function (ConsoleCommandEvent $event) use ($environmentUnspecificCommands) {
+      $environment = $event->getInput()->getOption('env');
+
+      // Environment is required, but not set?
+      if (empty($environment) && !in_array($event->getCommand()->getName(), $environmentUnspecificCommands, TRUE)) {
+        throw new \RuntimeException('Environment is missing');
+      }
+
+      // Environment identifier is set and exists?
+      elseif (!empty($environment) && !Drubo::environment()->exists($environment)) {
+        throw new \RuntimeException('Unknown environment: ' . $environment);
+      }
+
+      // Save environment identifier for later usage.
+      static::environment()->set($environment);
+    });
   }
 
   /**

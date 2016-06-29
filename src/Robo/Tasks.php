@@ -18,6 +18,9 @@ abstract class Tasks extends RoboTasks {
   public function __construct() {
     // Register services.
     Drubo::registerServices();
+
+    // Handle execution environment.
+    Drubo::handleEnvironment($this->environmentUnspecificCommands());
   }
 
   /**
@@ -32,17 +35,10 @@ abstract class Tasks extends RoboTasks {
 
   /**
    * Dump configuration values.
-   *
-   * @param string|null $environment
-   *   An optional environment indicator. Leave empty to ignore environment-specific
-   *   configuration overrides.
    */
-  public function configDump($environment = NULL) {
-    // Validate environment.
-    $this->validateEnvironment($environment);
-
+  public function configDump() {
     // Load configuration.
-    $config = $this->config($environment)->get();
+    $config = $this->config(Drubo::environment()->get())->get();
 
     return ResultData::message(Yaml::dump($config));
   }
@@ -55,15 +51,27 @@ abstract class Tasks extends RoboTasks {
   }
 
   /**
-   * Install Drupal site.
+   * Return environment-unspecific commands.
    *
-   * @param string $environment
-   *   An environment identifier.
+   * All commands listed here do not require an environment identifier but may
+   * use it as an optional option.
+   *
+   * @return array
+   *   An array of command names.
    */
-  public function siteInstall($environment) {
-    // Validate environment.
-    $this->validateEnvironment($environment);
+  protected function environmentUnspecificCommands() {
+    return [
+      'config:dump',
+      'environments',
+      'help',
+      'list',
+    ];
+  }
 
+  /**
+   * Install Drupal site.
+   */
+  public function siteInstall() {
     // TODO Implement Tasks::siteInstall().
   }
 
@@ -73,30 +81,8 @@ abstract class Tasks extends RoboTasks {
    * @param string $environment
    *   An environment identifier.
    */
-  public function siteUpdate($environment) {
-    // Validate environment.
-    $this->validateEnvironment($environment);
-
+  public function siteUpdate() {
     // TODO Implement Tasks::siteUpdate().
-  }
-
-  /**
-   * Validate environment identifier.
-   *
-   * @param string|null $environment
-   *   An environment identifier.
-   *
-   * @return bool
-   *   Whether the environment identifier is valid.
-   *
-   * @throws \RuntimeException
-   */
-  protected function validateEnvironment($environment) {
-    if (!empty($environment) && !Drubo::environment()->exists($environment)) {
-      throw new \RuntimeException('Unknown environment: ' . $environment);
-    }
-
-    return TRUE;
   }
 
 }
