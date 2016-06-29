@@ -17,6 +17,17 @@ class Environment implements EnvironmentInterface {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function get() {
+    if (!isset($GLOBALS[static::GLOBALS_KEY])) {
+      throw new \Exception('No environment has been set');
+    }
+
+    return $GLOBALS[static::GLOBALS_KEY] !== static::NONE ? $GLOBALS['drubo.environment'] : NULL;
+  }
+
+  /**
    * Return environment list service.
    *
    * @return \Drubo\Environment\EnvironmentListInterface
@@ -24,6 +35,15 @@ class Environment implements EnvironmentInterface {
    */
   protected function listService() {
     return Drubo::container()->get('drubo.environment.list');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function set($environment) {
+    $GLOBALS[static::GLOBALS_KEY] = $environment ?: static::NONE;
+
+    return $this;
   }
 
 }
