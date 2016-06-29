@@ -43,7 +43,7 @@ class Drubo {
   /**
    * Return dependency-injection container.
    *
-   * @return \Symfony\Component\DependencyInjection\ContainerInterface|null
+   * @return \League\Container\ContainerInterface|null
    *   The dependency-injection container.
    *
    * @throws \Drupal\Core\DependencyInjection\ContainerNotInitializedException
