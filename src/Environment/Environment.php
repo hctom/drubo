@@ -2,7 +2,7 @@
 
 namespace Drubo\Environment;
 
-use Drubo\Drubo;
+use Robo\Config;
 
 /**
  * Environment service class for drubo.
@@ -20,11 +20,11 @@ class Environment implements EnvironmentInterface {
    * {@inheritdoc}
    */
   public function get() {
-    if (!isset($GLOBALS[static::GLOBALS_KEY])) {
+    if (!($environment = Config::get(static::CACHE_KEY))) {
       throw new \Exception('No environment has been set');
     }
 
-    return $GLOBALS[static::GLOBALS_KEY] !== static::NONE ? $GLOBALS['drubo.environment'] : NULL;
+    return $environment !== static::NONE ? $environment : NULL;
   }
 
   /**
@@ -34,14 +34,14 @@ class Environment implements EnvironmentInterface {
    *   The environment list service.
    */
   protected function listService() {
-    return Drubo::container()->get('drubo.environment.list');
+    return Config::service('drubo.environment.list');
   }
 
   /**
    * {@inheritdoc}
    */
   public function set($environment) {
-    $GLOBALS[static::GLOBALS_KEY] = $environment ?: static::NONE;
+    Config::set(static::CACHE_KEY, $environment ?: static::NONE);
 
     return $this;
   }

@@ -8,9 +8,9 @@ namespace Drubo\Environment;
 interface EnvironmentInterface {
 
   /**
-   * Environment cache key name in globals.
+   * Environment cache key name in Robo configuration.
    */
-  const GLOBALS_KEY = 'drubo.environment';
+  const CACHE_KEY = '_config.drubo.environment';
 
   /**
    * Environment: None.
