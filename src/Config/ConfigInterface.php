@@ -25,7 +25,7 @@ interface ConfigInterface {
    * @return mixed
    *   The configuration value on success.
    */
-  public function get($key);
+  public function get($key = NULL);
 
   /**
    * Return configuration schema.
@@ -34,14 +34,6 @@ interface ConfigInterface {
    *   The configuration schema object.
    */
   public function getSchema();
-
-  /**
-   * Return working directory.
-   *
-   * @return string
-   *   The working directory path.
-   */
-  public function getWorkingDirectory();
 
   /**
    * Load configuration.
@@ -63,15 +55,5 @@ interface ConfigInterface {
    * @return static
    */
   public function setSchema(ConfigurationInterface $schema);
-
-  /**
-   * Set working directory.
-   *
-   * @param $workingDirectory
-   *   The working directory path.
-   *
-   * @return static
-   */
-  public function setWorkingDirectory($workingDirectory);
 
 }

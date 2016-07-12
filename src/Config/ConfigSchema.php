@@ -40,7 +40,9 @@ class ConfigSchema implements ConfigurationInterface {
     $rootNode
       ->children()
         ->append($this->nodeAccount())
-        ->append($this->nodeBinaries())
+        ->append($this->nodeDocroot())
+        ->append($this->nodeDrupalConsole())
+        ->append($this->nodeDrush())
         ->append($this->nodeSite())
       ->end();
 
@@ -64,17 +66,44 @@ class ConfigSchema implements ConfigurationInterface {
   }
 
   /**
-   * Create 'binaries' node.
+   * Create 'docroot' node.
    *
    * @return ArrayNodeDefinition
-   *   The 'binaries' node.
+   *   The 'docroot' node.
    */
-  protected function nodeBinaries() {
-    return $this->createNode('binaries')
+  protected function nodeDocroot() {
+    return $this->createNode('docroot')
       ->addDefaultsIfNotSet()
       ->children()
-        ->scalarNode('drupal')->defaultValue('bin/drupal')->end()
-        ->scalarNode('drush')->defaultValue('bin/drush')->end()
+      ->scalarNode('path')->defaultValue('docroot')->end()
+      ->end();
+  }
+
+  /**
+   * Create 'drupalConsole' node.
+   *
+   * @return ArrayNodeDefinition
+   *   The 'drupalConsole' node.
+   */
+  protected function nodeDrupalConsole() {
+    return $this->createNode('drupalconsole')
+      ->addDefaultsIfNotSet()
+      ->children()
+        ->scalarNode('path')->defaultValue('bin/drupal')->end()
+      ->end();
+  }
+
+  /**
+   * Create 'drush' node.
+   *
+   * @return ArrayNodeDefinition
+   *   The 'drush' node.
+   */
+  protected function nodeDrush() {
+    return $this->createNode('drush')
+      ->addDefaultsIfNotSet()
+      ->children()
+        ->scalarNode('path')->defaultValue('bin/drush')->end()
       ->end();
   }
 
@@ -88,9 +117,10 @@ class ConfigSchema implements ConfigurationInterface {
     return $this->createNode('site')
       ->addDefaultsIfNotSet()
       ->children()
-        ->scalarNode('profile')->defaultValue('standard')->end()
+        ->scalarNode('language')->defaultValue('en')->end()
         ->scalarNode('mail')->defaultValue('admin@example.com')->end()
         ->scalarNode('name')->defaultValue('Drupal')->end()
+        ->scalarNode('profile')->defaultValue('standard')->end()
       ->end();
   }
 

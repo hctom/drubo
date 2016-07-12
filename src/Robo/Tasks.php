@@ -2,7 +2,7 @@
 
 namespace Drubo\Robo;
 
-use Drubo\Drubo;
+use Drubo\DruboAwareTrait;
 use Robo\ResultData;
 use Robo\Tasks as RoboTasks;
 use Symfony\Component\Yaml\Yaml;
@@ -12,33 +12,35 @@ use Symfony\Component\Yaml\Yaml;
  */
 abstract class Tasks extends RoboTasks {
 
+  use DruboAwareTrait;
+
   /**
    * Constructor.
    */
   public function __construct() {
-    // Register services.
-    Drubo::registerServices();
-
-    // Handle execution environment.
-    Drubo::handleEnvironment($this->environmentUnspecificCommands());
-  }
-
-  /**
-   * Return configuration.
-   *
-   * @return \Drubo\Config\Config
-   *   The configuration object.
-   */
-  protected function config($environment = NULL) {
-    return Drubo::config($environment);
+    $this->drubo()
+      // Initialize drubo.
+      ->initialize()
+      // Add environment-unspecific commands.
+      ->addEnvironmentUnspecificCommands([
+        'config:dump',
+        'environments',
+      ]);
   }
 
   /**
    * Dump configuration values.
    */
   public function configDump() {
+    // Load environment (if any).
+    $environment = $this->drubo()
+      ->environment()
+      ->get();
+
     // Load configuration.
-    $config = $this->config(Drubo::environment()->get())->get();
+    $config = $this->drubo()
+      ->config($environment)
+      ->get();
 
     return ResultData::message(Yaml::dump($config));
   }
@@ -47,25 +49,12 @@ abstract class Tasks extends RoboTasks {
    * List all available environments.
    */
   public function environments() {
-    return ResultData::message(Yaml::dump(Drubo::environmentList()->environments()));
-  }
+    // Load available environment identifiers.
+    $environments = $this->drubo()
+      ->environments()
+      ->get();
 
-  /**
-   * Return environment-unspecific commands.
-   *
-   * All commands listed here do not require an environment identifier but may
-   * use it as an optional option.
-   *
-   * @return array
-   *   An array of command names.
-   */
-  protected function environmentUnspecificCommands() {
-    return [
-      'config:dump',
-      'environments',
-      'help',
-      'list',
-    ];
+    return ResultData::message(Yaml::dump($environments));
   }
 
   /**
@@ -77,9 +66,6 @@ abstract class Tasks extends RoboTasks {
 
   /**
    * Update Drupal site.
-   *
-   * @param string $environment
-   *   An environment identifier.
    */
   public function siteUpdate() {
     // TODO Implement Tasks::siteUpdate().

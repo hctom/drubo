@@ -3,9 +3,9 @@
 namespace Drubo\Environment;
 
 /**
- * Interface for drubo environment list classes.
+ * Interface for drubo environments classes.
  */
-interface EnvironmentListInterface extends \Iterator, \Countable {
+interface EnvironmentsInterface extends \Iterator, \Countable {
 
   /**
    * Return available environment identifiers.
@@ -13,7 +13,7 @@ interface EnvironmentListInterface extends \Iterator, \Countable {
    * @return array
    *   An array of environment identifiers.
    */
-  public function environments();
+  public function get();
 
   /**
    * Has environment identifier?

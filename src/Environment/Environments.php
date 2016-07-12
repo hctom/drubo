@@ -3,9 +3,9 @@
 namespace Drubo\Environment;
 
 /**
- * Environment list service class for drubo.
+ * Environment service class for drubo.
  */
-class EnvironmentList implements EnvironmentListInterface {
+class Environments implements EnvironmentsInterface {
 
   /**
    * Iterator position.
@@ -25,14 +25,14 @@ class EnvironmentList implements EnvironmentListInterface {
    * {@inheritdoc}
    */
   public function count() {
-    return count($this->environments());
+    return count($this->get());
   }
 
   /**
    * {@inheritdoc}
    */
   function current() {
-    $list = $this->environments();
+    $list = $this->list();
 
     return $list[$this->position];
   }
@@ -40,7 +40,7 @@ class EnvironmentList implements EnvironmentListInterface {
   /**
    * {@inheritdoc}
    */
-  public function environments() {
+  public function get() {
     return [
       'develop',
       'staging',
@@ -52,7 +52,7 @@ class EnvironmentList implements EnvironmentListInterface {
    * {@inheritdoc}
    */
   public function has($environment) {
-    return in_array($environment, $this->environments(), TRUE);
+    return in_array($environment, $this->get(), TRUE);
   }
 
   /**
@@ -80,7 +80,7 @@ class EnvironmentList implements EnvironmentListInterface {
    * {@inheritdoc}
    */
   function valid() {
-    $list = $this->environments();
+    $list = $this->get();
 
     return isset($list[$this->position]);
   }

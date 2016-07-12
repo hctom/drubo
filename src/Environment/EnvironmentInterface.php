@@ -10,7 +10,7 @@ interface EnvironmentInterface {
   /**
    * Environment cache key name in Robo configuration.
    */
-  const CACHE_KEY = '_config.drubo.environment';
+  const CACHE_KEY = '_drubo.environment';
 
   /**
    * Environment: None.
