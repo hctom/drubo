@@ -12,6 +12,7 @@ trait loadTasks {
   public static function getDrupalServices() {
     return new SimpleServiceProvider([
       'taskRebuildDrupalCache' => RebuildCache::class,
+      'taskInstallDrupalSite' => InstallSite::class,
       'taskImportDrupalConfig' => ImportConfig::class,
     ]);
   }
@@ -31,6 +32,15 @@ trait loadTasks {
    * @return ImportConfig
    */
   protected function taskImportDrupalConfig() {
+    return $this->task(__FUNCTION__);
+  }
+
+  /**
+   * Install a Drupal site.
+   *
+   * @return InstallSite
+   */
+  protected function taskInstallDrupalSite() {
     return $this->task(__FUNCTION__);
   }
 
