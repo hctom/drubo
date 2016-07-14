@@ -260,6 +260,7 @@ class Drubo {
     $container->add('drubo.config.schema', new ConfigSchema());
 
     // Add task services to container.
+    $container->addServiceProvider(\Drubo\Robo\Task\Database\loadTasks::getDatabaseServices());
 
     return $this;
   }

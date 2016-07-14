@@ -13,6 +13,7 @@ use Symfony\Component\Yaml\Yaml;
 abstract class Tasks extends RoboTasks {
 
   use DruboAwareTrait;
+  use \Drubo\Robo\Task\Database\loadTasks;
 
   /**
    * Constructor.
