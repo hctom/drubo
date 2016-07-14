@@ -261,6 +261,7 @@ class Drubo {
 
     // Add task services to container.
     $container->addServiceProvider(\Drubo\Robo\Task\Database\loadTasks::getDatabaseServices());
+    $container->addServiceProvider(\Drubo\Robo\Task\Drupal\loadTasks::getDrupalServices());
 
     return $this;
   }

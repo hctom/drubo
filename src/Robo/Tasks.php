@@ -14,6 +14,7 @@ abstract class Tasks extends RoboTasks {
 
   use DruboAwareTrait;
   use \Drubo\Robo\Task\Database\loadTasks;
+  use \Drubo\Robo\Task\Drupal\loadTasks;
 
   /**
    * Constructor.
