@@ -11,7 +11,7 @@ trait loadTasks {
    */
   public static function getDrupalServices() {
     return new SimpleServiceProvider([
-      'taskApplyEntityUpdates' => ApplyEntityUpdates::class,
+      'taskApplyDrupalEntityUpdates' => ApplyEntityUpdates::class,
       'taskRebuildDrupalCache' => RebuildCache::class,
       'taskInstallDrupalSite' => InstallSite::class,
       'taskImportDrupalConfig' => ImportConfig::class,
@@ -23,7 +23,7 @@ trait loadTasks {
    *
    * @return ApplyEntityUpdates
    */
-  protected function taskApplyEntityUpdates() {
+  protected function taskApplyDrupalEntityUpdates() {
     return $this->task(__FUNCTION__);
   }
 
