@@ -11,10 +11,20 @@ trait loadTasks {
    */
   public static function getDrupalServices() {
     return new SimpleServiceProvider([
+      'taskApplyEntityUpdates' => ApplyEntityUpdates::class,
       'taskRebuildDrupalCache' => RebuildCache::class,
       'taskInstallDrupalSite' => InstallSite::class,
       'taskImportDrupalConfig' => ImportConfig::class,
     ]);
+  }
+
+  /**
+   * Apply Drupal entity schema updates.
+   *
+   * @return ApplyEntityUpdates
+   */
+  protected function taskApplyEntityUpdates() {
+    return $this->task(__FUNCTION__);
   }
 
   /**
