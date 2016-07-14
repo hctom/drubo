@@ -2,8 +2,7 @@
 
 namespace Drubo\Robo\Task\Base;
 
-use Drubo\DruboAwareTrait;
-use Robo\Task\BaseTask;
+use Drubo\Robo\Task\BaseTask;
 use Robo\TaskAccessor;
 
 /**
@@ -11,7 +10,6 @@ use Robo\TaskAccessor;
  */
 abstract class EncapsulatedExec extends BaseTask {
 
-  use DruboAwareTrait;
   use TaskAccessor;
 
   /**
