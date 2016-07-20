@@ -12,6 +12,7 @@ trait loadTasks {
   public static function getDrupalServices() {
     return new SimpleServiceProvider([
       'taskApplyDrupalEntityUpdates' => ApplyEntityUpdates::class,
+      'taskApplyPendingDrupalUpdates' => ApplyPendingUpdates::class,
       'taskRebuildDrupalCache' => RebuildCache::class,
       'taskInstallDrupalSite' => InstallSite::class,
       'taskImportDrupalConfig' => ImportConfig::class,
@@ -24,6 +25,15 @@ trait loadTasks {
    * @return ApplyEntityUpdates
    */
   protected function taskApplyDrupalEntityUpdates() {
+    return $this->task(__FUNCTION__);
+  }
+
+  /**
+   * Apply pending Drupal update(s).
+   *
+   * @return ApplyPendingUpdates
+   */
+  protected function taskApplyPendingDrupalUpdates() {
     return $this->task(__FUNCTION__);
   }
 
