@@ -14,6 +14,8 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class ConfigSchema implements ConfigurationInterface {
 
   /**
+   * Create and return configuration schema node.
+   *
    * @param $name
    *   The name of the node.
    * @param string $type
