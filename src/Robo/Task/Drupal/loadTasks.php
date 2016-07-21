@@ -15,6 +15,7 @@ trait loadTasks {
       'taskApplyPendingDrupalUpdates' => ApplyPendingUpdates::class,
       'taskDrupalUserLogin' => UserLogin::class,
       'taskRebuildDrupalCache' => RebuildCache::class,
+      'taskRebuildDrupalNodeAccessPermissions' => RebuildNodeAccessPermissions::class,
       'taskInstallDrupalSite' => InstallSite::class,
       'taskImportDrupalConfig' => ImportConfig::class,
     ]);
@@ -53,6 +54,15 @@ trait loadTasks {
    * @return RebuildCache
    */
   protected function taskRebuildDrupalCache() {
+    return $this->task(__FUNCTION__);
+  }
+
+  /**
+   * Rebuild Drupal node access permissions.
+   *
+   * @return RebuildNodeAccessPermissions
+   */
+  protected function taskRebuildDrupalNodeAccessPermissions() {
     return $this->task(__FUNCTION__);
   }
 
