@@ -13,6 +13,7 @@ trait loadTasks {
     return new SimpleServiceProvider([
       'taskApplyDrupalEntityUpdates' => ApplyEntityUpdates::class,
       'taskApplyPendingDrupalUpdates' => ApplyPendingUpdates::class,
+      'taskDrupalUserLogin' => UserLogin::class,
       'taskRebuildDrupalCache' => RebuildCache::class,
       'taskInstallDrupalSite' => InstallSite::class,
       'taskImportDrupalConfig' => ImportConfig::class,
@@ -34,6 +35,15 @@ trait loadTasks {
    * @return ApplyPendingUpdates
    */
   protected function taskApplyPendingDrupalUpdates() {
+    return $this->task(__FUNCTION__);
+  }
+
+  /**
+   * Generate one-time user login URL.
+   *
+   * @return UserLogin
+   */
+  protected function taskDrupalUserLogin() {
     return $this->task(__FUNCTION__);
   }
 
