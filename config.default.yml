@@ -1,0 +1,21 @@
+# TODO Documentation
+
+account:
+  mail: 'admin@example.com'
+  name: 'admin'
+  pass: null
+
+site:
+  language: 'en'
+  mail: 'admin@example.com'
+  name: 'Drupal'
+  profile: 'standard'
+
+docroot:
+  path: 'docroot'
+
+drupalconsole:
+  path: 'bin/drupal'
+
+drush:
+  path: 'bin/drush'
