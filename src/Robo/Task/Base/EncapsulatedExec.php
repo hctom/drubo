@@ -3,14 +3,15 @@
 namespace Drubo\Robo\Task\Base;
 
 use Drubo\Robo\Task\BaseTask;
-use Robo\TaskAccessor;
+use Robo\Common\BuilderAwareTrait;
+use Robo\Contract\BuilderAwareInterface;
 
 /**
  * Robo task base class for encapsulated command executions.
  */
-abstract class EncapsulatedExec extends BaseTask {
+abstract class EncapsulatedExec extends BaseTask implements BuilderAwareInterface  {
 
-  use TaskAccessor;
+  use BuilderAwareTrait;
 
   /**
    * Command.
@@ -64,7 +65,7 @@ abstract class EncapsulatedExec extends BaseTask {
       }
 
       // Instantiate encapsulated command.
-      $this->exec = $this->task('Exec', $binary);
+      $this->exec = $this->collectionBuilder()->taskExec($binary);
 
       // Set working directory (if needed).
       if (($workingDirectory = $this->workingDirectory())) {
