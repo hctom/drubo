@@ -259,10 +259,6 @@ class Drubo {
     // Add configuration schema service to container.
     $container->add('drubo.config.schema', new ConfigSchema());
 
-    // Add task services to container.
-    $container->addServiceProvider(\Drubo\Robo\Task\Database\loadTasks::getDatabaseServices());
-    $container->addServiceProvider(\Drubo\Robo\Task\Drupal\loadTasks::getDrupalServices());
-
     return $this;
   }
 
