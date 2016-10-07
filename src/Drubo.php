@@ -6,7 +6,7 @@ use Drubo\Config\Config as DruboConfig;
 use Drubo\Config\ConfigSchema;
 use Drubo\Environment\Environment;
 use Drubo\Environment\Environments;
-use Robo\Config as RoboConfig;
+use Robo\Robo;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\Console\Input\InputOption;
@@ -48,7 +48,7 @@ class Drubo {
    */
   public function __construct() {
     // Cache working directory.
-    RoboConfig::set(static::CACHE_KEY_WORKING_DIRECTORY, getcwd());
+    Robo::config()->set(static::CACHE_KEY_WORKING_DIRECTORY, getcwd());
   }
 
   /**
@@ -165,7 +165,7 @@ class Drubo {
    * @throws \Drupal\Core\DependencyInjection\ContainerNotInitializedException
    */
   public function container() {
-    return RoboConfig::getContainer();
+    return Robo::getContainer();
   }
 
   /**
@@ -282,7 +282,7 @@ class Drubo {
    *   The absolute path to the current working directory.
    */
   public function workingDirectory() {
-    return RoboConfig::get(static::CACHE_KEY_WORKING_DIRECTORY);
+    return Robo::config()->get(static::CACHE_KEY_WORKING_DIRECTORY);
   }
 
 }

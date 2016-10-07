@@ -2,7 +2,7 @@
 
 namespace Drubo\Environment;
 
-use Robo\Config;
+use Robo\Robo;
 
 /**
  * Environment service class for drubo.
@@ -20,7 +20,7 @@ class Environment implements EnvironmentInterface {
    * {@inheritdoc}
    */
   public function get() {
-    if (!($environment = Config::get(static::CACHE_KEY))) {
+    if (!($environment = Robo::config()->get(static::CACHE_KEY))) {
       throw new \Exception('No environment has been set');
     }
 
@@ -34,14 +34,14 @@ class Environment implements EnvironmentInterface {
    *   The environments service.
    */
   protected function environments() {
-    return Config::service('drubo.environments');
+    return Robo::service('drubo.environments');
   }
 
   /**
    * {@inheritdoc}
    */
   public function set($environment) {
-    Config::set(static::CACHE_KEY, $environment ?: static::NONE);
+    Robo::config()->set(static::CACHE_KEY, $environment ?: static::NONE);
 
     return $this;
   }
