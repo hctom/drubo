@@ -46,6 +46,7 @@ class ConfigSchema implements ConfigurationInterface {
         ->append($this->nodeDrupalConsole())
         ->append($this->nodeDrush())
         ->append($this->nodeSite())
+        ->append($this->nodeCommands())
       ->end();
 
     return $treeBuilder;
@@ -64,6 +65,41 @@ class ConfigSchema implements ConfigurationInterface {
         ->scalarNode('name')->defaultValue('admin')->end()
         ->scalarNode('mail')->defaultValue('admin@example.com')->end()
         ->scalarNode('pass')->defaultValue(NULL)->end()
+      ->end();
+  }
+
+  /**
+   * Create 'commands' node.
+   *
+   * @return ArrayNodeDefinition
+   *   The 'commands' node.
+   */
+  protected function nodeCommands() {
+    $defaults = [
+      'site:reinstall' => ['disabled' => TRUE],
+    ];
+
+    return $this->createNode('commands')
+      ->useAttributeAsKey('name')
+      ->defaultValue($defaults)
+      ->requiresAtLeastOneElement()
+      ->validate()
+        ->ifArray()
+        ->then(function($v) use ($defaults) {
+          // Ensure defaults.
+          foreach ($defaults as $key => $default) {
+            if (!isset($v[$key])) {
+              $v[$key] = $default;
+            }
+          }
+
+          return $v;
+        })
+      ->end()
+      ->prototype('array')
+        ->children()
+          ->booleanNode('disabled')->defaultFalse()->end()
+        ->end()
       ->end();
   }
 

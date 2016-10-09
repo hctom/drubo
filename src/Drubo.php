@@ -6,6 +6,7 @@ use Drubo\Config\Config as DruboConfig;
 use Drubo\Config\ConfigSchema;
 use Drubo\Environment\Environment;
 use Drubo\Environment\Environments;
+use Drubo\EventSubscriber\ConsoleCommandSubscriber;
 use Robo\Robo;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
@@ -128,6 +129,10 @@ class Drubo {
 
     // Add event listener for environment handling.
     $dispatcher->addListener(ConsoleEvents::COMMAND, array($this, 'onHandleEnvironment'));
+
+    // Add event subscriber to check console command disabled state.
+    $consoleCommandSubscriber = new ConsoleCommandSubscriber();
+    $dispatcher->addListener(ConsoleEvents::COMMAND, array($consoleCommandSubscriber, 'onCheckDisabledState'));
 
     return $this;
   }

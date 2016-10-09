@@ -83,6 +83,26 @@ class Config implements ConfigInterface {
   /**
    * {@inheritdoc}
    */
+  public function has($key) {
+    $keyParts = explode('.', $key);
+    $tmp = $this->data;
+
+    foreach ($keyParts as $i => $keyPart) {
+      if (!array_key_exists($keyPart, $tmp)) {
+        return FALSE;
+      }
+
+      $tmp = $tmp[$keyPart];
+
+      if ($i === count($keyParts) - 1) {
+        return TRUE;
+      }
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function load($environment = NULL) {
     $configs = [];
     $locator = new FileLocator($this->getConfigDirectoryCandidates($environment));

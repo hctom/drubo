@@ -19,3 +19,6 @@ drupalconsole:
 
 drush:
   path: 'bin/drush'
+
+commands:
+  'site:reinstall': { disabled: true }

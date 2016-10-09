@@ -36,6 +36,17 @@ interface ConfigInterface {
   public function getSchema();
 
   /**
+   * Has configuration value?
+   *
+   * @param string $key
+   *   A configuraton key.
+   *
+   * @return bool
+   *   Whether the configuration key exists.
+   */
+  public function has($key);
+
+  /**
    * Load configuration.
    *
    * @param string|null $environment
