@@ -10,7 +10,6 @@ use Drubo\EventSubscriber\ConsoleCommandSubscriber;
 use Drubo\EventSubscriber\EnvironmentSubscriber;
 use Robo\Robo;
 use Symfony\Component\Console\ConsoleEvents;
-use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Filesystem\Filesystem;
 
