@@ -7,6 +7,7 @@ use Drubo\Config\ConfigSchema;
 use Drubo\Environment\Environment;
 use Drubo\Environment\Environments;
 use Drubo\EventSubscriber\ConsoleCommandSubscriber;
+use Drubo\EventSubscriber\EnvironmentSubscriber;
 use Robo\Robo;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
@@ -86,7 +87,7 @@ class Drubo {
   /**
    * Add names of commands that do not explicitly need an environment identifier.
    *
-   * @param array $commandName
+   * @param array $commandNames
    *   An array of command names to add.
    *
    * @return static
@@ -127,14 +128,33 @@ class Drubo {
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher */
     $dispatcher = $this->container()->get('eventDispatcher');
 
-    // Add event listener for environment handling.
-    $dispatcher->addListener(ConsoleEvents::COMMAND, array($this, 'onHandleEnvironment'));
+    // Initialize event subscriber objects.
+    $consoleCommandSubscriber = new ConsoleCommandSubscriber();
+    $environmentSubscriber = new EnvironmentSubscriber();
+
+    // Add event subscriber for environment handling.
+    $dispatcher->addListener(ConsoleEvents::COMMAND, array($environmentSubscriber, 'onSaveIdentifier'));
+
+    // Add event subscriber to check if console command requires an environment.
+    $dispatcher->addListener(ConsoleEvents::COMMAND, array($consoleCommandSubscriber, 'onCheckEnvironmentIsRequired'));
 
     // Add event subscriber to check console command disabled state.
-    $consoleCommandSubscriber = new ConsoleCommandSubscriber();
     $dispatcher->addListener(ConsoleEvents::COMMAND, array($consoleCommandSubscriber, 'onCheckDisabledState'));
 
     return $this;
+  }
+
+  /**
+   * Command requires environment to be set?
+   *
+   * @param string $commandName
+   *   A command name.
+   *
+   * @return bool
+   *   Whether the command requires an environmen to be set.
+   */
+  public function commandRequiresEnvironment($commandName) {
+    return !array_key_exists($commandName, $this->environmentUnspecificCommands);
   }
 
   /**
@@ -209,7 +229,7 @@ class Drubo {
       ->addListeners()
       // Register default services.
       ->registerDefaultServices()
-      // Add default environment-unspecific commands
+      // Add default environment-unspecific commands.
       ->addEnvironmentUnspecificCommands([
         'help',
         'list',
@@ -219,29 +239,6 @@ class Drubo {
     $this->initialized = TRUE;
 
     return $this;
-  }
-
-  /**
-   * Event listener: Environment handling.
-   *
-   * @param \Symfony\Component\Console\Event\ConsoleCommandEvent $event
-   *   An event object.
-   */
-  public function onHandleEnvironment(ConsoleCommandEvent $event) {
-    $environment = $event->getInput()->getOption('env');
-
-    // Environment is required, but not set?
-    if (empty($environment) && !array_key_exists($event->getCommand()->getName(), $this->environmentUnspecificCommands)) {
-      throw new \RuntimeException('Environment is missing');
-    }
-
-    // Environment identifier is set and exists?
-    elseif (!empty($environment) && !$this->environment()->exists($environment)) {
-      throw new \RuntimeException('Unknown environment: ' . $environment);
-    }
-
-    // Save environment identifier for later usage.
-    $this->environment()->set($environment);
   }
 
   /**
