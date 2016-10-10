@@ -120,31 +120,6 @@ class Drubo {
   }
 
   /**
-   * Add event listeners.
-   *
-   * @return static
-   */
-  protected function addListeners() {
-    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher */
-    $dispatcher = $this->container()->get('eventDispatcher');
-
-    // Initialize event subscriber objects.
-    $consoleCommandSubscriber = new ConsoleCommandSubscriber();
-    $environmentSubscriber = new EnvironmentSubscriber();
-
-    // Add event subscriber for environment handling.
-    $dispatcher->addListener(ConsoleEvents::COMMAND, array($environmentSubscriber, 'onSaveIdentifier'));
-
-    // Add event subscriber to check if console command requires an environment.
-    $dispatcher->addListener(ConsoleEvents::COMMAND, array($consoleCommandSubscriber, 'onCheckEnvironmentIsRequired'));
-
-    // Add event subscriber to check console command disabled state.
-    $dispatcher->addListener(ConsoleEvents::COMMAND, array($consoleCommandSubscriber, 'onCheckDisabledState'));
-
-    return $this;
-  }
-
-  /**
    * Command requires environment to be set?
    *
    * @param string $commandName
@@ -225,10 +200,10 @@ class Drubo {
     $this
       // Add additinal input option.
       ->addInputOptions()
-      // Add event listeners.
-      ->addListeners()
       // Register default services.
       ->registerDefaultServices()
+      // Register event subscribers.
+      ->registerEventSubscribers()
       // Add default environment-unspecific commands.
       ->addEnvironmentUnspecificCommands([
         'help',
@@ -260,6 +235,31 @@ class Drubo {
 
     // Add configuration schema service to container.
     $container->add('drubo.config.schema', new ConfigSchema());
+
+    return $this;
+  }
+
+  /**
+   * Register event subscribers.
+   *
+   * @return static
+   */
+  protected function registerEventSubscribers() {
+    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher */
+    $dispatcher = $this->container()->get('eventDispatcher');
+
+    // Initialize event subscriber objects.
+    $consoleCommandSubscriber = new ConsoleCommandSubscriber();
+    $environmentSubscriber = new EnvironmentSubscriber();
+
+    // Add event subscriber for environment handling.
+    $dispatcher->addListener(ConsoleEvents::COMMAND, array($environmentSubscriber, 'onSaveIdentifier'));
+
+    // Add event subscriber to check if console command requires an environment.
+    $dispatcher->addListener(ConsoleEvents::COMMAND, array($consoleCommandSubscriber, 'onCheckEnvironmentIsRequired'));
+
+    // Add event subscriber to check console command disabled state.
+    $dispatcher->addListener(ConsoleEvents::COMMAND, array($consoleCommandSubscriber, 'onCheckDisabledState'));
 
     return $this;
   }
