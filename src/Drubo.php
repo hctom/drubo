@@ -20,6 +20,11 @@ use Symfony\Component\Filesystem\Filesystem;
 class Drubo {
 
   /**
+   * Package directory cache key name in Robo configuration.
+   */
+  const CACHE_KEY_PACKAGE_DIRECTORY = '_drubo.packageDirectory';
+
+  /**
    * Working directory cache key name in Robo configuration.
    */
   const CACHE_KEY_WORKING_DIRECTORY = '_drubo.workingDirectory';
@@ -49,6 +54,9 @@ class Drubo {
    * Constructor.
    */
   public function __construct() {
+    // Cache package directory.
+    Robo::config()->set(static::CACHE_KEY_PACKAGE_DIRECTORY, realpath(__DIR__ . '/../'));
+
     // Cache working directory.
     Robo::config()->set(static::CACHE_KEY_WORKING_DIRECTORY, getcwd());
   }
@@ -214,6 +222,16 @@ class Drubo {
     $this->initialized = TRUE;
 
     return $this;
+  }
+
+  /**
+   * Return drubo package directory.
+   *
+   * @return string
+   *   The absolute path to the drubo package directory.
+   */
+  public function packageDirectory() {
+    return Robo::config()->get(static::CACHE_KEY_PACKAGE_DIRECTORY);
   }
 
   /**
