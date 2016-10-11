@@ -90,14 +90,6 @@ abstract class EncapsulatedExec extends BaseTask implements BuilderAwareInterfac
   }
 
   /**
-   * {@inheritdoc}
-   */
-  public function getContainer() {
-    return $this->drubo()
-      ->container();
-  }
-
-  /**
    * Return command options.
    *
    * @return array
