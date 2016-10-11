@@ -67,7 +67,7 @@ class Drubo {
    */
   protected function addInputOptions() {
     /** @var \Robo\Application $application */
-    $application = $this->container()->get('application');
+    $application = $this->getContainer()->get('application');
 
     // Add global environment option.
     $application->getDefinition()->addOption(new InputOption('env', 'e', InputOption::VALUE_OPTIONAL, 'The environment to operate in.', NULL));
@@ -99,7 +99,7 @@ class Drubo {
    *   The configuration service.
    */
   public function config($environment = NULL) {
-    $container = $this->container();
+    $container = $this->getContainer();
 
     /** @var \Drubo\Config\ConfigInterface $config */
     $config = $container->get('drubo.config');
@@ -113,24 +113,12 @@ class Drubo {
   }
 
   /**
-   * Return dependency-injection container.
-   *
-   * @return \League\Container\ContainerInterface|null
-   *   The dependency-injection container.
-   *
-   * @throws \Drupal\Core\DependencyInjection\ContainerNotInitializedException
-   */
-  public function container() {
-    return Robo::getContainer();
-  }
-
-  /**
    * Return environment service.
    *
    * @return \Drubo\Environment\EnvironmentInterface
    */
   public function environment() {
-    return $this->container()->get('drubo.environment');
+    return $this->getContainer()->get('drubo.environment');
   }
 
   /**
@@ -139,7 +127,7 @@ class Drubo {
    * @return \Drubo\Environment\EnvironmentsInterface
    */
   public function environments() {
-    return $this->container()->get('drubo.environments');
+    return $this->getContainer()->get('drubo.environments');
   }
 
   /**
@@ -159,6 +147,18 @@ class Drubo {
     }
 
     return $path;
+  }
+
+  /**
+   * Return dependency-injection container.
+   *
+   * @return \League\Container\ContainerInterface|null
+   *   The dependency-injection container.
+   *
+   * @throws \Drupal\Core\DependencyInjection\ContainerNotInitializedException
+   */
+  public function getContainer() {
+    return Robo::getContainer();
   }
 
   /**
@@ -207,7 +207,7 @@ class Drubo {
    * @return static
    */
   protected function registerDefaultServices() {
-    $container = $this->container();
+    $container = $this->getContainer();
 
     // Add environments service to container.
     $container->add('drubo.environments', new Environments());
@@ -263,7 +263,7 @@ class Drubo {
    */
   protected function registerEventSubscribers() {
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher */
-    $dispatcher = $this->container()->get('eventDispatcher');
+    $dispatcher = $this->getContainer()->get('eventDispatcher');
 
     // Initialize event subscriber objects.
     $consoleCommandSubscriber = new ConsoleCommandSubscriber();
