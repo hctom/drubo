@@ -3,14 +3,25 @@
 namespace Drubo\EventSubscriber;
 
 use Drubo\DruboAwareTrait;
+use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Event subscriber: Console command.
+ * Event subscriber: Environment-specific console command.
  */
-class ConsoleCommandSubscriber {
+class EnvironmentSpecificConsoleCommandSubscriber implements EventSubscriberInterface {
 
   use DruboAwareTrait;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getSubscribedEvents() {
+    return [
+      ConsoleEvents::COMMAND => 'onCheckEnvironmentIsRequired'
+    ];
+  }
 
   /**
    * Check whether a console command requires an environment.
