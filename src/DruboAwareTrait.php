@@ -28,7 +28,7 @@ trait DruboAwareTrait {
    *   The drubo singleton instance object.
    */
   protected function drubo() {
-    return Drubo::singleton();
+    return Drubo::getSingleton();
   }
 
   /**

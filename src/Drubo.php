@@ -161,6 +161,19 @@ class Drubo {
   }
 
   /**
+   * Return singleton instance.
+   *
+   * @return \Drubo\Drubo
+   */
+  public static function getSingleton() {
+    if (static::$instance === NULL) {
+      static::$instance = new static();
+    }
+
+    return static::$instance;
+  }
+
+  /**
    * Initialize drubo.
    *
    * @return static
@@ -287,19 +300,6 @@ class Drubo {
   }
 
   // TODO Rename with get...
-  /**
-   * Return singleton instance.
-   *
-   * @return \Drubo\Drubo
-   */
-  public static function singleton() {
-    if (static::$instance === NULL) {
-      static::$instance = new static();
-    }
-
-    return static::$instance;
-  }
-
   /**
    * Return current working directory.
    *
