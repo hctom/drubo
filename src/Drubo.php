@@ -162,6 +162,16 @@ class Drubo {
   }
 
   /**
+   * Return drubo package directory.
+   *
+   * @return string
+   *   The absolute path to the drubo package directory.
+   */
+  public function getPackageDirectory() {
+    return Robo::config()->get(static::CACHE_KEY_PACKAGE_DIRECTORY);
+  }
+
+  /**
    * Initialize drubo.
    *
    * @return static
@@ -189,16 +199,6 @@ class Drubo {
     $this->initialized = TRUE;
 
     return $this;
-  }
-
-  /**
-   * Return drubo package directory.
-   *
-   * @return string
-   *   The absolute path to the drubo package directory.
-   */
-  public function packageDirectory() {
-    return Robo::config()->get(static::CACHE_KEY_PACKAGE_DIRECTORY);
   }
 
   /**
