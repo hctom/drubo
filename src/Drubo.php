@@ -88,7 +88,7 @@ class Drubo {
     $fs = new Filesystem();
 
     if (!$fs->isAbsolutePath($path)) {
-      $path = $this->workingDirectory() . DIRECTORY_SEPARATOR . $path;
+      $path = $this->getWorkingDirectory() . DIRECTORY_SEPARATOR . $path;
     }
 
     return $path;
@@ -171,6 +171,16 @@ class Drubo {
     }
 
     return static::$instance;
+  }
+
+  /**
+   * Return current working directory.
+   *
+   * @return string
+   *   The absolute path to the current working directory.
+   */
+  public function getWorkingDirectory() {
+    return Robo::config()->get(static::CACHE_KEY_WORKING_DIRECTORY);
   }
 
   /**
@@ -297,17 +307,6 @@ class Drubo {
     $application->getDefinition()->addOption(new InputOption('env', 'e', InputOption::VALUE_OPTIONAL, 'The environment to operate in.', NULL));
 
     return $this;
-  }
-
-  // TODO Rename with get...
-  /**
-   * Return current working directory.
-   *
-   * @return string
-   *   The absolute path to the current working directory.
-   */
-  public function workingDirectory() {
-    return Robo::config()->get(static::CACHE_KEY_WORKING_DIRECTORY);
   }
 
 }
