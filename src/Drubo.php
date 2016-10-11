@@ -113,15 +113,6 @@ class Drubo {
   }
 
   /**
-   * Return environment service.
-   *
-   * @return \Drubo\Environment\EnvironmentInterface
-   */
-  public function environment() {
-    return $this->getContainer()->get('drubo.environment');
-  }
-
-  /**
    * Return path converted to absolute path (if necessary).
    *
    * @param $path
@@ -150,6 +141,16 @@ class Drubo {
    */
   public function getContainer() {
     return Robo::getContainer();
+  }
+
+  /**
+   * Return environment service.
+   *
+   * @return \Drubo\Environment\EnvironmentInterface
+   *   The environment service object.
+   */
+  public function getEnvironment() {
+    return $this->getContainer()->get('drubo.environment');
   }
 
   /**

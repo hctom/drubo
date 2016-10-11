@@ -36,7 +36,7 @@ abstract class Tasks extends RoboTasks {
   public function configDump() {
     // Load environment (if any).
     $environment = $this->drubo()
-      ->environment()
+      ->getEnvironment()
       ->get();
 
     // Load configuration.

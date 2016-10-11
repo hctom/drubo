@@ -39,7 +39,7 @@ trait DruboAwareTrait {
    */
   protected function environment() {
     return $this->drubo()
-      ->environment();
+      ->getEnvironment();
   }
 
 }
