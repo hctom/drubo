@@ -61,25 +61,6 @@ class Drubo {
   }
 
   /**
-   * Return path converted to absolute path (if necessary).
-   *
-   * @param $path
-   *   The path to process.
-   *
-   * @return string
-   *   The absolute path.
-   */
-  public function absolutePath($path) {
-    $fs = new Filesystem();
-
-    if (!$fs->isAbsolutePath($path)) {
-      $path = $this->workingDirectory() . DIRECTORY_SEPARATOR . $path;
-    }
-
-    return $path;
-  }
-
-  /**
    * Add name of command that does not explicitly need an environment identifier.
    *
    * @param string $commandName
@@ -191,6 +172,25 @@ class Drubo {
    */
   public function environments() {
     return $this->container()->get('drubo.environments');
+  }
+
+  /**
+   * Return path converted to absolute path (if necessary).
+   *
+   * @param $path
+   *   The path to process.
+   *
+   * @return string
+   *   The absolute path.
+   */
+  public function getAbsolutePath($path) {
+    $fs = new Filesystem();
+
+    if (!$fs->isAbsolutePath($path)) {
+      $path = $this->workingDirectory() . DIRECTORY_SEPARATOR . $path;
+    }
+
+    return $path;
   }
 
   /**
