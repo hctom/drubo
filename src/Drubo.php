@@ -89,30 +89,6 @@ class Drubo {
   }
 
   /**
-   * Return configuration service.
-   *
-   * @param string|null $environment
-   *   An optional environment indicator. Leave empty to ignore environment-specific
-   *   configuration overrides.
-   *
-   * @return \Drubo\Config\ConfigInterface
-   *   The configuration service.
-   */
-  public function config($environment = NULL) {
-    $container = $this->getContainer();
-
-    /** @var \Drubo\Config\ConfigInterface $config */
-    $config = $container->get('drubo.config');
-
-    // Initialize configuration object.
-    $config
-      ->setSchema($container->get('drubo.config.schema'))
-      ->load($environment);
-
-    return $config;
-  }
-
-  /**
    * Return path converted to absolute path (if necessary).
    *
    * @param $path
@@ -129,6 +105,30 @@ class Drubo {
     }
 
     return $path;
+  }
+
+  /**
+   * Return configuration service.
+   *
+   * @param string|null $environment
+   *   An optional environment indicator. Leave empty to ignore environment-specific
+   *   configuration overrides.
+   *
+   * @return \Drubo\Config\ConfigInterface
+   *   The configuration service object.
+   */
+  public function getConfig($environment = NULL) {
+    $container = $this->getContainer();
+
+    /** @var \Drubo\Config\ConfigInterface $config */
+    $config = $container->get('drubo.config');
+
+    // Initialize configuration object.
+    $config
+      ->setSchema($container->get('drubo.config.schema'))
+      ->load($environment);
+
+    return $config;
   }
 
   /**

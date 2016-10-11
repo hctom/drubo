@@ -41,7 +41,7 @@ abstract class Tasks extends RoboTasks {
 
     // Load configuration.
     $config = $this->drubo()
-      ->config($environment)
+      ->getConfig($environment)
       ->get();
 
     return ResultData::message(Yaml::dump($config));

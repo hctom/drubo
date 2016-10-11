@@ -18,7 +18,7 @@ trait DruboAwareTrait {
       ->get();
 
     return $this->drubo()
-      ->config($environment);
+      ->getConfig($environment);
   }
 
   /**
