@@ -53,7 +53,7 @@ abstract class Tasks extends RoboTasks {
   public function environments() {
     // Load available environment identifiers.
     $environments = $this->drubo()
-      ->getEnvironments()
+      ->getEnvironmentList()
       ->get();
 
     return ResultData::message(Yaml::dump($environments));

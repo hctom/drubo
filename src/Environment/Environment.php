@@ -13,7 +13,7 @@ class Environment implements EnvironmentInterface {
    * {@inheritdoc}
    */
   public function exists($environment) {
-    return $this->environments()->has($environment);
+    return $this->getEnvironmentList()->has($environment);
   }
 
   /**
@@ -28,13 +28,13 @@ class Environment implements EnvironmentInterface {
   }
 
   /**
-   * Return environments service.
+   * Return environment list service.
    *
-   * @return \Drubo\Environment\EnvironmentsInterface
-   *   The environments service.
+   * @return \Drubo\Environment\EnvironmentListInterface
+   *   The environment list service.
    */
-  protected function environments() {
-    return Robo::service('drubo.environments');
+  protected function getEnvironmentList() {
+    return Robo::service('drubo.environment.list');
   }
 
   /**

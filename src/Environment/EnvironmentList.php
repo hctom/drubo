@@ -3,9 +3,9 @@
 namespace Drubo\Environment;
 
 /**
- * Environment service class for drubo.
+ * Environment list service class for drubo.
  */
-class Environments implements EnvironmentsInterface {
+class EnvironmentList implements EnvironmentListInterface {
 
   /**
    * Iterator position.

@@ -5,7 +5,7 @@ namespace Drubo;
 use Drubo\Config\Config as DruboConfig;
 use Drubo\Config\ConfigSchema;
 use Drubo\Environment\Environment;
-use Drubo\Environment\Environments;
+use Drubo\Environment\EnvironmentList;
 use Drubo\EventSubscriber\ConsoleCommandSubscriber;
 use Drubo\EventSubscriber\EnvironmentSubscriber;
 use Robo\Robo;
@@ -154,13 +154,13 @@ class Drubo {
   }
 
   /**
-   * Return environments service.
+   * Return environment list service.
    *
-   * @return \Drubo\Environment\EnvironmentsInterface
-   *   The environments service object.
+   * @return \Drubo\Environment\EnvironmentListInterface
+   *   The environment list service object.
    */
-  public function getEnvironments() {
-    return $this->getContainer()->get('drubo.environments');
+  public function getEnvironmentList() {
+    return $this->getContainer()->get('drubo.environment.list');
   }
 
   /**
@@ -211,8 +211,8 @@ class Drubo {
   protected function registerDefaultServices() {
     $container = $this->getContainer();
 
-    // Add environments service to container.
-    $container->add('drubo.environments', new Environments());
+    // Add environment list service to container.
+    $container->add('drubo.environment.list', new EnvironmentList());
 
     // Add environment service to container.
     $container->add('drubo.environment', new Environment());
