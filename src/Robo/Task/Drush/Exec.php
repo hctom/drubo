@@ -1,11 +1,13 @@
 <?php
 
-namespace Drubo\Robo\Task\Base;
+namespace Drubo\Robo\Task\DrupalConsole;
+
+use Drubo\Robo\Task\Base\EncapsulatedExec;
 
 /**
- * Robo task base class for tasks utilizing Drush.
+ * Robo task base class for Drush execution tasks.
  */
-abstract class DrushCommand extends EncapsulatedExec {
+abstract class Exec extends EncapsulatedExec {
 
   /**
    * {@inheritdoc}
