@@ -19,13 +19,12 @@ class ConsoleCommandSubscriber {
    *   An event object.
    */
   public function onCheckDisabledState(ConsoleCommandEvent $event) {
-    $config = $this->config($this->environment()->get());
+    $config = $this->config();
     $key = 'commands.' . $event->getCommand()->getName() . '.disabled';
 
     // Command status configuration exists?
     if ($config->has($key)) {
-      $access = $this->config($this->environment()->get())
-        ->get($key);
+      $access = $config->get($key);
 
       // Command is disabled?
       if ($access === TRUE) {
