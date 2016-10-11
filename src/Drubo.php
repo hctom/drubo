@@ -7,6 +7,7 @@ use Drubo\Config\ConfigSchema;
 use Drubo\Environment\Environment;
 use Drubo\Environment\EnvironmentList;
 use Drubo\EventSubscriber\ConsoleCommandSubscriber;
+use Drubo\EventSubscriber\DisabledConsoleCommandSubscriber;
 use Drubo\EventSubscriber\EnvironmentSubscriber;
 use League\Container\ContainerInterface;
 use Robo\Application;
@@ -288,8 +289,8 @@ class Drubo {
     // Add event subscriber to check if console command requires an environment.
     $dispatcher->addListener(ConsoleEvents::COMMAND, array($consoleCommandSubscriber, 'onCheckEnvironmentIsRequired'));
 
-    // Add event subscriber to check console command disabled state.
-    $dispatcher->addListener(ConsoleEvents::COMMAND, array($consoleCommandSubscriber, 'onCheckDisabledState'));
+    // Add event subscriber for disabled console commands.
+    $dispatcher->addSubscriber(new DisabledConsoleCommandSubscriber());
 
     return $this;
   }

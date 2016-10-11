@@ -13,27 +13,6 @@ class ConsoleCommandSubscriber {
   use DruboAwareTrait;
 
   /**
-   * Check whether a console command is disabled.
-   *
-   * @param \Symfony\Component\Console\Event\ConsoleCommandEvent $event
-   *   An event object.
-   */
-  public function onCheckDisabledState(ConsoleCommandEvent $event) {
-    $config = $this->config();
-    $key = 'commands.' . $event->getCommand()->getName() . '.disabled';
-
-    // Command status configuration exists?
-    if ($config->has($key)) {
-      $access = $config->get($key);
-
-      // Command is disabled?
-      if ($access === TRUE) {
-        throw new \RuntimeException('Command is disabled');
-      }
-    }
-  }
-
-  /**
    * Check whether a console command requires an environment.
    *
    * @param \Symfony\Component\Console\Event\ConsoleCommandEvent $event
