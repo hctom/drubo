@@ -8,6 +8,7 @@ use Drubo\Environment\Environment;
 use Drubo\Environment\EnvironmentList;
 use Drubo\EventSubscriber\ConsoleCommandSubscriber;
 use Drubo\EventSubscriber\EnvironmentSubscriber;
+use League\Container\ContainerInterface;
 use Robo\Robo;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Input\InputOption;
@@ -188,7 +189,7 @@ class Drubo {
       // Add additinal input option.
       ->addInputOptions()
       // Register default services.
-      ->registerDefaultServices()
+      ->registerDefaultServices($this->getContainer())
       // Register event subscribers.
       ->registerEventSubscribers()
       // Add default environment-unspecific commands.
@@ -206,11 +207,12 @@ class Drubo {
   /**
    * Register default services.
    *
+   * @param \League\Container\ContainerInterface $container
+   *   The dependency-injection container object.
+   *
    * @return static
    */
-  protected function registerDefaultServices() {
-    $container = $this->getContainer();
-
+  protected function registerDefaultServices(ContainerInterface $container) {
     // Add environment list service to container.
     $container->add('drubo.environment.list', new EnvironmentList());
 
