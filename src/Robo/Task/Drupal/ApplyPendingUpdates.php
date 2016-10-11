@@ -2,13 +2,13 @@
 
 namespace Drubo\Robo\Task\Drupal;
 
-use Drubo\Robo\Task\Base\DrupalConsoleCommand;
+use Drubo\Robo\Task\DrupalConsole\Exec;
 use Robo\Exception\TaskException;
 
 /**
  * Robo task: Apply pending Drupal update(s).
  */
-class ApplyPendingUpdates extends DrupalConsoleCommand {
+class ApplyPendingUpdates extends Exec {
 
   /**
    * Module name.

@@ -2,13 +2,13 @@
 
 namespace Drubo\Robo\Task\Drupal;
 
-use Drubo\Robo\Task\Base\DrupalConsoleCommand;
+use Drubo\Robo\Task\DrupalConsole\Exec;
 use Robo\Exception\TaskException;
 
 /**
  * Robo task: Rebuild and clear Drupal site cache(s).
  */
-class RebuildCache extends DrupalConsoleCommand {
+class RebuildCache extends Exec {
 
   /**
    * Cache.

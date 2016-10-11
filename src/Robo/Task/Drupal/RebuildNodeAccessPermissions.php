@@ -2,12 +2,12 @@
 
 namespace Drubo\Robo\Task\Drupal;
 
-use Drubo\Robo\Task\Base\DrupalConsoleCommand;
+use Drubo\Robo\Task\DrupalConsole\Exec;
 
 /**
  * Robo task: Rebuild Drupal node access permissions.
  */
-class RebuildNodeAccessPermissions extends DrupalConsoleCommand {
+class RebuildNodeAccessPermissions extends Exec {
 
   /**
    * Process in batch mode.

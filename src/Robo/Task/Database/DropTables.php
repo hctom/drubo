@@ -2,13 +2,13 @@
 
 namespace Drubo\Robo\Task\Database;
 
-use Drubo\Robo\Task\Base\DrupalConsoleCommand;
+use Drubo\Robo\Task\DrupalConsole\Exec;
 use Robo\Exception\TaskException;
 
 /**
  * Robo task: Drop all database tables.
  */
-class DropTables extends DrupalConsoleCommand {
+class DropTables extends Exec {
 
   /**
    * Database identifier.

@@ -2,12 +2,12 @@
 
 namespace Drubo\Robo\Task\Drupal;
 
-use Drubo\Robo\Task\Base\DrupalConsoleCommand;
+use Drubo\Robo\Task\DrupalConsole\Exec;
 
 /**
  * Robo task: Install a Drupal site.
  */
-class InstallSite extends DrupalConsoleCommand {
+class InstallSite extends Exec {
 
   /**
    * Account e-mail address.

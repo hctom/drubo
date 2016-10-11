@@ -2,13 +2,13 @@
 
 namespace Drubo\Robo\Task\Drupal;
 
-use Drubo\Robo\Task\Base\DrupalConsoleCommand;
+use Drubo\Robo\Task\DrupalConsole\Exec;
 use Robo\Exception\TaskException;
 
 /**
  * Robo task: Generate one-time user login URL.
  */
-class UserLogin extends DrupalConsoleCommand {
+class UserLogin extends Exec {
 
   /**
    * User ID.

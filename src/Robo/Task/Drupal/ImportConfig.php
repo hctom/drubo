@@ -2,12 +2,12 @@
 
 namespace Drubo\Robo\Task\Drupal;
 
-use Drubo\Robo\Task\Base\DrupalConsoleCommand;
+use Drubo\Robo\Task\DrupalConsole\ExecChain;
 
 /**
  * Robo task: Import configuration to current Drupal site.
  */
-class ImportConfig extends DrupalConsoleCommand {
+class ImportConfig extends ExecChain  {
 
   /**
    * {@inheritdoc}
