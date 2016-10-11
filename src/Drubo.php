@@ -61,38 +61,6 @@ class Drubo {
   }
 
   /**
-   * Add name of command that does not explicitly need an environment identifier.
-   *
-   * @param string $commandName
-   *   The name of the command to add.
-   *
-   * @return static
-   */
-  public function addEnvironmentUnspecificCommand($commandName) {
-    return $this->addEnvironmentUnspecificCommands([$commandName]);
-  }
-
-  /**
-   * Add names of commands that do not explicitly need an environment identifier.
-   *
-   * @param array $commandNames
-   *   An array of command names to add.
-   *
-   * @return static
-   */
-  public function addEnvironmentUnspecificCommands(array $commandNames) {
-    $tmp = array_merge(array_values($this->environmentUnspecificCommands), array_values($commandNames));
-
-    // Filter duplicates.
-    $tmp = array_unique($tmp);
-
-    // Make array associative.
-    $this->environmentUnspecificCommands = array_combine($tmp, $tmp);
-
-    return $this;
-  }
-
-  /**
    * Add global command input options.
    *
    * @return static
@@ -212,7 +180,7 @@ class Drubo {
       // Register event subscribers.
       ->registerEventSubscribers()
       // Add default environment-unspecific commands.
-      ->addEnvironmentUnspecificCommands([
+      ->registerEnvironmentUnspecificCommands([
         'help',
         'list',
       ]);
@@ -252,6 +220,38 @@ class Drubo {
 
     // Add configuration schema service to container.
     $container->add('drubo.config.schema', new ConfigSchema());
+
+    return $this;
+  }
+
+  /**
+   * Register command that does not explicitly need an environment identifier.
+   *
+   * @param string $commandName
+   *   The name of the command to add.
+   *
+   * @return static
+   */
+  public function registerEnvironmentUnspecificCommand($commandName) {
+    return $this->registerEnvironmentUnspecificCommands([$commandName]);
+  }
+
+  /**
+   * Register commands that do not explicitly need an environment identifier.
+   *
+   * @param array $commandNames
+   *   An array of command names to add.
+   *
+   * @return static
+   */
+  public function registerEnvironmentUnspecificCommands(array $commandNames) {
+    $tmp = array_merge(array_values($this->environmentUnspecificCommands), array_values($commandNames));
+
+    // Filter duplicates.
+    $tmp = array_unique($tmp);
+
+    // Make array associative.
+    $this->environmentUnspecificCommands = array_combine($tmp, $tmp);
 
     return $this;
   }

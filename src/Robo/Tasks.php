@@ -24,7 +24,7 @@ abstract class Tasks extends RoboTasks {
       // Initialize drubo.
       ->initialize()
       // Add environment-unspecific commands.
-      ->addEnvironmentUnspecificCommands([
+      ->registerEnvironmentUnspecificCommands([
         'config:dump',
         'environments',
       ]);
