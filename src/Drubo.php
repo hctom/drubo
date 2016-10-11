@@ -9,6 +9,7 @@ use Drubo\Environment\EnvironmentList;
 use Drubo\EventSubscriber\ConsoleCommandSubscriber;
 use Drubo\EventSubscriber\EnvironmentSubscriber;
 use League\Container\ContainerInterface;
+use Robo\Application;
 use Robo\Robo;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Input\InputOption;
@@ -59,21 +60,6 @@ class Drubo {
 
     // Cache working directory.
     Robo::config()->set(static::CACHE_KEY_WORKING_DIRECTORY, getcwd());
-  }
-
-  /**
-   * Add global command input options.
-   *
-   * @return static
-   */
-  protected function addInputOptions() {
-    /** @var \Robo\Application $application */
-    $application = $this->getContainer()->get('application');
-
-    // Add global environment option.
-    $application->getDefinition()->addOption(new InputOption('env', 'e', InputOption::VALUE_OPTIONAL, 'The environment to operate in.', NULL));
-
-    return $this;
   }
 
   /**
@@ -187,7 +173,7 @@ class Drubo {
 
     $this
       // Add additinal input option.
-      ->addInputOptions()
+      ->registerInputOptions($this->getContainer()->get('application'))
       // Register default services.
       ->registerDefaultServices($this->getContainer())
       // Register event subscribers.
@@ -285,6 +271,22 @@ class Drubo {
     return $this;
   }
 
+  /**
+   * Add global command input options.
+   *
+   * @param \Robo\Application $application
+   *   The Robo application object.
+   *
+   * @return static
+   */
+  protected function registerInputOptions(Application $application) {
+    // Add global environment option.
+    $application->getDefinition()->addOption(new InputOption('env', 'e', InputOption::VALUE_OPTIONAL, 'The environment to operate in.', NULL));
+
+    return $this;
+  }
+
+  // TODO Rename with get...
   /**
    * Return singleton instance.
    *
