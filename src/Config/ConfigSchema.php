@@ -84,10 +84,10 @@ class ConfigSchema implements ConfigurationInterface {
 
 
   /**
-   * Create 'commands' node.
+   * Create 'drubo' node.
    *
    * @return ArrayNodeDefinition
-   *   The 'commands' node.
+   *   The 'drubo' node.
    */
   protected function nodeDrubo() {
     $commandDefaults = [
