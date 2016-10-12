@@ -37,7 +37,7 @@ class ConfigSchema implements ConfigurationInterface {
    */
   public function getConfigTreeBuilder() {
     $treeBuilder = new TreeBuilder();
-    $rootNode = $treeBuilder->root('drubo');
+    $rootNode = $treeBuilder->root('config');
 
     $rootNode
       ->children()
