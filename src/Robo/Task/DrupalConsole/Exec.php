@@ -13,7 +13,8 @@ abstract class Exec extends EncapsulatedExec {
    * {@inheritdoc}
    */
   protected function binary() {
-    return $this->config()
+    return $this->getDrubo()
+      ->getConfig()
       ->get('drupalconsole.path');
   }
 
@@ -33,7 +34,8 @@ abstract class Exec extends EncapsulatedExec {
    * {@inheritdoc}
    */
   protected function workingDirectory() {
-    return $this->config()
+    return $this->getDrubo()
+      ->getConfig()
       ->get('docroot.path');
   }
 

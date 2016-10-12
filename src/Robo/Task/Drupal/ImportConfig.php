@@ -7,7 +7,7 @@ use Drubo\Robo\Task\DrupalConsole\ExecChain;
 /**
  * Robo task: Import configuration to current Drupal site.
  */
-class ImportConfig extends ExecChain  {
+class ImportConfig extends ExecChain {
 
   /**
    * {@inheritdoc}

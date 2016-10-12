@@ -60,10 +60,13 @@ class Config implements ConfigInterface {
    *   An array of directory paths to locate drubo configuration files in.
    */
   protected function getConfigDirectoryCandidates($environment = NULL) {
+    $workingDirectory = Drubo::getSingleton()
+      ->getWorkingDirectory();
+
     $paths = [];
 
     // Path candidate for default configuration.
-    $paths[] = rtrim(Drubo::getSingleton()->getWorkingDirectory(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . '.drubo';
+    $paths[] = rtrim($workingDirectory, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . '.drubo';
 
     // Path candidate for environment-specific configuration.
     if (!empty($environment)) {

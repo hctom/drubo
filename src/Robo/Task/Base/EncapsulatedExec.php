@@ -59,7 +59,7 @@ abstract class EncapsulatedExec extends BaseTask implements BuilderAwareInterfac
       }
 
       // Use absolute path for binary.
-      $binary = $this->drubo()
+      $binary = $this->getDrubo()
         ->getAbsolutePath($binary);
 
       // Binary is not executable?
@@ -68,11 +68,12 @@ abstract class EncapsulatedExec extends BaseTask implements BuilderAwareInterfac
       }
 
       // Instantiate encapsulated command.
-      $this->exec = $this->collectionBuilder()->taskExec($binary);
+      $this->exec = $this->collectionBuilder()
+        ->taskExec($binary);
 
       // Set working directory (if needed).
       if (($workingDirectory = $this->workingDirectory())) {
-        $workingDirectory = $this->drubo()
+        $workingDirectory = $this->getDrubo()
           ->getAbsolutePath($workingDirectory);
 
         $this->exec->dir($workingDirectory);

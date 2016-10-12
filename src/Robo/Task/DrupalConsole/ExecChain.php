@@ -21,10 +21,13 @@ abstract class ExecChain extends Exec {
   /**
    * Return chain file path.
    *
+   * @param string $packageDirectory
+   *   The absolute drubo package directory path.
+   *
    * @return string
    *   The absolute path to the Drupal console chain file to execute.
    */
-  abstract protected function chainFile();
+  abstract protected function chainFile($packageDirectory);
 
   /**
    * Return chain file placeholder values.
@@ -43,8 +46,11 @@ abstract class ExecChain extends Exec {
   protected function options() {
     $options = parent::options();
 
+    $packageDirectory = $this->getDrubo()
+      ->getPackageDirectory();
+
     // Path to chain file.
-    $options['file=' . escapeshellarg($this->chainFile())] = NULL;
+    $options['file=' . escapeshellarg($this->chainFile($packageDirectory))] = NULL;
 
     // Placeholder values (if any).
     if (($placeholders = $this->chainFilePlaceholderValues())) {

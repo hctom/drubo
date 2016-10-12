@@ -97,16 +97,16 @@ class Drubo {
   }
 
   /**
-   * Return configuration service.
-   *
-   * @param string|null $environment
-   *   An optional environment indicator. Leave empty to ignore environment-specific
-   *   configuration overrides.
+   * Return configuration service for current environment.
    *
    * @return \Drubo\Config\ConfigInterface
-   *   The configuration service object.
+   *   The configuration service object with data for the current environment
+   *   (if set, otherwise defaults will be returned).
    */
-  public function getConfig($environment = NULL) {
+  public function getConfig() {
+    $environment = $this->getEnvironment()
+      ->get();
+
     $container = $this->getContainer();
 
     /** @var \Drubo\Config\ConfigInterface $config */
@@ -199,10 +199,12 @@ class Drubo {
     }
 
     /** @var \Robo\Application $application */
-    $application = $this->getContainer()->get('application');
+    $application = $this->getContainer()
+      ->get('application');
 
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher */
-    $eventDispatcher = $this->getContainer()->get('eventDispatcher');
+    $eventDispatcher = $this->getContainer()
+      ->get('eventDispatcher');
 
     $this
       // Add additinal input option.
@@ -310,7 +312,8 @@ class Drubo {
    */
   protected function registerInputOptions(Application $application) {
     // Add global environment option.
-    $application->getDefinition()->addOption(new InputOption('env', 'e', InputOption::VALUE_OPTIONAL, 'The environment to operate in.', NULL));
+    $application->getDefinition()
+      ->addOption(new InputOption('env', 'e', InputOption::VALUE_OPTIONAL, 'The environment to operate in.', NULL));
 
     return $this;
   }

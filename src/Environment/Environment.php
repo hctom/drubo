@@ -15,14 +15,18 @@ class Environment implements EnvironmentInterface {
    * {@inheritdoc}
    */
   public function exists($environment) {
-    return $this->getEnvironmentList()->has($environment);
+    return $this->getEnvironmentList()
+      ->has($environment);
   }
 
   /**
    * {@inheritdoc}
    */
   public function get() {
-    if (!($environment = Robo::config()->get(static::CACHE_KEY))) {
+    $environment = Robo::config()
+      ->get(static::CACHE_KEY);
+
+    if (!$environment) {
       throw new UndefinedEnvironmentException('Environment is not defined');
     }
 

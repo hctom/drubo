@@ -2,6 +2,7 @@
 
 namespace Drubo\Robo;
 
+use Drubo\DruboAwareInterface;
 use Drubo\DruboAwareTrait;
 use Robo\ResultData;
 use Robo\Tasks as RoboTasks;
@@ -10,7 +11,7 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Base class for drubo-enabled RoboFile console commands configuration classes.
  */
-abstract class Tasks extends RoboTasks {
+abstract class Tasks extends RoboTasks implements DruboAwareInterface {
 
   use DruboAwareTrait;
   use \Drubo\Robo\Task\Database\loadTasks;
@@ -20,7 +21,7 @@ abstract class Tasks extends RoboTasks {
    * Constructor.
    */
   public function __construct() {
-    $this->drubo()
+    $this->getDrubo()
       // Initialize drubo.
       ->initialize()
       // Add environment-unspecific commands.
@@ -34,14 +35,9 @@ abstract class Tasks extends RoboTasks {
    * Dump configuration values.
    */
   public function configDump() {
-    // Load environment (if any).
-    $environment = $this->drubo()
-      ->getEnvironment()
-      ->get();
-
     // Load configuration.
-    $config = $this->drubo()
-      ->getConfig($environment)
+    $config = $this->getDrubo()
+      ->getConfig()
       ->get();
 
     return ResultData::message(Yaml::dump($config));
@@ -52,7 +48,7 @@ abstract class Tasks extends RoboTasks {
    */
   public function environments() {
     // Load available environment identifiers.
-    $environments = $this->drubo()
+    $environments = $this->getDrubo()
       ->getEnvironmentList()
       ->get();
 

@@ -2,6 +2,7 @@
 
 namespace Drubo\EventSubscriber;
 
+use Drubo\DruboAwareInterface;
 use Drubo\DruboAwareTrait;
 use Drubo\Exception\CommandRequiresEnvironmentException;
 use Symfony\Component\Console\ConsoleEvents;
@@ -11,7 +12,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * Event subscriber: Environment-specific console command.
  */
-class EnvironmentSpecificConsoleCommandSubscriber implements EventSubscriberInterface {
+class EnvironmentSpecificConsoleCommandSubscriber implements DruboAwareInterface, EventSubscriberInterface {
 
   use DruboAwareTrait;
 
@@ -36,10 +37,15 @@ class EnvironmentSpecificConsoleCommandSubscriber implements EventSubscriberInte
     $commandName = $event->getCommand()
       ->getName();
 
-    $environment = $this->environment()->get();
+    $environment = $this->getDrubo()
+      ->getEnvironment()
+      ->get();
+
+    $commandRequiresEnvironment = $this->getDrubo()
+      ->commandRequiresEnvironment($commandName);
 
     // Environment is required, but not set?
-    if (empty($environment) && $this->drubo()->commandRequiresEnvironment($commandName)) {
+    if (empty($environment) && $commandRequiresEnvironment) {
       throw new CommandRequiresEnvironmentException($commandName);
     }
   }

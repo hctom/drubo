@@ -2,6 +2,7 @@
 
 namespace Drubo\EventSubscriber;
 
+use Drubo\DruboAwareInterface;
 use Drubo\DruboAwareTrait;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
@@ -10,7 +11,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * Event subscriber: Save environment identifier.
  */
-class SaveEnvironmentIdentifierSubscriber implements EventSubscriberInterface {
+class SaveEnvironmentIdentifierSubscriber implements DruboAwareInterface, EventSubscriberInterface {
 
   use DruboAwareTrait;
 
@@ -32,10 +33,13 @@ class SaveEnvironmentIdentifierSubscriber implements EventSubscriberInterface {
    * @throws \Drubo\Exception\InvalidEnvironmentException
    */
   public function onSaveIdentifier(ConsoleCommandEvent $event) {
-    $environment = $event->getInput()->getOption('env');
+    $environment = $event->getInput()
+      ->getOption('env');
 
     // Save environment identifier for later usage.
-    $this->environment()->set($environment);
+    $this->getDrubo()
+      ->getEnvironment()
+      ->set($environment);
   }
 
 }

@@ -2,10 +2,7 @@
 
 namespace Drubo;
 
-/**
- * Trait for drubo aware classes.
- */
-trait DruboAwareTrait {
+interface DruboAwareInterface {
 
   /**
    * Return drubo singleton instance.
@@ -13,8 +10,6 @@ trait DruboAwareTrait {
    * @return \Drubo\Drubo
    *   The drubo singleton instance object.
    */
-  public function getDrubo() {
-    return Drubo::getSingleton();
-  }
+  public function getDrubo();
 
 }

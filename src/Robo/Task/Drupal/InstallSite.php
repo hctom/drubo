@@ -62,7 +62,8 @@ class InstallSite extends Exec {
    * Constructor.
    */
   public function __construct() {
-    $config = $this->config();
+    $config = $this->getDrubo()
+      ->getConfig();
 
     $this->accountMail = $config->get('account.mail');
     $this->accountName = $config->get('account.name');
