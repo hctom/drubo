@@ -43,6 +43,11 @@ class Environment implements EnvironmentInterface {
   public function set($environment) {
     Robo::config()->set(static::CACHE_KEY, $environment ?: static::NONE);
 
+    // Environment identifier is valid?
+    if (!empty($environment) && !$this->exists($environment)) {
+      throw new \RuntimeException('Unknown environment: ' . $environment);
+    }
+
     return $this;
   }
 

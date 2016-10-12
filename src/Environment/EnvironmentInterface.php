@@ -43,6 +43,8 @@ interface EnvironmentInterface {
    *   The environment identifier or NULL if no environment should be set.
    *
    * @return static
+   *
+   * @throws \RuntimeException
    */
   public function set($environment);
 
