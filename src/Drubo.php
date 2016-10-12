@@ -14,6 +14,7 @@ use League\Container\ContainerInterface;
 use Robo\Application;
 use Robo\Robo;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
@@ -195,13 +196,16 @@ class Drubo {
       throw new \RuntimeException('drubo has already been initialized');
     }
 
+    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher */
+    $eventDispatcher = $this->getContainer()->get('eventDispatcher');
+
     $this
       // Add additinal input option.
       ->registerInputOptions($this->getContainer()->get('application'))
       // Register default services.
       ->registerDefaultServices($this->getContainer())
       // Register event subscribers.
-      ->registerEventSubscribers()
+      ->registerEventSubscribers($eventDispatcher)
       // Add default environment-unspecific commands.
       ->registerEnvironmentUnspecificCommands([
         'help',
@@ -273,20 +277,20 @@ class Drubo {
   /**
    * Register event subscribers.
    *
+   * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
+   *   The event dispatcher object.
+   *
    * @return static
    */
-  protected function registerEventSubscribers() {
-    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher */
-    $dispatcher = $this->getContainer()->get('eventDispatcher');
-
+  protected function registerEventSubscribers(EventDispatcherInterface $eventDispatcher) {
     // Add event subscriber to save environment identifier.
-    $dispatcher->addSubscriber(new SaveEnvironmentIdentifierSubscriber());
+    $eventDispatcher->addSubscriber(new SaveEnvironmentIdentifierSubscriber());
 
     // Add event subscriber for environment-specific console commands.
-    $dispatcher->addSubscriber(new EnvironmentSpecificConsoleCommandSubscriber());
+    $eventDispatcher->addSubscriber(new EnvironmentSpecificConsoleCommandSubscriber());
 
     // Add event subscriber for disabled console commands.
-    $dispatcher->addSubscriber(new DisabledConsoleCommandSubscriber());
+    $eventDispatcher->addSubscriber(new DisabledConsoleCommandSubscriber());
 
     return $this;
   }
