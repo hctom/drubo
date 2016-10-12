@@ -3,7 +3,7 @@
 account:
   mail: 'admin@example.com'
   name: 'admin'
-  pass: null
+  pass: ~
 
 site:
   language: 'en'
