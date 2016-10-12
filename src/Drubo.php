@@ -11,7 +11,6 @@ use Drubo\EventSubscriber\EnvironmentSpecificConsoleCommandSubscriber;
 use Drubo\EventSubscriber\EnvironmentSubscriber;
 use Drubo\EventSubscriber\SaveEnvironmentIdentifierSubscriber;
 use League\Container\ContainerInterface;
-use Robo\Application;
 use Robo\Robo;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -198,17 +197,13 @@ class Drubo {
       throw new \LogicException('drubo has already been initialized');
     }
 
-    /** @var \Robo\Application $application */
-    $application = $this->getContainer()
-      ->get('application');
-
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher */
     $eventDispatcher = $this->getContainer()
       ->get('eventDispatcher');
 
     $this
-      // Add additinal input option.
-      ->registerInputOptions($application)
+      // Register global input option for environment.
+      ->registerInputOption(new InputOption('env', 'e', InputOption::VALUE_OPTIONAL, 'The environment to operate in.', NULL))
       // Register default services.
       ->registerDefaultServices($this->getContainer())
       // Register event subscribers.
@@ -303,17 +298,21 @@ class Drubo {
   }
 
   /**
-   * Add global command input options.
+   * Register global input option for console commands.
    *
-   * @param \Robo\Application $application
-   *   The Robo application object.
+   * @param \Symfony\Component\Console\Input\InputOption $inputOption
+   *   The input option object.
    *
    * @return static
    */
-  protected function registerInputOptions(Application $application) {
+  public function registerInputOption(InputOption $inputOption) {
+    /** @var \Robo\Application $application */
+    $application = $this->getContainer()
+      ->get('application');
+
     // Add global environment option.
     $application->getDefinition()
-      ->addOption(new InputOption('env', 'e', InputOption::VALUE_OPTIONAL, 'The environment to operate in.', NULL));
+      ->addOption($inputOption);
 
     return $this;
   }
