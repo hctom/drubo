@@ -127,8 +127,8 @@ class ConfigSchema implements ConfigurationInterface {
     return $this->createNode('drupalconsole')
       ->addDefaultsIfNotSet()
       ->children()
-        ->scalarNode('path')->defaultValue('bin/drupal')->end()
         ->booleanNode('ansi')->defaultTrue()->end()
+        ->scalarNode('path')->defaultValue('bin/drupal')->end()
       ->end();
   }
 
