@@ -196,12 +196,15 @@ class Drubo {
       throw new \RuntimeException('drubo has already been initialized');
     }
 
+    /** @var \Robo\Application $application */
+    $application = $this->getContainer()->get('application');
+
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher */
     $eventDispatcher = $this->getContainer()->get('eventDispatcher');
 
     $this
       // Add additinal input option.
-      ->registerInputOptions($this->getContainer()->get('application'))
+      ->registerInputOptions($application)
       // Register default services.
       ->registerDefaultServices($this->getContainer())
       // Register event subscribers.
