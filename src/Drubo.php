@@ -228,16 +228,16 @@ class Drubo {
    * @return static
    */
   protected function registerDefaultServices(ContainerInterface $container) {
-    // Add environment list service to container.
+    // Register environment list service to container.
     $container->add('drubo.environment.list', new EnvironmentList());
 
-    // Add environment service to container.
+    // Register environment service to container.
     $container->add('drubo.environment', new Environment());
 
-    // Add configuration service to container.
+    // Register configuration service to container.
     $container->add('drubo.config', new DruboConfig());
 
-    // Add configuration schema service to container.
+    // Register configuration schema service to container.
     $container->add('drubo.config.schema', new ConfigSchema());
 
     return $this;
