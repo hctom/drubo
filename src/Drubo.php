@@ -9,10 +9,10 @@ use Drubo\Environment\EnvironmentList;
 use Drubo\EventSubscriber\DisabledConsoleCommandSubscriber;
 use Drubo\EventSubscriber\EnvironmentSpecificConsoleCommandSubscriber;
 use Drubo\EventSubscriber\EnvironmentSubscriber;
+use Drubo\EventSubscriber\SaveEnvironmentIdentifierSubscriber;
 use League\Container\ContainerInterface;
 use Robo\Application;
 use Robo\Robo;
-use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -279,11 +279,8 @@ class Drubo {
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher */
     $dispatcher = $this->getContainer()->get('eventDispatcher');
 
-    // Initialize event subscriber objects.
-    $environmentSubscriber = new EnvironmentSubscriber();
-
-    // Add event subscriber for environment handling.
-    $dispatcher->addListener(ConsoleEvents::COMMAND, array($environmentSubscriber, 'onSaveIdentifier'));
+    // Add event subscriber to save environment identifier.
+    $dispatcher->addSubscriber(new SaveEnvironmentIdentifierSubscriber());
 
     // Add event subscriber for environment-specific console commands.
     $dispatcher->addSubscriber(new EnvironmentSpecificConsoleCommandSubscriber());
