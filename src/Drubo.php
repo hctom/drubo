@@ -7,7 +7,7 @@ use Drubo\Config\ConfigSchema;
 use Drubo\Environment\Environment;
 use Drubo\Environment\EnvironmentList;
 use Drubo\EventSubscriber\DisabledConsoleCommandSubscriber;
-use Drubo\EventSubscriber\EnvironmentSpecificConsoleCommandSubscriber;
+use Drubo\EventSubscriber\EnvironmentAwareCommandSubscriber;
 use Drubo\EventSubscriber\SaveEnvironmentIdentifierSubscriber;
 use League\Container\ContainerInterface;
 use Robo\Robo;
@@ -31,11 +31,11 @@ class Drubo {
   const CACHE_KEY_WORKING_DIRECTORY = '_drubo.workingDirectory';
 
   /**
-   * Names of commands that do not require an environment identifier.
+   * Names of commands that do not require an environment context to be set.
    *
    * @var array
    */
-  protected $environmentUnspecificCommands = [];
+  protected $environmentUnawareCommands = [];
 
   /**
    * Singleton instance.
@@ -60,19 +60,6 @@ class Drubo {
 
     // Cache working directory.
     Robo::config()->set(static::CACHE_KEY_WORKING_DIRECTORY, getcwd());
-  }
-
-  /**
-   * Command requires environment to be set?
-   *
-   * @param string $commandName
-   *   A command name.
-   *
-   * @return bool
-   *   Whether the command requires an environmen to be set.
-   */
-  public function commandRequiresEnvironment($commandName) {
-    return !array_key_exists($commandName, $this->environmentUnspecificCommands);
   }
 
   /**
@@ -204,11 +191,11 @@ class Drubo {
       // Register event subscriber to save environment identifier.
       ->registerEventSubscriber(new SaveEnvironmentIdentifierSubscriber())
       // Register event subscriber for environment-specific console commands.
-      ->registerEventSubscriber(new EnvironmentSpecificConsoleCommandSubscriber())
+      ->registerEventSubscriber(new EnvironmentAwareCommandSubscriber())
       // Register event subscriber for disabled console commands.
       ->registerEventSubscriber(new DisabledConsoleCommandSubscriber())
-      // Add default environment-unspecific commands.
-      ->registerEnvironmentUnspecificCommands([
+      // Register commands that do not need an environment context to be set.
+      ->registerEnvironmentUnawareCommands([
         'help',
         'list',
       ]);
@@ -217,6 +204,19 @@ class Drubo {
     $this->initialized = TRUE;
 
     return $this;
+  }
+
+  /**
+   * Command requires environment context to be set?
+   *
+   * @param string $commandName
+   *   A command name.
+   *
+   * @return bool
+   *   Whether the command requires an environmen context to be set.
+   */
+  public function isEnvironmentAwareCommand($commandName) {
+    return !array_key_exists($commandName, $this->environmentUnawareCommands);
   }
 
   /**
@@ -244,33 +244,35 @@ class Drubo {
   }
 
   /**
-   * Register command that does not explicitly need an environment identifier.
+   * Register command that does not explicitly need an environment context to be
+   * set.
    *
    * @param string $commandName
    *   The name of the command to add.
    *
    * @return static
    */
-  public function registerEnvironmentUnspecificCommand($commandName) {
-    return $this->registerEnvironmentUnspecificCommands([$commandName]);
+  public function registerEnvironmentUnawareCommand($commandName) {
+    return $this->registerEnvironmentUnawareCommands([$commandName]);
   }
 
   /**
-   * Register commands that do not explicitly need an environment identifier.
+   * Register commands that do not explicitly need an environment context to be
+   * set.
    *
    * @param array $commandNames
    *   An array of command names to add.
    *
    * @return static
    */
-  public function registerEnvironmentUnspecificCommands(array $commandNames) {
-    $tmp = array_merge(array_values($this->environmentUnspecificCommands), array_values($commandNames));
+  public function registerEnvironmentUnawareCommands(array $commandNames) {
+    $tmp = array_merge(array_values($this->environmentUnawareCommands), array_values($commandNames));
 
     // Filter duplicates.
     $tmp = array_unique($tmp);
 
     // Make array associative.
-    $this->environmentUnspecificCommands = array_combine($tmp, $tmp);
+    $this->environmentUnawareCommands = array_combine($tmp, $tmp);
 
     return $this;
   }

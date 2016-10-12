@@ -24,8 +24,8 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
     $this->getDrubo()
       // Initialize drubo.
       ->initialize()
-      // Add environment-unspecific commands.
-      ->registerEnvironmentUnspecificCommands([
+      // Register commands that do not need an environment context to be set.
+      ->registerEnvironmentUnawareCommands([
         'config:dump',
         'environments',
       ]);

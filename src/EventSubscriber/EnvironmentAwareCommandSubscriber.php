@@ -4,15 +4,16 @@ namespace Drubo\EventSubscriber;
 
 use Drubo\DruboAwareInterface;
 use Drubo\DruboAwareTrait;
-use Drubo\Exception\CommandRequiresEnvironmentException;
+use Drubo\Exception\EnvironmentAwareCommandException;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Event subscriber: Environment-specific console command.
+ * Event subscriber: Console command that explicitly needs an environment
+ * context to be set.
  */
-class EnvironmentSpecificConsoleCommandSubscriber implements DruboAwareInterface, EventSubscriberInterface {
+class EnvironmentAwareCommandSubscriber implements DruboAwareInterface, EventSubscriberInterface {
 
   use DruboAwareTrait;
 
@@ -21,19 +22,19 @@ class EnvironmentSpecificConsoleCommandSubscriber implements DruboAwareInterface
    */
   public static function getSubscribedEvents() {
     return [
-      ConsoleEvents::COMMAND => 'onCheckEnvironmentIsRequired'
+      ConsoleEvents::COMMAND => 'onIsEnvironmentAware'
     ];
   }
 
   /**
-   * Check whether a console command requires an environment.
+   * Check whether a console command requires an environment context to be set.
    *
    * @param \Symfony\Component\Console\Event\ConsoleCommandEvent $event
    *   An event object.
    *
-   * @throws \Drubo\Exception\CommandRequiresEnvironmentException
+   * @throws \Drubo\Exception\EnvironmentAwareCommandException
    */
-  public function onCheckEnvironmentIsRequired(ConsoleCommandEvent $event) {
+  public function onIsEnvironmentAware(ConsoleCommandEvent $event) {
     $commandName = $event->getCommand()
       ->getName();
 
@@ -42,11 +43,11 @@ class EnvironmentSpecificConsoleCommandSubscriber implements DruboAwareInterface
       ->get();
 
     $commandRequiresEnvironment = $this->getDrubo()
-      ->commandRequiresEnvironment($commandName);
+      ->isEnvironmentAwareCommand($commandName);
 
     // Environment is required, but not set?
     if (empty($environment) && $commandRequiresEnvironment) {
-      throw new CommandRequiresEnvironmentException($commandName);
+      throw new EnvironmentAwareCommandException($commandName);
     }
   }
 

@@ -2,7 +2,7 @@
 
 namespace Drubo\Exception;
 
-class CommandRequiresEnvironmentException extends \Exception {
+class EnvironmentAwareCommandException extends \Exception {
 
   /**
    * Constructor.
