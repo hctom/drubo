@@ -14,12 +14,13 @@ site:
 docroot:
   path: 'docroot'
 
+drubo:
+  commands:
+    'site:reinstall': { disabled: true }
+
 drupalconsole:
   ansi: true
   path: 'bin/drupal'
 
 drush:
   path: 'bin/drush'
-
-commands:
-  'site:reinstall': { disabled: true }

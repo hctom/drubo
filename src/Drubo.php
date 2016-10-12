@@ -218,7 +218,7 @@ class Drubo {
   public function isDisabledCommand($commandName) {
     $config = $this->getConfig();
 
-    $key = 'commands.' . $commandName . '.disabled';
+    $key = 'drubo.commands.' . $commandName . '.disabled';
 
     // Command status configuration exists?
     if ($config->has($key)) {

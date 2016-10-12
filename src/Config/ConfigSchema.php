@@ -43,10 +43,10 @@ class ConfigSchema implements ConfigurationInterface {
       ->children()
         ->append($this->nodeAccount())
         ->append($this->nodeDocroot())
+        ->append($this->nodeDrubo())
         ->append($this->nodeDrupalConsole())
         ->append($this->nodeDrush())
         ->append($this->nodeSite())
-        ->append($this->nodeCommands())
       ->end();
 
     return $treeBuilder;
@@ -69,41 +69,6 @@ class ConfigSchema implements ConfigurationInterface {
   }
 
   /**
-   * Create 'commands' node.
-   *
-   * @return ArrayNodeDefinition
-   *   The 'commands' node.
-   */
-  protected function nodeCommands() {
-    $defaults = [
-      'site:reinstall' => ['disabled' => TRUE],
-    ];
-
-    return $this->createNode('commands')
-      ->useAttributeAsKey('name')
-      ->defaultValue($defaults)
-      ->requiresAtLeastOneElement()
-      ->validate()
-        ->ifArray()
-        ->then(function($v) use ($defaults) {
-          // Ensure defaults.
-          foreach ($defaults as $key => $default) {
-            if (!isset($v[$key])) {
-              $v[$key] = $default;
-            }
-          }
-
-          return $v;
-        })
-      ->end()
-      ->prototype('array')
-        ->children()
-          ->booleanNode('disabled')->defaultFalse()->end()
-        ->end()
-      ->end();
-  }
-
-  /**
    * Create 'docroot' node.
    *
    * @return ArrayNodeDefinition
@@ -114,6 +79,47 @@ class ConfigSchema implements ConfigurationInterface {
       ->addDefaultsIfNotSet()
       ->children()
       ->scalarNode('path')->defaultValue('docroot')->end()
+      ->end();
+  }
+
+
+  /**
+   * Create 'commands' node.
+   *
+   * @return ArrayNodeDefinition
+   *   The 'commands' node.
+   */
+  protected function nodeDrubo() {
+    $commandDefaults = [
+      'site:reinstall' => ['disabled' => TRUE],
+    ];
+
+    return $this->createNode('drubo')
+      ->addDefaultsIfNotSet()
+      ->children()
+        ->arrayNode('commands')
+          ->useAttributeAsKey('name')
+          ->defaultValue($commandDefaults)
+          ->requiresAtLeastOneElement()
+          ->validate()
+            ->ifArray()
+            ->then(function($v) use ($commandDefaults) {
+              // Ensure defaults.
+              foreach ($commandDefaults as $commandName => $defaultValue) {
+                if (!isset($v[$commandName])) {
+                  $v[$commandName] = $defaultValue;
+                }
+              }
+
+              return $v;
+            })
+          ->end()
+          ->prototype('array')
+            ->children()
+              ->booleanNode('disabled')->defaultFalse()->end()
+            ->end()
+          ->end()
+        ->end()
       ->end();
   }
 
