@@ -12,7 +12,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * Event subscriber: Disabled console command.
  */
-class DisabledConsoleCommandSubscriber implements DruboAwareInterface, EventSubscriberInterface {
+class DisabledCommandSubscriber implements DruboAwareInterface, EventSubscriberInterface {
 
   use DruboAwareTrait;
 
