@@ -2,6 +2,9 @@
 
 namespace Drubo\Exception;
 
+/**
+ * Exception: Console command that needs environment context to be set.
+ */
 class EnvironmentAwareCommandException extends \Exception {
 
   /**

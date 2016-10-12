@@ -2,6 +2,9 @@
 
 namespace Drubo\Exception;
 
+/**
+ * Exception: Invalid environment identifier.
+ */
 class InvalidEnvironmentException extends \Exception {
 
   /**

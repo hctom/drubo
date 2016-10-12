@@ -2,6 +2,9 @@
 
 namespace Drubo\Exception;
 
+/**
+ * Exception: Disabled console command.
+ */
 class DisabledCommandException extends \Exception {
 
   /**
