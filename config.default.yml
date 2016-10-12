@@ -15,6 +15,7 @@ docroot:
   path: 'docroot'
 
 drupalconsole:
+  ansi: true
   path: 'bin/drupal'
 
 drush:

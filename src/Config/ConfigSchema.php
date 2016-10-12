@@ -128,6 +128,7 @@ class ConfigSchema implements ConfigurationInterface {
       ->addDefaultsIfNotSet()
       ->children()
         ->scalarNode('path')->defaultValue('bin/drupal')->end()
+        ->booleanNode('ansi')->defaultTrue()->end()
       ->end();
   }
 
