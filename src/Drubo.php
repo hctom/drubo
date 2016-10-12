@@ -8,12 +8,11 @@ use Drubo\Environment\Environment;
 use Drubo\Environment\EnvironmentList;
 use Drubo\EventSubscriber\DisabledConsoleCommandSubscriber;
 use Drubo\EventSubscriber\EnvironmentSpecificConsoleCommandSubscriber;
-use Drubo\EventSubscriber\EnvironmentSubscriber;
 use Drubo\EventSubscriber\SaveEnvironmentIdentifierSubscriber;
 use League\Container\ContainerInterface;
 use Robo\Robo;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
@@ -197,17 +196,17 @@ class Drubo {
       throw new \LogicException('drubo has already been initialized');
     }
 
-    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher */
-    $eventDispatcher = $this->getContainer()
-      ->get('eventDispatcher');
-
     $this
       // Register global input option for environment.
       ->registerInputOption(new InputOption('env', 'e', InputOption::VALUE_OPTIONAL, 'The environment to operate in.', NULL))
       // Register default services.
       ->registerDefaultServices($this->getContainer())
-      // Register event subscribers.
-      ->registerEventSubscribers($eventDispatcher)
+      // Register event subscriber to save environment identifier.
+      ->registerEventSubscriber(new SaveEnvironmentIdentifierSubscriber())
+      // Register event subscriber for environment-specific console commands.
+      ->registerEventSubscriber(new EnvironmentSpecificConsoleCommandSubscriber())
+      // Register event subscriber for disabled console commands.
+      ->registerEventSubscriber(new DisabledConsoleCommandSubscriber())
       // Add default environment-unspecific commands.
       ->registerEnvironmentUnspecificCommands([
         'help',
@@ -277,22 +276,20 @@ class Drubo {
   }
 
   /**
-   * Register event subscribers.
+   * Register event subscriber.
    *
-   * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-   *   The event dispatcher object.
+   * @param \Symfony\Component\EventDispatcher\EventSubscriberInterface $eventSubscriber
+   *   The event subscriber object.
    *
    * @return static
    */
-  protected function registerEventSubscribers(EventDispatcherInterface $eventDispatcher) {
-    // Add event subscriber to save environment identifier.
-    $eventDispatcher->addSubscriber(new SaveEnvironmentIdentifierSubscriber());
+  public function registerEventSubscriber(EventSubscriberInterface $eventSubscriber) {
+    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher */
+    $eventDispatcher = $this->getContainer()
+      ->get('eventDispatcher');
 
-    // Add event subscriber for environment-specific console commands.
-    $eventDispatcher->addSubscriber(new EnvironmentSpecificConsoleCommandSubscriber());
-
-    // Add event subscriber for disabled console commands.
-    $eventDispatcher->addSubscriber(new DisabledConsoleCommandSubscriber());
+    // Register event subscriber.
+    $eventDispatcher->addSubscriber($eventSubscriber);
 
     return $this;
   }
