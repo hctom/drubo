@@ -26,6 +26,8 @@ class RebuildCache extends Exec {
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Robo\Exception\TaskException
    */
   protected function arguments() {
     $args = parent::arguments();

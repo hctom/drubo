@@ -33,6 +33,8 @@ class ApplyPendingUpdates extends Exec {
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Robo\Exception\TaskException
    */
   protected function arguments() {
     $args = parent::arguments();

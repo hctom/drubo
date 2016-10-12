@@ -5,6 +5,7 @@ namespace Drubo\Robo\Task\Base;
 use Drubo\Robo\Task\BaseTask;
 use Robo\Common\BuilderAwareTrait;
 use Robo\Contract\BuilderAwareInterface;
+use Robo\Exception\TaskException;
 
 /**
  * Robo task base class for encapsulated command executions.
@@ -45,6 +46,8 @@ abstract class EncapsulatedExec extends BaseTask implements BuilderAwareInterfac
    *
    * @return \Robo\Task\Base\Exec
    *   The command object.
+   *
+   * @throws \Robo\Exception\TaskException
    */
   protected function command() {
     if (!$this->exec) {
@@ -52,7 +55,7 @@ abstract class EncapsulatedExec extends BaseTask implements BuilderAwareInterfac
 
       // No binary path specified?
       if (empty($binary)) {
-        throw new \RuntimeException('No binary path specified in ' . get_class($this));
+        throw new TaskException($this, 'No binary path specified');
       }
 
       // Use absolute path for binary.
@@ -61,7 +64,7 @@ abstract class EncapsulatedExec extends BaseTask implements BuilderAwareInterfac
 
       // Binary is not executable?
       if (!is_executable($binary)) {
-        throw new \RuntimeException('Binary not executable in ' . get_class($this));
+        throw new TaskException($this, 'Binary is not executable');
       }
 
       // Instantiate encapsulated command.

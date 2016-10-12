@@ -189,11 +189,13 @@ class Drubo {
    * Initialize drubo.
    *
    * @return static
+   *
+   * @throws \LogicException
    */
   public function initialize() {
     // Has already been initialized?
     if ($this->initialized) {
-      throw new \RuntimeException('drubo has already been initialized');
+      throw new \LogicException('drubo has already been initialized');
     }
 
     /** @var \Robo\Application $application */

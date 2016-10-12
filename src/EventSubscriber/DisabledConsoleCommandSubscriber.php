@@ -3,6 +3,7 @@
 namespace Drubo\EventSubscriber;
 
 use Drubo\DruboAwareTrait;
+use Drubo\Exception\DisabledCommandException;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -28,10 +29,15 @@ class DisabledConsoleCommandSubscriber implements EventSubscriberInterface {
    *
    * @param \Symfony\Component\Console\Event\ConsoleCommandEvent $event
    *   An event object.
+   *
+   * @throws \Drubo\Exception\DisabledCommandException
    */
   public function checkDisabledState(ConsoleCommandEvent $event) {
     $config = $this->config();
-    $key = 'commands.' . $event->getCommand()->getName() . '.disabled';
+    $commandName = $event->getCommand()
+      ->getName();
+
+    $key = 'commands.' . $commandName . '.disabled';
 
     // Command status configuration exists?
     if ($config->has($key)) {
@@ -39,7 +45,7 @@ class DisabledConsoleCommandSubscriber implements EventSubscriberInterface {
 
       // Command is disabled?
       if ($access === TRUE) {
-        throw new \RuntimeException('Command is disabled');
+        throw new DisabledCommandException($commandName);
       }
     }
   }

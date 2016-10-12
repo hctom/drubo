@@ -29,7 +29,7 @@ class SaveEnvironmentIdentifierSubscriber implements EventSubscriberInterface {
    * @param \Symfony\Component\Console\Event\ConsoleCommandEvent $event
    *   An event object.
    *
-   * @throws \RuntimeException
+   * @throws \Drubo\Exception\InvalidEnvironmentException
    */
   public function onSaveIdentifier(ConsoleCommandEvent $event) {
     $environment = $event->getInput()->getOption('env');

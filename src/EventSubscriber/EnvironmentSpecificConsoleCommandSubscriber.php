@@ -3,6 +3,7 @@
 namespace Drubo\EventSubscriber;
 
 use Drubo\DruboAwareTrait;
+use Drubo\Exception\CommandRequiresEnvironmentException;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -28,13 +29,18 @@ class EnvironmentSpecificConsoleCommandSubscriber implements EventSubscriberInte
    *
    * @param \Symfony\Component\Console\Event\ConsoleCommandEvent $event
    *   An event object.
+   *
+   * @throws \Drubo\Exception\CommandRequiresEnvironmentException
    */
   public function onCheckEnvironmentIsRequired(ConsoleCommandEvent $event) {
+    $commandName = $event->getCommand()
+      ->getName();
+
     $environment = $this->environment()->get();
 
     // Environment is required, but not set?
-    if (empty($environment) && $this->drubo()->commandRequiresEnvironment($event->getCommand()->getName())) {
-      throw new \RuntimeException('Environment is missing');
+    if (empty($environment) && $this->drubo()->commandRequiresEnvironment($commandName)) {
+      throw new CommandRequiresEnvironmentException($commandName);
     }
   }
 

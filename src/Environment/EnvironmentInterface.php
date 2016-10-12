@@ -22,6 +22,8 @@ interface EnvironmentInterface {
    *
    * @return string|null
    *   If set, the current environment identifier, otherwise NULL.
+   *
+   * @throws \Drubo\Exception\UndefinedEnvironmentException
    */
   public function get();
 
@@ -44,7 +46,7 @@ interface EnvironmentInterface {
    *
    * @return static
    *
-   * @throws \RuntimeException
+   * @throws \Drubo\Exception\InvalidEnvironmentException
    */
   public function set($environment);
 

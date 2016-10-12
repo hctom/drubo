@@ -2,6 +2,8 @@
 
 namespace Drubo\Environment;
 
+use Drubo\Exception\InvalidEnvironmentException;
+use Drubo\Exception\UndefinedEnvironmentException;
 use Robo\Robo;
 
 /**
@@ -21,7 +23,7 @@ class Environment implements EnvironmentInterface {
    */
   public function get() {
     if (!($environment = Robo::config()->get(static::CACHE_KEY))) {
-      throw new \Exception('No environment has been set');
+      throw new UndefinedEnvironmentException('Environment is not defined');
     }
 
     return $environment !== static::NONE ? $environment : NULL;
@@ -45,7 +47,7 @@ class Environment implements EnvironmentInterface {
 
     // Environment identifier is valid?
     if (!empty($environment) && !$this->exists($environment)) {
-      throw new \RuntimeException('Unknown environment: ' . $environment);
+      throw new InvalidEnvironmentException($environment);
     }
 
     return $this;
