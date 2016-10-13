@@ -125,6 +125,7 @@ class ConfigSchema implements ConfigurationInterface {
       ->children()
         ->booleanNode('ansi')->defaultTrue()->end()
         ->scalarNode('path')->defaultValue('bin/drupal')->end()
+        ->booleanNode('verbose')->defaultFalse()->end()
       ->end();
   }
 

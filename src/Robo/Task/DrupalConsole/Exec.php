@@ -44,7 +44,24 @@ abstract class Exec extends EncapsulatedExec {
       $options['no-ansi'] = NULL;
     }
 
+    // Verbose output?
+    if ($this->verbose()) {
+      $options['verbose'] = NULL;
+    }
+
     return $options;
+  }
+
+  /**
+   * Use verbose output?
+   *
+   * @return bool
+   *   Whether to use verbose output (--verbose).
+   */
+  protected function verbose() {
+    return $this->getDrubo()
+      ->getConfig()
+      ->get('drupalconsole.verbose');
   }
 
   /**

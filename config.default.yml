@@ -18,6 +18,7 @@ drupal:
 drupalconsole:
   ansi: true
   path: 'bin/drupal'
+  verbose: false
 
 drush:
   path: 'bin/drush'
