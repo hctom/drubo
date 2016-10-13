@@ -1,0 +1,11 @@
+commands:
+  -
+    command: config:diff
+    arguments:
+      directory: '%{{directory}}'
+    options:
+      reverse: true
+  -
+    command: config:import
+    options:
+      directory: '%{{directory}}'
