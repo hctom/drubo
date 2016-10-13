@@ -150,6 +150,7 @@ class ConfigSchema implements ConfigurationInterface {
    */
   protected function nodeFileSystem() {
     $directoryDefaults = [
+      'config' => ['path' => '.drupal/config'],
       'docroot' => ['path' => 'docroot'],
     ];
 

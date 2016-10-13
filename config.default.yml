@@ -24,5 +24,7 @@ drush:
 
 filesystem:
   directories:
+    config:
+      path: '.drupal/config'
     docroot:
       path: 'docroot'
