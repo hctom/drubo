@@ -1,4 +1,5 @@
 <?php
+// TODO Move nodeDrubo to correct position
 
 namespace Drubo\Config;
 
@@ -41,28 +42,14 @@ class ConfigSchema implements ConfigurationInterface {
 
     $rootNode
       ->children()
-        ->append($this->nodeDocroot())
         ->append($this->nodeDrubo())
         ->append($this->nodeDrupal())
         ->append($this->nodeDrupalConsole())
         ->append($this->nodeDrush())
+        ->append($this->nodeFileSystem())
       ->end();
 
     return $treeBuilder;
-  }
-
-  /**
-   * Create 'docroot' node.
-   *
-   * @return ArrayNodeDefinition
-   *   The 'docroot' node.
-   */
-  protected function nodeDocroot() {
-    return $this->createNode('docroot')
-      ->addDefaultsIfNotSet()
-      ->children()
-      ->scalarNode('path')->defaultValue('docroot')->end()
-      ->end();
   }
 
   /**
@@ -156,6 +143,37 @@ class ConfigSchema implements ConfigurationInterface {
   }
 
   /**
+   * Create 'filesystem' node.
+   *
+   * @return ArrayNodeDefinition
+   *   The 'filesystem' node.
+   */
+  protected function nodeFileSystem() {
+    $directoryDefaults = [
+      'docroot' => ['path' => 'docroot'],
+    ];
+
+    return $this->createNode('filesystem')
+      ->addDefaultsIfNotSet()
+      ->children()
+        ->arrayNode('directories')
+          ->useAttributeAsKey('name')
+          ->defaultValue($directoryDefaults)
+          ->requiresAtLeastOneElement()
+          ->validate()
+            ->ifArray()
+            ->then($this->validateFileSystemDirectories($directoryDefaults))
+          ->end()
+          ->prototype('array')
+            ->children()
+              ->scalarNode('path')->isRequired()->defaultValue('docroot')->end()
+            ->end()
+          ->end()
+        ->end()
+      ->end();
+  }
+
+  /**
    * Validate 'drubo.commands' node.
    *
    * @param array $defaults
@@ -170,6 +188,28 @@ class ConfigSchema implements ConfigurationInterface {
       foreach ($defaults as $commandName => $defaultValue) {
         if (!isset($v[$commandName])) {
           $v[$commandName] = $defaultValue;
+        }
+      }
+
+      return $v;
+    };
+  }
+
+  /**
+   * Validate 'filesystem.directories' node.
+   *
+   * @param array $defaults
+   *   A keyed array of default values.
+   *
+   * @return \Closure
+   *   The validation closure.
+   */
+  protected function validateFileSystemDirectories(array $defaults) {
+    return function($v) use ($defaults) {
+      // Ensure defaults.
+      foreach ($defaults as $directoryName => $defaultValue) {
+        if (!isset($v[$directoryName])) {
+          $v[$directoryName] = $defaultValue;
         }
       }
 

@@ -1,8 +1,5 @@
 # TODO Documentation
 
-docroot:
-  path: 'docroot'
-
 drubo:
   commands:
     'site:reinstall': { disabled: true }
@@ -24,3 +21,8 @@ drupalconsole:
 
 drush:
   path: 'bin/drush'
+
+filesystem:
+  directories:
+    docroot:
+      path: 'docroot'

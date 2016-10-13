@@ -53,7 +53,7 @@ abstract class Exec extends EncapsulatedExec {
   protected function workingDirectory() {
     return $this->getDrubo()
       ->getConfig()
-      ->get('docroot.path');
+      ->get('filesystem.directories.docroot.path');
   }
 
 }
