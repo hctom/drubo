@@ -115,16 +115,7 @@ class ConfigSchema implements ConfigurationInterface {
           ->requiresAtLeastOneElement()
           ->validate()
             ->ifArray()
-            ->then(function($v) use ($commandDefaults) {
-              // Ensure defaults.
-              foreach ($commandDefaults as $commandName => $defaultValue) {
-                if (!isset($v[$commandName])) {
-                  $v[$commandName] = $defaultValue;
-                }
-              }
-
-              return $v;
-            })
+            ->then($this->validateDruboCommands($commandDefaults))
           ->end()
           ->prototype('array')
             ->children()
@@ -162,6 +153,28 @@ class ConfigSchema implements ConfigurationInterface {
       ->children()
         ->scalarNode('path')->defaultValue('bin/drush')->end()
       ->end();
+  }
+
+  /**
+   * Validate 'drubo.commands' node.
+   *
+   * @param array $defaults
+   *   A keyed array of default values.
+   *
+   * @return \Closure
+   *   The validation closure.
+   */
+  protected function validateDruboCommands(array $defaults) {
+    return function($v) use ($defaults) {
+      // Ensure defaults.
+      foreach ($defaults as $commandName => $defaultValue) {
+        if (!isset($v[$commandName])) {
+          $v[$commandName] = $defaultValue;
+        }
+      }
+
+      return $v;
+    };
   }
 
 }
