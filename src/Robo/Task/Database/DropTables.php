@@ -21,6 +21,8 @@ class DropTables extends Exec {
    * Constructor.
    */
   public function __construct() {
+    parent::__construct();
+
     $this->database = 'default';
   }
 

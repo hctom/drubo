@@ -28,6 +28,8 @@ class ApplyPendingUpdates extends Exec {
    * Constructor.
    */
   public function __construct() {
+    parent::__construct();
+
     $this->module = 'all';
   }
 

@@ -13,4 +13,11 @@ abstract class BaseTask extends RoboBaseTask implements DruboAwareInterface {
 
   use DruboAwareTrait;
 
+  /**
+   * Constructor.
+   */
+  public function __construct() {
+
+  }
+
 }

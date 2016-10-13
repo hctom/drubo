@@ -62,6 +62,8 @@ class InstallSite extends Exec {
    * Constructor.
    */
   public function __construct() {
+    parent::__construct();
+
     $config = $this->getDrubo()
       ->getConfig();
 

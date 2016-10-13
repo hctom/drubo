@@ -21,6 +21,8 @@ class UserLogin extends Exec {
    * Constructor.
    */
   public function __construct() {
+    parent::__construct();
+
     $this->userId = 1;
   }
 

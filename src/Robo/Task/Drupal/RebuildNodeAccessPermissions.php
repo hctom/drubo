@@ -20,6 +20,8 @@ class RebuildNodeAccessPermissions extends Exec {
    * Constructor.
    */
   public function __construct() {
+    parent::__construct();
+
     $this->batch = FALSE;
   }
 

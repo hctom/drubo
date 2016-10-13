@@ -21,6 +21,8 @@ class RebuildCache extends Exec {
    * Constructor.
    */
   public function __construct() {
+    parent::__construct();
+
     $this->cache = 'all';
   }
 

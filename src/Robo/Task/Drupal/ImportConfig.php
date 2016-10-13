@@ -21,6 +21,8 @@ class ImportConfig extends ExecChain {
    * Constructor.
    */
   public function __construct() {
+    parent::__construct();
+
     $config = $this->getDrubo()
       ->getConfig();
 
