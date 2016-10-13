@@ -52,6 +52,20 @@ class ImportConfig extends ExecChain {
   }
 
   /**
+   * Set configuration directory.
+   *
+   * @param string $cache
+   *   The path to the directory containing all configuration files to import.
+   *
+   * @return static
+   */
+  public function configDirectory($configDirectory) {
+    $this->configDirectory = $configDirectory;
+
+    return $this;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function run() {
