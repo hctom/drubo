@@ -40,7 +40,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       ->getConfig()
       ->get();
 
-    return ResultData::message(Yaml::dump($config));
+    return ResultData::message(Yaml::dump($config, PHP_INT_MAX, 2));
   }
 
   /**
