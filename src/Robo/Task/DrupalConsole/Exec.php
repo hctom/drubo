@@ -31,10 +31,27 @@ abstract class Exec extends EncapsulatedExec {
   }
 
   /**
+   * Debug mode is enabled?
+   *
+   * @return bool
+   *   Whether debug mode is enabled or not (--no-debug).
+   */
+  protected function debug() {
+    return $this->getDrubo()
+      ->getConfig()
+      ->get('drupalconsole.debug');
+  }
+
+  /**
    * {@inheritdoc}
    */
   protected function options() {
     $options = parent::options();
+
+    // Disable debug mode?
+    if (!$this->debug()) {
+      $options['no-debug'] = NULL;
+    }
 
     // Use/force ANSI output.
     if ($this->ansi()) {

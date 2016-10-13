@@ -17,6 +17,7 @@ drupal:
 
 drupalconsole:
   ansi: true
+  debug: false
   path: 'bin/drupal'
   verbose: false
 
