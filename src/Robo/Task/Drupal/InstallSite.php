@@ -65,13 +65,13 @@ class InstallSite extends Exec {
     $config = $this->getDrubo()
       ->getConfig();
 
-    $this->accountMail = $config->get('account.mail');
-    $this->accountName = $config->get('account.name');
-    $this->accountPass = $config->get('account.pass');
-    $this->languageCode = $config->get('site.language');
-    $this->profile = $config->get('site.profile');
-    $this->siteName = $config->get('site.name');
-    $this->siteMail = $config->get('site.mail');
+    $this->accountMail = $config->get('drupal.account.mail');
+    $this->accountName = $config->get('drupal.account.name');
+    $this->accountPass = $config->get('drupal.account.pass');
+    $this->languageCode = $config->get('drupal.site.language');
+    $this->profile = $config->get('drupal.site.profile');
+    $this->siteName = $config->get('drupal.site.name');
+    $this->siteMail = $config->get('drupal.site.mail');
   }
 
   /**

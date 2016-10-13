@@ -1,22 +1,22 @@
 # TODO Documentation
 
-account:
-  mail: 'admin@example.com'
-  name: 'admin'
-  pass: ~
-
-site:
-  language: 'en'
-  mail: 'admin@example.com'
-  name: 'Drupal'
-  profile: 'standard'
-
 docroot:
   path: 'docroot'
 
 drubo:
   commands:
     'site:reinstall': { disabled: true }
+
+drupal:
+  account:
+    mail: 'admin@example.com'
+    name: 'admin'
+    pass: ~
+  site:
+    language: 'en'
+    mail: 'admin@example.com'
+    name: 'Drupal'
+    profile: 'standard'
 
 drupalconsole:
   ansi: true

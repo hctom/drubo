@@ -41,31 +41,14 @@ class ConfigSchema implements ConfigurationInterface {
 
     $rootNode
       ->children()
-        ->append($this->nodeAccount())
         ->append($this->nodeDocroot())
         ->append($this->nodeDrubo())
+        ->append($this->nodeDrupal())
         ->append($this->nodeDrupalConsole())
         ->append($this->nodeDrush())
-        ->append($this->nodeSite())
       ->end();
 
     return $treeBuilder;
-  }
-
-  /**
-   * Create 'account' node.
-   *
-   * @return ArrayNodeDefinition
-   *   The 'account' node.
-   */
-  protected function nodeAccount() {
-    return $this->createNode('account')
-      ->addDefaultsIfNotSet()
-      ->children()
-        ->scalarNode('name')->defaultValue('admin')->end()
-        ->scalarNode('mail')->defaultValue('admin@example.com')->end()
-        ->scalarNode('pass')->defaultValue(NULL)->end()
-      ->end();
   }
 
   /**
@@ -82,6 +65,35 @@ class ConfigSchema implements ConfigurationInterface {
       ->end();
   }
 
+  /**
+   * Create 'drupal' node.
+   *
+   * @return ArrayNodeDefinition
+   *   The 'drupal' node.
+   */
+  protected function nodeDrupal() {
+    return $this->createNode('drupal')
+      ->addDefaultsIfNotSet()
+      ->children()
+        ->arrayNode('account')
+          ->addDefaultsIfNotSet()
+          ->children()
+            ->scalarNode('mail')->defaultValue('admin@example.com')->end()
+            ->scalarNode('name')->defaultValue('admin')->end()
+            ->scalarNode('pass')->defaultValue(NULL)->end()
+          ->end()
+        ->end()
+        ->arrayNode('site')
+          ->addDefaultsIfNotSet()
+          ->children()
+            ->scalarNode('language')->defaultValue('en')->end()
+            ->scalarNode('mail')->defaultValue('admin@example.com')->end()
+            ->scalarNode('name')->defaultValue('Drupal')->end()
+            ->scalarNode('profile')->defaultValue('standard')->end()
+          ->end()
+        ->end()
+      ->end();
+  }
 
   /**
    * Create 'drubo' node.
@@ -149,23 +161,6 @@ class ConfigSchema implements ConfigurationInterface {
       ->addDefaultsIfNotSet()
       ->children()
         ->scalarNode('path')->defaultValue('bin/drush')->end()
-      ->end();
-  }
-
-  /**
-   * Create 'site' node.
-   *
-   * @return ArrayNodeDefinition
-   *   The 'site' node.
-   */
-  protected function nodeSite() {
-    return $this->createNode('site')
-      ->addDefaultsIfNotSet()
-      ->children()
-        ->scalarNode('language')->defaultValue('en')->end()
-        ->scalarNode('mail')->defaultValue('admin@example.com')->end()
-        ->scalarNode('name')->defaultValue('Drupal')->end()
-        ->scalarNode('profile')->defaultValue('standard')->end()
       ->end();
   }
 
