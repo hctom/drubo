@@ -23,12 +23,12 @@ class Drubo {
   /**
    * Package directory cache key name in Robo configuration.
    */
-  const CACHE_KEY_PACKAGE_DIRECTORY = '_drubo.packageDirectory';
+  const CONFIG_KEY_PACKAGE_DIRECTORY = '_drubo.packageDirectory';
 
   /**
    * Working directory cache key name in Robo configuration.
    */
-  const CACHE_KEY_WORKING_DIRECTORY = '_drubo.workingDirectory';
+  const CONFIG_KEY_WORKING_DIRECTORY = '_drubo.workingDirectory';
 
   /**
    * Names of commands that do not require an environment context to be set.
@@ -56,10 +56,10 @@ class Drubo {
    */
   public function __construct() {
     // Cache package directory.
-    Robo::config()->set(static::CACHE_KEY_PACKAGE_DIRECTORY, realpath(__DIR__ . '/../'));
+    Robo::config()->set(static::CONFIG_KEY_PACKAGE_DIRECTORY, realpath(__DIR__ . '/../'));
 
     // Cache working directory.
-    Robo::config()->set(static::CACHE_KEY_WORKING_DIRECTORY, getcwd());
+    Robo::config()->set(static::CONFIG_KEY_WORKING_DIRECTORY, getcwd());
   }
 
   /**
@@ -144,7 +144,7 @@ class Drubo {
    *   The absolute path to the drubo package directory.
    */
   public function getPackageDirectory() {
-    return Robo::config()->get(static::CACHE_KEY_PACKAGE_DIRECTORY);
+    return Robo::config()->get(static::CONFIG_KEY_PACKAGE_DIRECTORY);
   }
 
   /**
@@ -167,7 +167,7 @@ class Drubo {
    *   The absolute path to the current working directory.
    */
   public function getWorkingDirectory() {
-    return Robo::config()->get(static::CACHE_KEY_WORKING_DIRECTORY);
+    return Robo::config()->get(static::CONFIG_KEY_WORKING_DIRECTORY);
   }
 
   /**
