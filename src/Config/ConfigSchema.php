@@ -46,7 +46,7 @@ class ConfigSchema implements ConfigurationInterface {
         ->append($this->nodeDrupal())
         ->append($this->nodeDrupalConsole())
         ->append($this->nodeDrush())
-        ->append($this->nodeFileSystem())
+        ->append($this->nodeFilesystem())
       ->end();
 
     return $treeBuilder;
@@ -150,7 +150,7 @@ class ConfigSchema implements ConfigurationInterface {
    * @return ArrayNodeDefinition
    *   The 'filesystem' node.
    */
-  protected function nodeFileSystem() {
+  protected function nodeFilesystem() {
     $directoryDefaults = [
       'config' => ['path' => '.drupal/config'],
       'docroot' => ['path' => 'docroot'],
@@ -165,7 +165,7 @@ class ConfigSchema implements ConfigurationInterface {
           ->requiresAtLeastOneElement()
           ->validate()
             ->ifArray()
-            ->then($this->validateFileSystemDirectories($directoryDefaults))
+            ->then($this->validateFilesystemDirectories($directoryDefaults))
           ->end()
           ->prototype('array')
             ->children()
@@ -207,7 +207,7 @@ class ConfigSchema implements ConfigurationInterface {
    * @return \Closure
    *   The validation closure.
    */
-  protected function validateFileSystemDirectories(array $defaults) {
+  protected function validateFilesystemDirectories(array $defaults) {
     return function($v) use ($defaults) {
       // Ensure defaults.
       foreach ($defaults as $directoryName => $defaultValue) {
