@@ -2,6 +2,7 @@
 
 namespace Drubo\Robo\Task\Drupal;
 
+use Drubo\Config\InstallConfigTrait;
 use Drubo\Robo\Task\DrupalConsole\Exec;
 
 /**
@@ -9,72 +10,7 @@ use Drubo\Robo\Task\DrupalConsole\Exec;
  */
 class InstallSite extends Exec {
 
-  /**
-   * Account e-mail address.
-   *
-   * @var string|null
-   */
-  protected $accountMail;
-
-  /**
-   * Account name.
-   *
-   * @var string|null
-   */
-  protected $accountName;
-
-  /**
-   * Account password.
-   *
-   * @var string|null
-   */
-  protected $accountPass;
-
-  /**
-   * Language code.
-   *
-   * @var string|null
-   */
-  protected $languageCode;
-
-  /**
-   * Installation profile.
-   *
-   * @var string|null
-   */
-  protected $profile;
-
-  /**
-   * Site e-mail address.
-   *
-   * @var string|null
-   */
-  protected $siteMail;
-
-  /**
-   * Site name.
-   *
-   * @var string|null
-   */
-  protected $siteName;
-
-  /**
-   * Constructor.
-   */
-  public function __construct() {
-    parent::__construct();
-
-    $config = $this->getDrubo()
-      ->getConfig();
-
-    $this->accountMail = $config->get('drupal.account.mail');
-    $this->accountName = $config->get('drupal.account.name');
-    $this->accountPass = $config->get('drupal.account.pass');
-    $this->languageCode = $config->get('drupal.site.language');
-    $this->profile = $config->get('drupal.site.profile');
-    $this->siteName = $config->get('drupal.site.name');
-    $this->siteMail = $config->get('drupal.site.mail');
-  }
+  use InstallConfigTrait;
 
   /**
    * {@inheritdoc}
@@ -84,8 +20,8 @@ class InstallSite extends Exec {
 
     $args[] = 'site:install';
 
-    if ($this->profile) {
-      $args[] = escapeshellarg($this->profile);
+    if (($siteProfile = $this->siteProfile())) {
+      $args[] = escapeshellarg($siteProfile);
     }
 
     return $args;
@@ -97,28 +33,34 @@ class InstallSite extends Exec {
   protected function options() {
     $options = parent::options();
 
-    if ($this->accountMail) {
-      $options['account-mail=' . escapeshellarg($this->accountMail)] = NULL;
+    // Administrator account e-mail address.
+    if (($accountMail = $this->accountMail())) {
+      $options['account-mail=' . escapeshellarg($accountMail)] = NULL;
     }
 
-    if ($this->accountName) {
-      $options['account-name=' . escapeshellarg($this->accountName)] = NULL;
+    // Administrator account name.
+    if (($accountName = $this->accountName())) {
+      $options['account-name=' . escapeshellarg($accountName)] = NULL;
     }
 
-    if ($this->accountPass) {
-      $options['account-pass=' . escapeshellarg($this->accountPass)] = NULL;
+    // Administrator account password.
+    if (($accountPassword = $this->accountPassword())) {
+      $options['account-pass=' . escapeshellarg($accountPassword)] = NULL;
     }
 
-    if ($this->languageCode) {
-      $options['langcode=' . escapeshellarg($this->languageCode)] = NULL;
+    // Site language.
+    if (($siteLanguage = $this->siteLanguage())) {
+      $options['langcode=' . escapeshellarg($siteLanguage)] = NULL;
     }
 
-    if ($this->siteMail) {
-      $options['site-mail=' . escapeshellarg($this->siteMail)] = NULL;
+    // Site e-mail address.
+    if (($siteMail = $this->siteMail())) {
+      $options['site-mail=' . escapeshellarg($siteMail)] = NULL;
     }
 
-    if ($this->siteName) {
-      $options['site-name=' . escapeshellarg($this->siteName)] = NULL;
+    // Site name.
+    if (($siteName = $this->siteName())) {
+      $options['site-name=' . escapeshellarg($siteName)] = NULL;
     }
 
     return $options;
