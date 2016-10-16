@@ -67,4 +67,13 @@ trait loadTasks {
     return $this->task(InstallSite::class);
   }
 
+  /**
+   * Reinstall a Drupal site.
+   *
+   * @return ReinstallSite
+   */
+  protected function taskReinstallDrupalSite() {
+    return $this->task(ReinstallSite::class);
+  }
+
 }

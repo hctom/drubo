@@ -1,0 +1,17 @@
+commands:
+  -
+    command: database:drop
+    arguments:
+      database: '%{{database}}'
+  -
+    command: site:install
+    options:
+      langcode: '%{{langcode}}'
+      site-name: '%{{site_name}}'
+      site-mail: '%{{site_mail}}'
+      account-name: '%{{account_name}}'
+      account-mail: '%{{account_mail}}'
+      account-pass: '%{{account_pass}}'
+      generate-inline: true
+    arguments:
+      profile: '%{{profile}}'
