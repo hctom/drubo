@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "consolidation/robo": ">1.0.0-beta1",
+    "consolidation/robo": "^1.0.0",
     "drupal/console": "^1.0",
     "drush/drush": "8.*",
     "symfony/config": "~2.8|~3.0.0",
