@@ -1,5 +1,4 @@
 <?php
-// TODO Move nodeDrubo to correct position
 
 namespace Drubo\Config;
 
@@ -53,36 +52,6 @@ class ConfigSchema implements ConfigurationInterface {
   }
 
   /**
-   * Create 'drupal' node.
-   *
-   * @return ArrayNodeDefinition
-   *   The 'drupal' node.
-   */
-  protected function nodeDrupal() {
-    return $this->createNode('drupal')
-      ->addDefaultsIfNotSet()
-      ->children()
-        ->arrayNode('account')
-          ->addDefaultsIfNotSet()
-          ->children()
-            ->scalarNode('mail')->defaultValue('admin@example.com')->end()
-            ->scalarNode('name')->defaultValue('admin')->end()
-            ->scalarNode('pass')->defaultValue(NULL)->end()
-          ->end()
-        ->end()
-        ->arrayNode('site')
-          ->addDefaultsIfNotSet()
-          ->children()
-            ->scalarNode('language')->defaultValue('en')->end()
-            ->scalarNode('mail')->defaultValue('admin@example.com')->end()
-            ->scalarNode('name')->defaultValue('Drupal')->end()
-            ->scalarNode('profile')->defaultValue('standard')->end()
-          ->end()
-        ->end()
-      ->end();
-  }
-
-  /**
    * Create 'drubo' node.
    *
    * @return ArrayNodeDefinition
@@ -108,6 +77,36 @@ class ConfigSchema implements ConfigurationInterface {
             ->children()
               ->booleanNode('disabled')->defaultFalse()->end()
             ->end()
+          ->end()
+        ->end()
+      ->end();
+  }
+
+  /**
+   * Create 'drupal' node.
+   *
+   * @return ArrayNodeDefinition
+   *   The 'drupal' node.
+   */
+  protected function nodeDrupal() {
+    return $this->createNode('drupal')
+      ->addDefaultsIfNotSet()
+      ->children()
+        ->arrayNode('account')
+          ->addDefaultsIfNotSet()
+          ->children()
+            ->scalarNode('mail')->defaultValue('admin@example.com')->end()
+            ->scalarNode('name')->defaultValue('admin')->end()
+            ->scalarNode('pass')->defaultValue(NULL)->end()
+          ->end()
+        ->end()
+        ->arrayNode('site')
+          ->addDefaultsIfNotSet()
+          ->children()
+            ->scalarNode('language')->defaultValue('en')->end()
+            ->scalarNode('mail')->defaultValue('admin@example.com')->end()
+            ->scalarNode('name')->defaultValue('Drupal')->end()
+            ->scalarNode('profile')->defaultValue('standard')->end()
           ->end()
         ->end()
       ->end();
