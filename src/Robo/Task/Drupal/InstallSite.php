@@ -2,15 +2,12 @@
 
 namespace Drubo\Robo\Task\Drupal;
 
-use Drubo\Config\InstallConfigTrait;
 use Drubo\Robo\Task\DrupalConsole\Exec;
 
 /**
  * Robo task: Install a Drupal site.
  */
 class InstallSite extends Exec {
-
-  use InstallConfigTrait;
 
   /**
    * {@inheritdoc}
@@ -20,7 +17,10 @@ class InstallSite extends Exec {
 
     $args[] = 'site:install';
 
-    if (($siteProfile = $this->siteProfile())) {
+    $config = $this->getDrubo()
+      ->getConfig();
+
+    if (($siteProfile = $config->get('drupal.site.profile'))) {
       $args[] = escapeshellarg($siteProfile);
     }
 
@@ -33,33 +33,36 @@ class InstallSite extends Exec {
   protected function options() {
     $options = parent::options();
 
+    $config = $this->getDrubo()
+      ->getConfig();
+
     // Administrator account e-mail address.
-    if (($accountMail = $this->accountMail())) {
+    if (($accountMail = $config->get('drupal.account.mail'))) {
       $options['account-mail=' . escapeshellarg($accountMail)] = NULL;
     }
 
     // Administrator account name.
-    if (($accountName = $this->accountName())) {
+    if (($accountName = $config->get('drupal.account.name'))) {
       $options['account-name=' . escapeshellarg($accountName)] = NULL;
     }
 
     // Administrator account password.
-    if (($accountPassword = $this->accountPassword())) {
+    if (($accountPassword = $config->get('drupal.account.pass'))) {
       $options['account-pass=' . escapeshellarg($accountPassword)] = NULL;
     }
 
     // Site language.
-    if (($siteLanguage = $this->siteLanguage())) {
+    if (($siteLanguage = $config->get('drupal.site.language'))) {
       $options['langcode=' . escapeshellarg($siteLanguage)] = NULL;
     }
 
     // Site e-mail address.
-    if (($siteMail = $this->siteMail())) {
+    if (($siteMail = $config->get('drupal.site.mail'))) {
       $options['site-mail=' . escapeshellarg($siteMail)] = NULL;
     }
 
     // Site name.
-    if (($siteName = $this->siteName())) {
+    if (($siteName = $config->get('drupal.site.name'))) {
       $options['site-name=' . escapeshellarg($siteName)] = NULL;
     }
 

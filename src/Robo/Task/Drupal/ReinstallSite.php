@@ -2,15 +2,12 @@
 
 namespace Drubo\Robo\Task\Drupal;
 
-use Drubo\Config\InstallConfigTrait;
 use Drubo\Robo\Task\DrupalConsole\ExecChain;
 
 /**
  * Robo task: Reinstall a Drupal site.
  */
 class ReinstallSite extends ExecChain {
-
-  use InstallConfigTrait;
 
   /**
    * {@inheritdoc}
@@ -23,15 +20,18 @@ class ReinstallSite extends ExecChain {
    * {@inheritdoc}
    */
   protected function chainFilePlaceholderValues() {
+    $config = $this->getDrubo()
+      ->getConfig();
+
     return [
-      'account_mail' => $this->accountMail(),
-      'account_name' => $this->accountName(),
-      'account_pass' => $this->accountPassword(),
+      'account_mail' => $config->get('drupal.account.mail'),
+      'account_name' => $config->get('drupal.account.name'),
+      'account_pass' => $config->get('drupal.account.pass'),
       'database' => 'default',
-      'langcode' => $this->siteLanguage(),
-      'profile' => $this->siteProfile(),
-      'site_mail' => $this->siteMail(),
-      'site_name' => $this->siteName(),
+      'langcode' => $config->get('drupal.site.language'),
+      'profile' => $config->get('drupal.site.profile'),
+      'site_mail' => $config->get('drupal.site.mail'),
+      'site_name' => $config->get('drupal.site.name'),
     ];
   }
 
