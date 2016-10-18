@@ -58,21 +58,12 @@ class ConfigSchema implements ConfigurationInterface {
    *   The 'drubo' node.
    */
   protected function nodeDrubo() {
-    $commandDefaults = [
-      'site:reinstall' => ['disabled' => TRUE],
-    ];
-
     return $this->createNode('drubo')
       ->addDefaultsIfNotSet()
       ->children()
         ->arrayNode('commands')
           ->useAttributeAsKey('name')
-          ->defaultValue($commandDefaults)
           ->requiresAtLeastOneElement()
-          ->validate()
-            ->ifArray()
-            ->then($this->validateDruboCommands($commandDefaults))
-          ->end()
           ->prototype('array')
             ->children()
               ->booleanNode('disabled')->defaultFalse()->end()
@@ -95,18 +86,18 @@ class ConfigSchema implements ConfigurationInterface {
         ->arrayNode('account')
           ->addDefaultsIfNotSet()
           ->children()
-            ->scalarNode('mail')->defaultValue('admin@example.com')->end()
-            ->scalarNode('name')->defaultValue('admin')->end()
-            ->scalarNode('pass')->defaultValue(NULL)->end()
+            ->scalarNode('mail')->end()
+            ->scalarNode('name')->end()
+            ->scalarNode('pass')->end()
           ->end()
         ->end()
         ->arrayNode('site')
           ->addDefaultsIfNotSet()
           ->children()
-            ->scalarNode('language')->defaultValue('en')->end()
-            ->scalarNode('mail')->defaultValue('admin@example.com')->end()
-            ->scalarNode('name')->defaultValue('Drupal')->end()
-            ->scalarNode('profile')->defaultValue('standard')->end()
+            ->scalarNode('language')->end()
+            ->scalarNode('mail')->end()
+            ->scalarNode('name')->end()
+            ->scalarNode('profile')->end()
           ->end()
         ->end()
       ->end();
@@ -122,10 +113,10 @@ class ConfigSchema implements ConfigurationInterface {
     return $this->createNode('drupalconsole')
       ->addDefaultsIfNotSet()
       ->children()
-        ->booleanNode('ansi')->defaultTrue()->end()
-        ->booleanNode('debug')->defaultFalse()->end()
-        ->scalarNode('path')->defaultValue('bin/drupal')->end()
-        ->booleanNode('verbose')->defaultFalse()->end()
+        ->booleanNode('ansi')->end()
+        ->booleanNode('debug')->end()
+        ->scalarNode('path')->end()
+        ->booleanNode('verbose')->end()
       ->end();
   }
 
@@ -139,7 +130,7 @@ class ConfigSchema implements ConfigurationInterface {
     return $this->createNode('drush')
       ->addDefaultsIfNotSet()
       ->children()
-        ->scalarNode('path')->defaultValue('bin/drush')->end()
+        ->scalarNode('path')->end()
       ->end();
   }
 
@@ -150,73 +141,21 @@ class ConfigSchema implements ConfigurationInterface {
    *   The 'filesystem' node.
    */
   protected function nodeFilesystem() {
-    $directoryDefaults = [
-      'config' => ['path' => '.drupal/config'],
-      'docroot' => ['path' => 'docroot'],
-    ];
-
     return $this->createNode('filesystem')
       ->addDefaultsIfNotSet()
       ->children()
         ->arrayNode('directories')
           ->useAttributeAsKey('name')
-          ->defaultValue($directoryDefaults)
           ->requiresAtLeastOneElement()
-          ->validate()
-            ->ifArray()
-            ->then($this->validateFilesystemDirectories($directoryDefaults))
-          ->end()
           ->prototype('array')
             ->children()
-              ->scalarNode('path')->isRequired()->defaultValue('docroot')->end()
+              ->booleanNode('create')->defaultFalse()->end()
+              ->scalarNode('mode')->defaultNull()->end()
+              ->scalarNode('path')->isRequired()->end()
             ->end()
           ->end()
         ->end()
       ->end();
-  }
-
-  /**
-   * Validate 'drubo.commands' node.
-   *
-   * @param array $defaults
-   *   A keyed array of default values.
-   *
-   * @return \Closure
-   *   The validation closure.
-   */
-  protected function validateDruboCommands(array $defaults) {
-    return function($v) use ($defaults) {
-      // Ensure defaults.
-      foreach ($defaults as $commandName => $defaultValue) {
-        if (!isset($v[$commandName])) {
-          $v[$commandName] = $defaultValue;
-        }
-      }
-
-      return $v;
-    };
-  }
-
-  /**
-   * Validate 'filesystem.directories' node.
-   *
-   * @param array $defaults
-   *   A keyed array of default values.
-   *
-   * @return \Closure
-   *   The validation closure.
-   */
-  protected function validateFilesystemDirectories(array $defaults) {
-    return function($v) use ($defaults) {
-      // Ensure defaults.
-      foreach ($defaults as $directoryName => $defaultValue) {
-        if (!isset($v[$directoryName])) {
-          $v[$directoryName] = $defaultValue;
-        }
-      }
-
-      return $v;
-    };
   }
 
 }

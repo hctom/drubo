@@ -65,10 +65,10 @@ class Config implements ConfigInterface {
 
     $paths = [];
 
-    // Path candidate for default configuration.
+    // Path candidate for custom global configuration.
     $paths[] = rtrim($workingDirectory, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . '.drubo';
 
-    // Path candidate for environment-specific configuration.
+    // Path candidate for custom environment-specific configuration.
     if (!empty($environment)) {
       $paths[] = $paths[0] . DIRECTORY_SEPARATOR . $environment;
     }
@@ -111,7 +111,13 @@ class Config implements ConfigInterface {
     $locator = new FileLocator($this->getConfigDirectoryCandidates($environment));
     $loader = new ConfigLoader($locator);
 
-    // Locate and load configration files (if any).
+    $packageDirectory = Drubo::getSingleton()
+      ->getPackageDirectory();
+
+    // Load shipped default configuration.
+    $configs[] = $loader->load(rtrim($packageDirectory, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'config.default.yml');
+
+    // Locate and load custom configration files (if any).
     if (($files = $locator->locate(static::FILENAME, NULL, FALSE))) {
       foreach ($files as $file) {
         $configs[] = $loader->load($file);
