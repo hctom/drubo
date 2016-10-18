@@ -10,7 +10,7 @@ use Robo\Exception\TaskException;
 /**
  * Robo task base class for encapsulated command executions.
  */
-abstract class EncapsulatedExec extends BaseTask implements BuilderAwareInterface  {
+abstract class EncapsulatedExec extends BaseTask implements BuilderAwareInterface {
 
   use BuilderAwareTrait;
 
