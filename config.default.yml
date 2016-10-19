@@ -94,3 +94,9 @@ filesystem:
     docroot:
       path: 'docroot'
       skip: true
+    # Private files directory (skipped by default).
+    private:
+      create: true
+      mode: 777
+      path: 'private'
+      skip: true
