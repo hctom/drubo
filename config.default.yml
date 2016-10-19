@@ -100,3 +100,7 @@ filesystem:
       mode: 777
       path: 'private'
       skip: true
+    # Site directory.
+    site:
+      mode: 744
+      path: 'docroot/sites/default'
