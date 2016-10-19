@@ -22,14 +22,14 @@ configuration files.
 
 Configuration values are inherited in the following order:
 
-* ```config.default.yml``` *(shipped with drubo)*
+* ```config.default.yml``` *(default configuration shipped with **drubo**)*
 * ```.drubo/config.yml``` *(custom global overrides)*
 * ```.drubo/{ENVIRONMENT}/config.yml``` *(custom environment-specific overrides)*
 
 ### Configration overrides
 
-Place a config.yml file in one of the following directories (relative to the
-current working directory) in order to override configuration values:
+Place a ```config.yml``` file in one of the following directories (relative to 
+the current working directory) in order to override configuration values:
 
 * ```.drubo```: Custom global configuration overrides.
 * ```.drubo/{ENVIRONMENT}```: Custom environment-specific configuration overrides. 
@@ -50,9 +50,10 @@ class RoboFile extends \Drubo\Robo\Tasks {
 ```
 
 This file automatically inherits some useful built-in commands that help you 
-with the maintenance of your Drupal project. If a predefined command does not 
-meet your requirements, feel free to override the corresponding command method 
-in your RoboFile.
+with the setup/maintenance of your Drupal project. If a predefined command does 
+not meet your requirements, feel free to override the corresponding command 
+method in your RoboFile. You may even add any number of additional commands to 
+extend **drubo** with any missing functionality.
 
 ### Built-in Commands
 
