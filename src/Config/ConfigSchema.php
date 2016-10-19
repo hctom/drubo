@@ -148,11 +148,21 @@ class ConfigSchema implements ConfigurationInterface {
           ->useAttributeAsKey('name')
           ->requiresAtLeastOneElement()
           ->prototype('array')
+            ->validate()
+              ->always(function($v) {
+                if (!empty($v['create']) && !empty($v['symlink'])) {
+                  throw new \Exception("Only one of 'create' and 'symlink' is allowed at once");
+                }
+
+                return $v;
+              })
+            ->end()
             ->children()
               ->booleanNode('create')->defaultFalse()->end()
               ->scalarNode('mode')->defaultNull()->end()
               ->scalarNode('path')->isRequired()->cannotBeEmpty()->end()
               ->booleanNode('skip')->defaultFalse()->end()
+              ->scalarNode('symlink')->defaultNull()->end()
             ->end()
           ->end()
         ->end()
