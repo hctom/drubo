@@ -3,14 +3,14 @@
 # configuration files.
 #
 # Configuration values are inherited in the following order:
-#   - config.default.yml (shippped with drubo)
-#   - .drubo/config.yml
-#   - .drubo/[ENVIRONMENT]/config.yml
+#   - config.default.yml: (default configuration shipped with drubo)
+#   - .drubo/config.yml_ (custom global configuration overrides)
+#   - .drubo/[ENVIRONMENT]/config.yml: (custom environment-specific overrides)
 #
 # Place a config.yml file in one of the following directories (relative to the
 # current working directory) in order to override configuration values:
 #   - .drubo: Custom global configuration overrides.
-#   - .drubo/[ENVIRONMENT]: Environment-specific configuration overrides.
+#   - .drubo/[ENVIRONMENT]: Custom environment-specific configuration overrides.
 #     Replace [ENVIRONMENT] with the actual environment identifier
 #     (e.g. 'develop', 'staging' or 'production').
 
