@@ -93,3 +93,4 @@ filesystem:
     # Document root directory.
     docroot:
       path: 'docroot'
+      skip: true
