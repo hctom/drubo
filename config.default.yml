@@ -1,32 +1,94 @@
-# TODO Documentation
+# Default configuration for the Robo-based drubo helper script. Each
+# configuration value may be overridden in custom global or environment-specific
+# configuration files.
+#
+# Configuration values are inherited in the following order:
+#   - config.default.yml (shippped with drubo)
+#   - .drubo/config.yml
+#   - .drubo/[ENVIRONMENT]/config.yml
+#
+# Place a config.yml file in one of the following directories (relative to the
+# current working directory) in order to override configuration values:
+#   - .drubo: Custom global configuration overrides.
+#   - .drubo/[ENVIRONMENT]: Environment-specific configuration overrides.
+#     Replace [ENVIRONMENT] with the actual environment identifier
+#     (e.g. 'develop', 'staging' or 'production').
 
+# ........................................................................ drubo
+
+# Configuration for drubo.
 drubo:
+  # Configuration Robo commands. Each command may be configured with the
+  # following properties:
+  #   - disabled: Whether the command is disabled (defaults to false).
   commands:
+    # Reinstall site command (disabled by default).
     'site:reinstall': { disabled: true }
 
+# ....................................................................... Drupal
+
+# Configuration for Drupal site.
 drupal:
+  # Configuration for administrator account (user with ID 1) that is set up
+  # during installation.
   account:
+    # The administrator account e-mail address.
     mail: 'admin@example.com'
+    # The administrator account username.
     name: 'admin'
+    # The administrator account password (defaults to null, which results in a
+    # randomly generated password).
     pass: ~
+  # Configuration for the Drupal site itself that is set up during installation.
   site:
+    # The site language.
     language: 'en'
+    # The site e-mail address ('From' address in automated e-mails sent during
+    # registration and new password requests, and other notifications).
     mail: 'admin@example.com'
+    # The site name.
     name: 'Drupal'
+    # The site installation profile.
     profile: 'standard'
 
+# ............................................................... Drupal Console
+
+# Configuration for Drupal Console binary that is used in Robo commands/tasks.
 drupalconsole:
+  # Whether to use/force or disable ANSI output.
   ansi: true
+  # Whether to enable debug mode.
   debug: false
+  # Path to Drupal console binary (either absolute or relative to the current
+  # working directory).
   path: 'bin/drupal'
+  # Whether to use verbose output.
   verbose: false
 
+# ........................................................................ Drush
+
+# Configuration for Drush binary that is used in Robo commands/tasks.
 drush:
+  # Path to Drush binary (either absolute or relative to the current working
+  # directory).
   path: 'bin/drush'
 
+# ................................................................... Filesystem
+
+# Configuration for all filesystem items (files/directories).
 filesystem:
+  # Configuration for all directories that need to be set up. Each directory may
+  # be configured with the following properties:
+  #   - create: Whether the directory should be created if not exists (defaults
+  #     to false)
+  #   - mode: The directory mode/permissions (default to null)
+  #   - path: (required) The path to the directory to process (either absolute
+  #     or relative to the current working directory).
+  #   - skip: Whether to skip processing of the directory (defaults to false).
   directories:
+    # Config 'sync' directory.
     config:
       path: '.drupal/config'
+    # Document root directory.
     docroot:
       path: 'docroot'
