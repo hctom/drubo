@@ -151,7 +151,7 @@ class ConfigSchema implements ConfigurationInterface {
             ->children()
               ->booleanNode('create')->defaultFalse()->end()
               ->scalarNode('mode')->defaultNull()->end()
-              ->scalarNode('path')->isRequired()->end()
+              ->scalarNode('path')->isRequired()->cannotBeEmpty()->end()
             ->end()
           ->end()
         ->end()
