@@ -89,6 +89,7 @@ filesystem:
     # Config 'sync' directory.
     config:
       path: '.drupal/config'
+      skip: true
     # Document root directory.
     docroot:
       path: 'docroot'
