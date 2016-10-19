@@ -1,13 +1,13 @@
 # drubo
 
-[Robo][robo] task runner for [Drupal][drupal]
+[Robo][robo]-based task runner for [Drupal][drupal]
 
 ## Installation
 
 Use [Composer][composer] to add **drubo** to your Drupal project: 
 
-``` bash
-composer require hctom/drubo --sort-packages
+``` sh
+$ composer require hctom/drubo --sort-packages
 ```
 
 ## Configuration
@@ -55,7 +55,15 @@ not meet your requirements, feel free to override the corresponding command
 method in your RoboFile. You may even add any number of additional commands to 
 extend **drubo** with any missing functionality.
 
-### Built-in Commands
+From now on you may run ```vendor/bin/robo``` in your working directory to 
+execute [Robo][robo]-based **drubo** tasks. Use the following command to 
+retrieve a list of all available commands:
+
+``` sh
+$ vendor/bin/robo list
+```
+
+### Built-in commands
 
 #### ```config:dump```
 
