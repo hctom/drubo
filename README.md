@@ -22,7 +22,7 @@ configuration files.
 
 Configuration values are inherited in the following order:
 
-* ```config.default.yml``` *(default configuration shipped with **drubo**)*
+* ```config.default.yml``` *(default configuration shipped with drubo)*
 * ```.drubo/config.yml``` *(custom global overrides)*
 * ```.drubo/{ENVIRONMENT}/config.yml``` *(custom environment-specific overrides)*
 
