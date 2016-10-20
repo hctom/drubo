@@ -7,7 +7,7 @@ use Drubo\DruboAwareTrait;
 use Robo\Tasks as RoboTasks;
 
 /**
- * Base class for drubo-enabled RoboFile console commands configuration classes.
+ * Base class for drubo-enabled RoboFile console command configuration classes.
  */
 abstract class Tasks extends RoboTasks implements DruboAwareInterface {
 
