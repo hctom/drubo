@@ -4,9 +4,7 @@ namespace Drubo\Robo;
 
 use Drubo\DruboAwareInterface;
 use Drubo\DruboAwareTrait;
-use Robo\ResultData;
 use Robo\Tasks as RoboTasks;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Base class for drubo-enabled RoboFile console commands configuration classes.
@@ -33,14 +31,16 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
 
   /**
    * Dump configuration values.
+   *
+   * @option $format The output format to use.
    */
-  public function configDump() {
+  public function configDump($options = ['format' => 'yaml']) {
     // Load configuration.
     $config = $this->getDrubo()
       ->getConfig()
       ->get();
 
-    return ResultData::message(Yaml::dump($config, PHP_INT_MAX, 2));
+    return $config;
   }
 
   /**
