@@ -8,14 +8,6 @@ namespace Drubo\Environment;
 interface EnvironmentListInterface extends \Iterator, \Countable {
 
   /**
-   * Return available environment identifiers.
-   *
-   * @return array
-   *   An array of environment identifiers.
-   */
-  public function get();
-
-  /**
    * Has environment identifier?
    *
    * @param string $environment
@@ -25,5 +17,13 @@ interface EnvironmentListInterface extends \Iterator, \Countable {
    *   Whether the environment identifier exists.
    */
   public function has($environment);
+
+  /**
+   * Return available environment identifiers as array.
+   *
+   * @return array
+   *   An array of environment identifiers.
+   */
+  public function toArray();
 
 }

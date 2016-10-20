@@ -45,14 +45,16 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
 
   /**
    * List all available environments.
+   *
+   * @option $format The output format to use.
    */
-  public function environments() {
+  public function environments($options = ['format' => 'list']) {
     // Load available environment identifiers.
     $environments = $this->getDrubo()
       ->getEnvironmentList()
-      ->get();
+      ->toArray();
 
-    return ResultData::message(Yaml::dump($environments));
+    return $environments;
   }
 
   /**

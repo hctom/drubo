@@ -8,40 +8,18 @@ namespace Drubo\Environment;
 class EnvironmentList implements EnvironmentListInterface {
 
   /**
-   * Iterator position.
+   * Environment list.
    *
-   * @var int
+   * @var array
    */
-  protected $index;
+  protected $list;
 
   /**
    * Constructor.
    */
   public function __construct() {
-    $this->position = 0;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function count() {
-    return count($this->get());
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  function current() {
-    $list = $this->list();
-
-    return $list[$this->position];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function get() {
-    return [
+    // Build environment list.
+    $this->list = [
       'develop',
       'staging',
       'production',
@@ -51,38 +29,54 @@ class EnvironmentList implements EnvironmentListInterface {
   /**
    * {@inheritdoc}
    */
+  public function count() {
+    return count($this->list);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function current() {
+    return current($this->list);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function has($environment) {
-    return in_array($environment, $this->get(), TRUE);
+    return array_search($environment, $this->list, TRUE);
   }
 
   /**
    * {@inheritdoc}
    */
-  function key() {
-    return $this->position;
+  public function key() {
+    return key($this->list);
   }
 
   /**
    * {@inheritdoc}
    */
-  function next() {
-    ++$this->position;
+  public function next() {
+    return next($this->list);
   }
 
   /**
    * {@inheritdoc}
    */
-  function rewind() {
-    $this->position = 0;
+  public function rewind() {
+    reset($this->list);
+  }
+
+  public function toArray() {
+    return $this->list;
   }
 
   /**
    * {@inheritdoc}
    */
-  function valid() {
-    $list = $this->get();
-
-    return isset($list[$this->position]);
+  public function valid() {
+    return current($this->list) !== FALSE;
   }
 
 }
