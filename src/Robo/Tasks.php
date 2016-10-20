@@ -32,7 +32,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
   /**
    * Dump configuration values.
    *
-   * @option $format The output format to use.
+   * @option $format The output format
    */
   public function configDump($options = ['format' => 'yaml']) {
     // Load configuration.
@@ -46,7 +46,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
   /**
    * List all available environments.
    *
-   * @option $format The output format to use.
+   * @option $format The output format
    */
   public function environments($options = ['format' => 'list']) {
     // Load available environment identifiers.
