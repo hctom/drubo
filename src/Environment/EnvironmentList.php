@@ -68,6 +68,9 @@ class EnvironmentList implements EnvironmentListInterface {
     reset($this->list);
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function toArray() {
     return $this->list;
   }
