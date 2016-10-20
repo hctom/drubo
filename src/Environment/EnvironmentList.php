@@ -44,7 +44,7 @@ class EnvironmentList implements EnvironmentListInterface {
    * {@inheritdoc}
    */
   public function has($environment) {
-    return array_search($environment, $this->list, TRUE);
+    return array_search($environment, $this->list, TRUE) !== FALSE;
   }
 
   /**
