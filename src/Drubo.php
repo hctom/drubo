@@ -21,11 +21,6 @@ use Symfony\Component\Filesystem\Filesystem;
 class Drubo {
 
   /**
-   * Working directory cache key name in Robo configuration.
-   */
-  const CONFIG_KEY_WORKING_DIRECTORY = '_drubo.workingDirectory';
-
-  /**
    * Names of commands that do not require an environment context to be set.
    *
    * @var array
@@ -45,14 +40,6 @@ class Drubo {
    * @var bool
    */
   protected $initialized;
-
-  /**
-   * Constructor.
-   */
-  public function __construct() {
-    // Cache working directory.
-    Robo::config()->set(static::CONFIG_KEY_WORKING_DIRECTORY, getcwd());
-  }
 
   /**
    * Return path converted to absolute path (if necessary).
@@ -160,7 +147,7 @@ class Drubo {
    *   The absolute path to the current working directory.
    */
   public function getWorkingDirectory() {
-    return Robo::config()->get(static::CONFIG_KEY_WORKING_DIRECTORY);
+    return getcwd();
   }
 
   /**
