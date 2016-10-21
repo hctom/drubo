@@ -8,10 +8,9 @@ namespace Drubo;
 trait DruboAwareTrait {
 
   /**
-   * Return drubo singleton instance.
+   * {@inheritdoc}
    *
-   * @return \Drubo\Drubo
-   *   The drubo singleton instance object.
+   * @see DruboAwareInterface::getDrubo()
    */
   public function getDrubo() {
     return Drubo::getSingleton();
