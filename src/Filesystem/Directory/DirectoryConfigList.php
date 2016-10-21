@@ -14,7 +14,7 @@ class DirectoryConfigList extends FilesystemConfigList implements DirectoryConfi
    */
   public function __construct() {
     $this->list = $this->getDrubo()
-      ->getConfig()
+      ->getEnvironmentConfig()
       ->get('filesystem.directories');
 
     // Call parent.

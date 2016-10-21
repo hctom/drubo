@@ -10,13 +10,6 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 interface ConfigInterface {
 
   /**
-   * Configuration file name.
-   *
-   * @var string
-   */
-  const FILENAME = 'config.yml';
-
-  /**
    * Return configuration value.
    *
    * @param string|null $key
@@ -24,6 +17,8 @@ interface ConfigInterface {
    *
    * @return mixed
    *   The configuration value on success.
+   *
+   * @throws \InvalidArgumentException
    */
   public function get($key = NULL);
 
@@ -49,13 +44,9 @@ interface ConfigInterface {
   /**
    * Load configuration.
    *
-   * @param string|null $environment
-   *   An optional environment indicator. Leave empty to ignore environment-specific
-   *   configuration overrides.
-   *
    * @return static
    */
-  public function load($environment = NULL);
+  public function load();
 
   /**
    * Set configuration schema.

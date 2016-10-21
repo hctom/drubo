@@ -18,7 +18,7 @@ class InstallSite extends Exec {
     $args[] = 'site:install';
 
     $config = $this->getDrubo()
-      ->getConfig();
+      ->getEnvironmentConfig();
 
     if (($siteProfile = $config->get('drupal.site.profile'))) {
       $args[] = escapeshellarg($siteProfile);
@@ -34,7 +34,7 @@ class InstallSite extends Exec {
     $options = parent::options();
 
     $config = $this->getDrubo()
-      ->getConfig();
+      ->getEnvironmentConfig();
 
     // Administrator account e-mail address.
     if (($accountMail = $config->get('drupal.account.mail'))) {

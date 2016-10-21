@@ -114,3 +114,15 @@ filesystem:
       create: true
       mode: 777
       path: 'tmp'
+  # Configuration for all files that need to be set up. Each directory may be
+  # configured with the following properties:
+  #   - create: Whether the files should be created if not exists (defaults to
+  #     false)
+  #   - mode: The file mode/permissions (defaults to null)
+  #   - path: (required) The path to the file to process (either absolute or
+  #     relative to the current working directory).
+  #   - skip: Whether to skip processing of the file (defaults to false).
+  files:
+    settings:
+      path: 'docroot/sites/default/settings.xyz.php'
+      symlink: '.drupal/settings/default.inc'

@@ -2,8 +2,8 @@
 
 namespace Drubo;
 
-use Drubo\Config\Config as DruboConfig;
-use Drubo\Config\ConfigSchema;
+use Drubo\Config\Environment\Config as EnvironmentConfig;
+use Drubo\Config\Environment\ConfigSchema as EnvironmentConfigSchema;
 use Drubo\Environment\Environment;
 use Drubo\Environment\EnvironmentList;
 use Drubo\EventSubscriber\DisabledCommandSubscriber;
@@ -82,30 +82,6 @@ class Drubo {
   }
 
   /**
-   * Return configuration service for current environment.
-   *
-   * @return \Drubo\Config\ConfigInterface
-   *   The configuration service object with data for the current environment
-   *   (if set, otherwise defaults will be returned).
-   */
-  public function getConfig() {
-    $environment = $this->getEnvironment()
-      ->get();
-
-    $container = $this->getContainer();
-
-    /** @var \Drubo\Config\ConfigInterface $config */
-    $config = $container->get('drubo.config');
-
-    // Initialize configuration object.
-    $config
-      ->setSchema($container->get('drubo.config.schema'))
-      ->load($environment);
-
-    return $config;
-  }
-
-  /**
    * Return dependency-injection container.
    *
    * @return \League\Container\ContainerInterface|null
@@ -125,6 +101,31 @@ class Drubo {
    */
   public function getEnvironment() {
     return $this->getContainer()->get('drubo.environment');
+  }
+
+  /**
+   * Return environment configuration service.
+   *
+   * @return \Drubo\Config\Environment\ConfigInterface
+   *   The configuration service object with data for the current environment
+   *   (if set, otherwise defaults will be returned).
+   */
+  public function getEnvironmentConfig() {
+    $environment = $this->getEnvironment()
+      ->get();
+
+    $container = $this->getContainer();
+
+    /** @var \Drubo\Config\Environment\ConfigInterface $config */
+    $config = $container->get('drubo.environment.config');
+
+    // Initialize configuration object.
+    $config
+      ->setSchema($container->get('drubo.environment.config.schema'))
+      ->setEnvironment($environment)
+      ->load();
+
+    return $config;
   }
 
   /**
@@ -216,7 +217,7 @@ class Drubo {
    *   Whether the command is disabled.
    */
   public function isDisabledCommand($commandName) {
-    $config = $this->getConfig();
+    $config = $this->getEnvironmentConfig();
 
     $key = 'drubo.commands.' . $commandName . '.disabled';
 
@@ -250,17 +251,17 @@ class Drubo {
    * @return static
    */
   protected function registerDefaultServices(ContainerInterface $container) {
-    // Register environment list service.
-    $container->add('drubo.environment.list', new EnvironmentList());
-
     // Register environment service.
     $container->add('drubo.environment', new Environment());
 
-    // Register configuration service.
-    $container->add('drubo.config', new DruboConfig());
+    // Register environment configuration service.
+    $container->add('drubo.environment.config', new EnvironmentConfig());
 
-    // Register configuration schema service.
-    $container->add('drubo.config.schema', new ConfigSchema());
+    // Register environment configuration schema service.
+    $container->add('drubo.environment.config.schema', new EnvironmentConfigSchema());
+
+    // Register environment list service.
+    $container->add('drubo.environment.list', new EnvironmentList());
 
     return $this;
   }

@@ -21,7 +21,7 @@ class ReinstallSite extends ExecChain {
    */
   protected function chainFilePlaceholderValues() {
     $config = $this->getDrubo()
-      ->getConfig();
+      ->getEnvironmentConfig();
 
     return [
       'account_mail' => $config->get('drupal.account.mail'),

@@ -17,7 +17,7 @@ abstract class Exec extends EncapsulatedExec {
    */
   protected function ansi() {
     return $this->getDrubo()
-      ->getConfig()
+      ->getEnvironmentConfig()
       ->get('drupalconsole.ansi');
   }
 
@@ -26,7 +26,7 @@ abstract class Exec extends EncapsulatedExec {
    */
   protected function binary() {
     return $this->getDrubo()
-      ->getConfig()
+      ->getEnvironmentConfig()
       ->get('drupalconsole.path');
   }
 
@@ -38,7 +38,7 @@ abstract class Exec extends EncapsulatedExec {
    */
   protected function debug() {
     return $this->getDrubo()
-      ->getConfig()
+      ->getEnvironmentConfig()
       ->get('drupalconsole.debug');
   }
 
@@ -77,7 +77,7 @@ abstract class Exec extends EncapsulatedExec {
    */
   protected function verbose() {
     return $this->getDrubo()
-      ->getConfig()
+      ->getEnvironmentConfig()
       ->get('drupalconsole.verbose');
   }
 
@@ -86,7 +86,7 @@ abstract class Exec extends EncapsulatedExec {
    */
   protected function workingDirectory() {
     return $this->getDrubo()
-      ->getConfig()
+      ->getEnvironmentConfig()
       ->get('filesystem.directories.docroot.path');
   }
 

@@ -24,7 +24,7 @@ class ImportConfig extends ExecChain {
     parent::__construct();
 
     $config = $this->getDrubo()
-      ->getConfig();
+      ->getEnvironmentConfig();
 
     $this->configDirectory = $config->get('filesystem.directories.config.path');
   }
