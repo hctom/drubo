@@ -2,6 +2,9 @@
 
 namespace Drubo;
 
+/**
+ * Interface for classes that need access to drubo.
+ */
 interface DruboAwareInterface {
 
   /**
