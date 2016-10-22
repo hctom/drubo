@@ -114,9 +114,9 @@ filesystem:
       create: true
       mode: 777
       path: 'tmp'
-  # Configuration for all files that need to be set up. Each directory may be
+  # Configuration for all files that need to be set up. Each file may be
   # configured with the following properties:
-  #   - create: Whether the files should be created if not exists (defaults to
+  #   - create: Whether the file should be created if not exists (defaults to
   #     false)
   #   - mode: The file mode/permissions (defaults to null)
   #   - path: (required) The path to the file to process (either absolute or
