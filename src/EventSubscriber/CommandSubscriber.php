@@ -10,9 +10,9 @@ use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Event subscriber: Disabled console command.
+ * Event subscriber: Console command.
  */
-class DisabledCommandSubscriber implements DruboAwareInterface, EventSubscriberInterface {
+class CommandSubscriber implements DruboAwareInterface, EventSubscriberInterface {
 
   use DruboAwareTrait;
 
@@ -21,7 +21,9 @@ class DisabledCommandSubscriber implements DruboAwareInterface, EventSubscriberI
    */
   public static function getSubscribedEvents() {
     return [
-      ConsoleEvents::COMMAND => 'checkDisabledState'
+      ConsoleEvents::COMMAND => [
+        ['isDisabled', 0],
+      ],
     ];
   }
 
@@ -33,7 +35,7 @@ class DisabledCommandSubscriber implements DruboAwareInterface, EventSubscriberI
    *
    * @throws \Drubo\Exception\DisabledCommandException
    */
-  public function checkDisabledState(ConsoleCommandEvent $event) {
+  public function isDisabled(ConsoleCommandEvent $event) {
     $commandName = $event->getCommand()
       ->getName();
 

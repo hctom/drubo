@@ -6,7 +6,7 @@ use Drubo\Config\Environment\EnvironmentConfig;
 use Drubo\Config\Environment\EnvironmentConfigSchema;
 use Drubo\Environment\Environment;
 use Drubo\Environment\EnvironmentList;
-use Drubo\EventSubscriber\DisabledCommandSubscriber;
+use Drubo\EventSubscriber\CommandSubscriber;
 use Drubo\EventSubscriber\EnvironmentAwareCommandSubscriber;
 use Drubo\EventSubscriber\SaveEnvironmentIdentifierSubscriber;
 use League\Container\ContainerInterface;
@@ -172,8 +172,8 @@ class Drubo {
       ->registerEventSubscriber(new SaveEnvironmentIdentifierSubscriber())
       // Register event subscriber for environment-specific console commands.
       ->registerEventSubscriber(new EnvironmentAwareCommandSubscriber())
-      // Register event subscriber for disabled console commands.
-      ->registerEventSubscriber(new DisabledCommandSubscriber())
+      // Register event subscriber for console commands.
+      ->registerEventSubscriber(new CommandSubscriber())
       // Register commands that do not need an environment context to be set.
       ->registerEnvironmentUnawareCommands([
         'help',
