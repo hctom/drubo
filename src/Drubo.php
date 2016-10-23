@@ -2,8 +2,8 @@
 
 namespace Drubo;
 
-use Drubo\Config\Environment\Config as EnvironmentConfig;
-use Drubo\Config\Environment\ConfigSchema as EnvironmentConfigSchema;
+use Drubo\Config\Environment\EnvironmentConfig;
+use Drubo\Config\Environment\EnvironmentConfigSchema;
 use Drubo\Environment\Environment;
 use Drubo\Environment\EnvironmentList;
 use Drubo\EventSubscriber\DisabledCommandSubscriber;
@@ -85,7 +85,7 @@ class Drubo {
   /**
    * Return environment configuration service.
    *
-   * @return \Drubo\Config\Environment\ConfigInterface
+   * @return \Drubo\Config\Environment\EnvironmentConfigInterface
    *   The configuration service object with data for the current environment
    *   (if set, otherwise defaults will be returned).
    */
@@ -95,7 +95,7 @@ class Drubo {
 
     $container = $this->getContainer();
 
-    /** @var \Drubo\Config\Environment\ConfigInterface $config */
+    /** @var \Drubo\Config\Environment\EnvironmentConfigInterface $config */
     $config = $container->get('drubo.environment.config');
 
     // Initialize configuration object.

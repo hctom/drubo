@@ -2,12 +2,12 @@
 
 namespace Drubo\Config\Environment;
 
-use Drubo\Config\ConfigInterface as BaseConfigInterface;
+use Drubo\Config\ConfigInterface;
 
 /**
  * Interface for drubo environment configuration classes.
  */
-interface ConfigInterface extends BaseConfigInterface {
+interface EnvironmentConfigInterface extends ConfigInterface {
 
   /**
    * Set environment.

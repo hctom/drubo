@@ -2,14 +2,14 @@
 
 namespace Drubo\Config\Environment;
 
-use Drubo\Config\ConfigSchema as BaseConfigSchema;
+use Drubo\Config\ConfigSchema;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 /**
  * Schema class for drubo environment configuration files.
  */
-class ConfigSchema extends BaseConfigSchema {
+class EnvironmentConfigSchema extends ConfigSchema {
 
   /**
    * {@inheritdoc}

@@ -2,7 +2,7 @@
 
 namespace Drubo\Config\Environment;
 
-use Drubo\Config\Config as BaseConfig;
+use Drubo\Config\Config;
 use Drubo\Config\ConfigLoader;
 use Drubo\DruboAwareInterface;
 use Drubo\DruboAwareTrait;
@@ -12,7 +12,7 @@ use Symfony\Component\Config\FileLocator;
 /**
  * Configuration for drubo.
  */
-class Config extends BaseConfig implements ConfigInterface, DruboAwareInterface {
+class EnvironmentConfig extends Config implements EnvironmentConfigInterface, DruboAwareInterface {
 
   use DruboAwareTrait;
 
