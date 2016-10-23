@@ -39,11 +39,13 @@ class CommandSubscriber implements DruboAwareInterface, EventSubscriberInterface
     $commandName = $event->getCommand()
       ->getName();
 
-    // Command is disabled?
-    $disabled = $this->getDrubo()
-      ->isDisabledCommand($commandName);
+    $config = $this->getDrubo()
+      ->getEnvironmentConfig();
 
-    if ($disabled) {
+    $key = 'drubo.commands.' . $commandName . '.disabled';
+
+    // Command status configuration exists and command is disabled?
+    if ($config->has($key) && $config->get($key) === TRUE) {
       throw new DisabledCommandException($commandName);
     }
   }

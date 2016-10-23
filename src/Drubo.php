@@ -207,28 +207,6 @@ class Drubo {
   }
 
   /**
-   * Command is disabled?
-   *
-   * @param string $commandName
-   *   A command name.
-   *
-   * @return bool
-   *   Whether the command is disabled.
-   */
-  public function isDisabledCommand($commandName) {
-    $config = $this->getEnvironmentConfig();
-
-    $key = 'drubo.commands.' . $commandName . '.disabled';
-
-    // Command status configuration exists?
-    if ($config->has($key)) {
-      return $config->get($key) === TRUE;
-    }
-
-    return FALSE;
-  }
-
-  /**
    * Command requires environment context to be set?
    *
    * @param string $commandName
