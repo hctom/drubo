@@ -128,6 +128,16 @@ class Drubo {
   }
 
   /**
+   * Return the output object.
+   *
+   * @return \Symfony\Component\Console\Output\OutputInterface
+   *   The output object.
+   */
+  public function getOutput() {
+    return Robo::output();
+  }
+
+  /**
    * Return drubo package directory.
    *
    * @return string
