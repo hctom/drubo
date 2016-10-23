@@ -118,6 +118,16 @@ class Drubo {
   }
 
   /**
+   * Return the input object.
+   *
+   * @return \Symfony\Component\Console\Input\InputInterface
+   *   The input object.
+   */
+  public function getInput() {
+    return Robo::input();
+  }
+
+  /**
    * Return drubo package directory.
    *
    * @return string
