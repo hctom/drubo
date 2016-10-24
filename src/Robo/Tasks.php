@@ -27,6 +27,17 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
   }
 
   /**
+   * Dump application config values.
+   *
+   * @option string $format The output format
+   */
+  public function druboConfig($options = ['format' => 'yaml']) {
+    return $this->getDrubo()
+      ->getApplicationConfig()
+      ->get();
+  }
+
+  /**
    * Initialize Drubo application.
    *
    * @application-config-unaware
