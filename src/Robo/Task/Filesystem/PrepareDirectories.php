@@ -3,22 +3,26 @@
 namespace Drubo\Robo\Task\Filesystem;
 
 use Drubo\Config\Filesystem\Directory\DirectoryConfigList;
-use Drubo\Robo\Task\BaseTask;
-use Robo\Common\BuilderAwareTrait;
-use Robo\Contract\BuilderAwareInterface;
+use Drubo\Config\Filesystem\FilesystemConfigItem;
+use Robo\Collection\CollectionBuilder;
 
 /**
- * Robo task: Ensure filesystem directories.
+ * Robo task: Prepare filesystem directories.
  */
-class PrepareDirectories extends BaseTask implements BuilderAwareInterface {
-
-  use BuilderAwareTrait;
+class PrepareDirectories extends PrepareItems {
 
   /**
-   * Return filesystem directory configuration list iterator.
+   * {@inheritdoc}
+   */
+  protected function create(CollectionBuilder $collectionBuilder, FilesystemConfigItem $item) {
+    $collectionBuilder->taskFilesystemStack()
+      ->mkdir($item->path());
+  }
+
+  /**
+   * {@inheritdoc}
    *
    * @return \Drubo\Config\Filesystem\Directory\DirectoryConfigListInterface
-   *   The filesystem directory configuration list iterator.
    */
   protected function iterator() {
     return new DirectoryConfigList();
@@ -30,46 +34,7 @@ class PrepareDirectories extends BaseTask implements BuilderAwareInterface {
   public function run() {
     $this->printTaskInfo('Preparing directories');
 
-    /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
-    $collectionBuilder = $this->collectionBuilder();
-
-    $iterator = $this->iterator();
-
-    // Loop over directories and process each one of them.
-    while($iterator->valid()) {
-      $directory = $iterator->current();
-
-      // Directory should be skipped?
-      if (!$directory->skip()) {
-        $collectionBuilder->progressMessage(sprintf('Processing directory: %s', $directory->path()));
-
-        // Create directory (if not exists)?
-        if ($directory->create()) {
-          $collectionBuilder->taskFilesystemStack()
-            ->mkdir($directory->path());
-        }
-
-        // Symlink directory?
-        elseif ($directory->symlink()) {
-          $collectionBuilder->taskFilesystemStack()
-            ->symlink($directory->symlink(), $directory->path());
-        }
-
-        // Change mode of directory?
-        if ($directory->mode()) {
-          $collectionBuilder->taskFilesystemStack()
-            ->chmod($directory->path(), $directory->mode());
-        }
-      }
-
-      // Move on to next directory.
-      $iterator->next();
-    }
-
-    // Reset iterator to its initial state.
-    $iterator->rewind();
-
-    return $collectionBuilder->run();
+    return parent::run();
   }
 
 }
