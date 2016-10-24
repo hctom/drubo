@@ -2,6 +2,8 @@
 
 namespace Drubo;
 
+use Drubo\Config\Application\ApplicationConfig;
+use Drubo\Config\Application\ApplicationConfigSchema;
 use Drubo\Config\Environment\EnvironmentConfig;
 use Drubo\Config\Environment\EnvironmentConfigSchema;
 use Drubo\Environment\Environment;
@@ -58,6 +60,26 @@ class Drubo {
     }
 
     return $path;
+  }
+
+  /**
+   * Return application configuration service.
+   *
+   * @return \Drubo\Config\Application\ApplicationConfigInterface
+   *   The application configuration service object.
+   */
+  public function getApplicationConfig() {
+    $container = $this->getContainer();
+
+    /** @var \Drubo\Config\Application\ApplicationConfigInterface $config */
+    $config = $container->get('drubo.application.config');
+
+    // Initialize configuration object.
+    $config
+      ->setSchema($container->get('drubo.application.config.schema'))
+      ->load();
+
+    return $config;
   }
 
   /**
@@ -228,6 +250,12 @@ class Drubo {
    * @return static
    */
   protected function registerDefaultServices(ContainerInterface $container) {
+    // Register application configuration service.
+    $container->add('drubo.application.config', new ApplicationConfig());
+
+    // Register application configuration schema service.
+    $container->add('drubo.application.config.schema', new ApplicationConfigSchema());
+
     // Register environment service.
     $container->add('drubo.environment', new Environment());
 
