@@ -19,6 +19,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
   use \Drubo\Robo\Task\Database\loadTasks;
   use \Drubo\Robo\Task\Drubo\loadTasks;
   use \Drubo\Robo\Task\Drupal\loadTasks;
+  use \Drubo\Robo\Task\Filesystem\loadTasks;
 
   /**
    * Constructor.
