@@ -39,9 +39,7 @@ abstract class FilesystemConfigList implements FilesystemConfigListInterface, Dr
    * @param array $data
    *   The filesystem config list item data.
    */
-  protected function convertItemToObject(array &$data) {
-    $data = new FilesystemConfigItem($data);
-  }
+  abstract protected function convertItemToObject(array &$data);
 
   /**
    * {@inheritdoc}
