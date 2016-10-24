@@ -2,59 +2,44 @@
 
 namespace Drubo\Environment;
 
+use Drubo\DruboAwareInterface;
+use Drubo\DruboAwareTrait;
 use Drubo\Exception\InvalidEnvironmentException;
 use Drubo\Exception\UndefinedEnvironmentException;
-use Robo\Robo;
 
 /**
  * Environment service class for drubo.
  */
-class Environment implements EnvironmentInterface {
+class Environment implements EnvironmentInterface, DruboAwareInterface  {
 
-  /**
-   * {@inheritdoc}
-   */
-  public function exists($environment) {
-    return $this->getEnvironmentList()
-      ->has($environment);
-  }
+  use DruboAwareTrait;
 
   /**
    * {@inheritdoc}
    */
   public function get() {
-    $environment = Robo::config()
-      ->get(static::CONFIG_KEY);
+    $applicationConfig = $this->getDrubo()
+      ->getApplicationConfig();
 
-    if (!$environment) {
-      throw new UndefinedEnvironmentException('Environment is not defined');
+    if (!$applicationConfig->has('environment')) {
+      return NULL;
     }
 
-    return $environment !== static::NONE ? $environment : NULL;
-  }
+    // Environment is set?
+    if (!($environment = $applicationConfig->get('environment'))) {
+      throw new UndefinedEnvironmentException('Undefined environment');
+    }
 
-  /**
-   * Return environment list service.
-   *
-   * @return \Drubo\Environment\EnvironmentListInterface
-   *   The environment list service.
-   */
-  protected function getEnvironmentList() {
-    return Robo::service('drubo.environment.list');
-  }
+    // Environment exists?
+    $exists = $this->getDrubo()
+      ->getEnvironmentList()
+      ->has($environment);
 
-  /**
-   * {@inheritdoc}
-   */
-  public function set($environment) {
-    Robo::config()->set(static::CONFIG_KEY, $environment ?: static::NONE);
-
-    // Environment identifier is valid?
-    if (!empty($environment) && !$this->exists($environment)) {
+    if (!$exists) {
       throw new InvalidEnvironmentException($environment);
     }
 
-    return $this;
+    return $environment;
   }
 
 }

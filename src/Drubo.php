@@ -7,13 +7,12 @@ use Drubo\Config\Application\ApplicationConfigSchema;
 use Drubo\Config\Environment\EnvironmentConfig;
 use Drubo\Config\Environment\EnvironmentConfigSchema;
 use Drubo\Environment\Environment;
+use Drubo\Environment\EnvironmentInterface;
 use Drubo\Environment\EnvironmentList;
 use Drubo\EventSubscriber\CommandSubscriber;
-use Drubo\EventSubscriber\EnvironmentAwareCommandSubscriber;
-use Drubo\EventSubscriber\SaveEnvironmentIdentifierSubscriber;
+use Drubo\EventSubscriber\ConfigSubscriber;
 use League\Container\ContainerInterface;
 use Robo\Robo;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -21,13 +20,6 @@ use Symfony\Component\Filesystem\Filesystem;
  * Helper class for drubo.
  */
 class Drubo {
-
-  /**
-   * Names of commands that do not require an environment context to be set.
-   *
-   * @var array
-   */
-  protected $environmentUnawareCommands = [];
 
   /**
    * Singleton instance.
@@ -107,24 +99,35 @@ class Drubo {
   /**
    * Return environment configuration service.
    *
+   * @param string|null $environment
+   *   An optional environment identifier (defaults to current environment from
+   *   application configuration).
    * @return \Drubo\Config\Environment\EnvironmentConfigInterface
    *   The configuration service object with data for the current environment
-   *   (if set, otherwise defaults will be returned).
+   *   (if not called with specific environment identifier).
    */
-  public function getEnvironmentConfig() {
-    $environment = $this->getEnvironment()
-      ->get();
-
+  public function getEnvironmentConfig($environment = NULL) {
     $container = $this->getContainer();
+
+    // Load current environment (if not specified).
+    if (empty($environment)) {
+      $environment = $this->getEnvironment()
+        ->get();
+    }
 
     /** @var \Drubo\Config\Environment\EnvironmentConfigInterface $config */
     $config = $container->get('drubo.environment.config');
 
     // Initialize configuration object.
-    $config
-      ->setSchema($container->get('drubo.environment.config.schema'))
-      ->setEnvironment($environment)
-      ->load();
+    $config->setSchema($container->get('drubo.environment.config.schema'));
+
+    // Set environment (if not 'none').
+    if ($environment !== EnvironmentInterface::NONE) {
+      $config->setEnvironment($environment);
+    }
+
+    // Load configuration.
+    $config->load();
 
     return $config;
   }
@@ -206,39 +209,17 @@ class Drubo {
     }
 
     $this
-      // Register global input option for environment.
-      ->registerInputOption(new InputOption('env', 'e', InputOption::VALUE_OPTIONAL, 'The environment to operate in.', NULL))
       // Register default services.
       ->registerDefaultServices($this->getContainer())
-      // Register event subscriber to save environment identifier.
-      ->registerEventSubscriber(new SaveEnvironmentIdentifierSubscriber())
-      // Register event subscriber for environment-specific console commands.
-      ->registerEventSubscriber(new EnvironmentAwareCommandSubscriber())
+      // Register event subscriber for configuration.
+      ->registerEventSubscriber(new ConfigSubscriber())
       // Register event subscriber for console commands.
-      ->registerEventSubscriber(new CommandSubscriber())
-      // Register commands that do not need an environment context to be set.
-      ->registerEnvironmentUnawareCommands([
-        'help',
-        'list',
-      ]);
+      ->registerEventSubscriber(new CommandSubscriber());
 
     // Set 'initialized' flag.
     $this->initialized = TRUE;
 
     return $this;
-  }
-
-  /**
-   * Command requires environment context to be set?
-   *
-   * @param string $commandName
-   *   A command name.
-   *
-   * @return bool
-   *   Whether the command requires an environmen context to be set.
-   */
-  public function isEnvironmentAwareCommand($commandName) {
-    return !array_key_exists($commandName, $this->environmentUnawareCommands);
   }
 
   /**
@@ -272,40 +253,6 @@ class Drubo {
   }
 
   /**
-   * Register command that does not explicitly need an environment context to be
-   * set.
-   *
-   * @param string $commandName
-   *   The name of the command to add.
-   *
-   * @return static
-   */
-  public function registerEnvironmentUnawareCommand($commandName) {
-    return $this->registerEnvironmentUnawareCommands([$commandName]);
-  }
-
-  /**
-   * Register commands that do not explicitly need an environment context to be
-   * set.
-   *
-   * @param array $commandNames
-   *   An array of command names to add.
-   *
-   * @return static
-   */
-  public function registerEnvironmentUnawareCommands(array $commandNames) {
-    $tmp = array_merge(array_values($this->environmentUnawareCommands), array_values($commandNames));
-
-    // Filter duplicates.
-    $tmp = array_unique($tmp);
-
-    // Make array associative.
-    $this->environmentUnawareCommands = array_combine($tmp, $tmp);
-
-    return $this;
-  }
-
-  /**
    * Register event subscriber.
    *
    * @param \Symfony\Component\EventDispatcher\EventSubscriberInterface $eventSubscriber
@@ -320,26 +267,6 @@ class Drubo {
 
     // Register event subscriber.
     $eventDispatcher->addSubscriber($eventSubscriber);
-
-    return $this;
-  }
-
-  /**
-   * Register global input option for console commands.
-   *
-   * @param \Symfony\Component\Console\Input\InputOption $inputOption
-   *   The input option object.
-   *
-   * @return static
-   */
-  public function registerInputOption(InputOption $inputOption) {
-    /** @var \Robo\Application $application */
-    $application = $this->getContainer()
-      ->get('application');
-
-    // Add global environment option.
-    $application->getDefinition()
-      ->addOption($inputOption);
 
     return $this;
   }

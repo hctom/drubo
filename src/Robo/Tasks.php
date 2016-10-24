@@ -4,6 +4,7 @@ namespace Drubo\Robo;
 
 use Drubo\DruboAwareInterface;
 use Drubo\DruboAwareTrait;
+use Robo\Result;
 use Robo\Tasks as RoboTasks;
 
 /**
@@ -21,23 +22,19 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
   public function __construct() {
     $this->getDrubo()
       // Initialize drubo.
-      ->initialize()
-      // Register commands that do not need an environment context to be set.
-      ->registerEnvironmentUnawareCommands([
-        'config:dump',
-        'environments',
-      ]);
+      ->initialize();
   }
 
   /**
-   * Dump configuration values.
+   * Dump environment configuration values.
    *
+   * @option $environment An optional environment identifier
    * @option $format The output format
    */
-  public function configDump($options = ['format' => 'yaml']) {
+  public function environmentConfig($options = ['environment' => NULL, 'format' => 'yaml']) {
     // Load configuration.
     $config = $this->getDrubo()
-      ->getConfig()
+      ->getEnvironmentConfig($options['environment'])
       ->get();
 
     return $config;
@@ -47,8 +44,10 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
    * List all available environments.
    *
    * @option $format The output format
+   *
+   * @application-config-unaware
    */
-  public function environments($options = ['format' => 'list']) {
+  public function environmentList($options = ['format' => 'list']) {
     // Load available environment identifiers.
     $environments = $this->getDrubo()
       ->getEnvironmentList()
