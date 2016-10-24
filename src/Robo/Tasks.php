@@ -65,9 +65,8 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
    *   configuration)
    * @param string $environmentFrom An optional environment identifier for the
    *   target environment (defaults to no environment, to get default values)
-   * @option string $format The output format
    */
-  public function environmentCompare($environmentTo = NULL, $environmentFrom = NULL, $options = ['format' => 'print-r']) {
+  public function environmentCompare($environmentTo = NULL, $environmentFrom = NULL) {
     $from = $this->getDrubo()
       ->getEnvironmentConfig($environmentFrom ?: EnvironmentInterface::NONE)
       ->get();
