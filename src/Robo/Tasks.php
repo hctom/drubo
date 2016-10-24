@@ -14,6 +14,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
 
   use DruboAwareTrait;
   use \Drubo\Robo\Task\Database\loadTasks;
+  use \Drubo\Robo\Task\Drubo\loadTasks;
   use \Drubo\Robo\Task\Drupal\loadTasks;
 
   /**
@@ -23,6 +24,22 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
     $this->getDrubo()
       // Initialize drubo.
       ->initialize();
+  }
+
+  /**
+   * Initialize Drubo application.
+   *
+   * @application-config-unaware
+   */
+  public function druboInit() {
+    /** @var \Robo\Collection\CollectionBuilder $collection */
+    $collectionBuilder = $this->collectionBuilder();
+
+    $collectionBuilder
+      // Initialize Drubo.
+      ->addTask($this->taskInitializDrubo());
+
+    return $collectionBuilder->run();
   }
 
   /**

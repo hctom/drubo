@@ -67,6 +67,8 @@ $ vendor/bin/robo list
 
 #### ```config:dump```
 
+#### ```drubo:init```
+
 #### ```environments```
 
 #### ```site:install```
