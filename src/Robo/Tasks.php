@@ -4,8 +4,10 @@ namespace Drubo\Robo;
 
 use Drubo\DruboAwareInterface;
 use Drubo\DruboAwareTrait;
+use Drubo\Environment\EnvironmentInterface;
 use Robo\Result;
 use Robo\Tasks as RoboTasks;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Base class for drubo-enabled RoboFile console command configuration classes.
@@ -13,6 +15,7 @@ use Robo\Tasks as RoboTasks;
 abstract class Tasks extends RoboTasks implements DruboAwareInterface {
 
   use DruboAwareTrait;
+  use \Drubo\Robo\Task\Base\loadTasks;
   use \Drubo\Robo\Task\Database\loadTasks;
   use \Drubo\Robo\Task\Drubo\loadTasks;
   use \Drubo\Robo\Task\Drupal\loadTasks;
@@ -49,6 +52,40 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
     $collectionBuilder
       // Initialize Drubo.
       ->addTask($this->taskInitializDrubo());
+
+    return $collectionBuilder->run();
+  }
+
+  /**
+   * Compare environment configuration values.
+   *
+   * @param string $environmentTo An optional environment identifier for the
+   *   source environment (defaults to environment configured in application
+   *   configuration)
+   * @param string $environmentFrom An optional environment identifier for the
+   *   target environment (defaults to no environment, to get default values)
+   * @option string $format The output format
+   */
+  public function environmentCompare($environmentTo = NULL, $environmentFrom = NULL, $options = ['format' => 'print-r']) {
+    $from = $this->getDrubo()
+      ->getEnvironmentConfig($environmentFrom ?: EnvironmentInterface::NONE)
+      ->get();
+
+    $to = $this->getDrubo()
+      ->getEnvironmentConfig($environmentTo)
+      ->get();
+
+    /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
+    $collectionBuilder = $this->collectionBuilder();
+
+    // Buld diff task.
+    $diffTask = $this->taskDiff()
+      ->from(Yaml::dump($from, PHP_INT_MAX, 2))
+      ->to(Yaml::dump($to, PHP_INT_MAX, 2));
+
+    $collectionBuilder
+      // Generate diff.
+      ->addTask($diffTask);
 
     return $collectionBuilder->run();
   }
