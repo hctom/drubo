@@ -17,7 +17,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
   use DruboAwareTrait;
   use \Drubo\Robo\Task\Base\loadTasks;
   use \Drubo\Robo\Task\Database\loadTasks;
-  use \Drubo\Robo\Task\Drubo\loadTasks;
+  use \Drubo\Robo\Task\Application\loadTasks;
   use \Drubo\Robo\Task\Drupal\loadTasks;
   use \Drubo\Robo\Task\Filesystem\loadTasks;
 
@@ -35,18 +35,18 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
    *
    * @option string $format The output format
    */
-  public function druboConfig($options = ['format' => 'yaml']) {
+  public function applicationConfig($options = ['format' => 'yaml']) {
     return $this->getDrubo()
       ->getApplicationConfig()
       ->get();
   }
 
   /**
-   * Initialize Drubo application.
+   * Initialize application.
    *
    * @application-config-unaware
    */
-  public function druboInit() {
+  public function applicationInit() {
     /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
     $collectionBuilder = $this->collectionBuilder();
 

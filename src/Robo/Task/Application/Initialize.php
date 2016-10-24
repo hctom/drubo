@@ -1,6 +1,6 @@
 <?php
 
-namespace Drubo\Robo\Task\Drubo;
+namespace Drubo\Robo\Task\Application;
 
 use Drubo\Robo\Task\BaseTask;
 use Robo\Common\BuilderAwareTrait;
@@ -9,6 +9,8 @@ use Symfony\Component\Console\Helper\SymfonyQuestionHelper;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
+use Symfony\Component\Validator\Constraints\Url;
+use Symfony\Component\Validator\Constraints\UrlValidator;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -137,6 +139,9 @@ class Initialize extends BaseTask implements BuilderAwareInterface {
 
     $question = (new Question('Enter URI', $oldUri))
       ->setAutocompleterValues($autoCompleterValues);
+//    ->setValidator(new Url());
+
+//      ->setValidator(new UrlValidator());
 //        // TODO Validate URI.
 //      ->setValidator(function($v) {
 //        if (trim($v) === '') {

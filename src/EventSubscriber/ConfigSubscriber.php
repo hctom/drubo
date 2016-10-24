@@ -60,7 +60,7 @@ class ConfigSubscriber implements DruboAwareInterface, EventSubscriberInterface 
 
     // Application configuration exists?
     if (!$applicationConfig->exists()) {
-      throw new ConfigNotFoundException("No application configuration found - Run 'drubo:init' first");
+      throw new ConfigNotFoundException("No application configuration found - Run 'application:init' first");
     }
   }
 

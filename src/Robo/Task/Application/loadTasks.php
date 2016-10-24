@@ -1,6 +1,6 @@
 <?php
 
-namespace Drubo\Robo\Task\Drubo;
+namespace Drubo\Robo\Task\Application;
 
 trait loadTasks {
 
