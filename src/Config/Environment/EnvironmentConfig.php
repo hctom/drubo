@@ -6,6 +6,7 @@ use Drubo\Config\Config;
 use Drubo\Config\ConfigLoader;
 use Drubo\DruboAwareInterface;
 use Drubo\DruboAwareTrait;
+use Drubo\Exception\InvalidEnvironmentException;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 
@@ -89,6 +90,15 @@ class EnvironmentConfig extends Config implements EnvironmentConfigInterface, Dr
    * {@inheritdoc}
    */
   public function setEnvironment($environment) {
+    $exists = $this->getDrubo()
+      ->getEnvironmentList()
+      ->has($environment);
+
+    // Environment exists?
+    if (!$exists) {
+      throw new InvalidEnvironmentException($environment);
+    }
+
     $this->environment = $environment;
 
     return $this;
