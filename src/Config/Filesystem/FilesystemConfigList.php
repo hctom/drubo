@@ -1,6 +1,6 @@
 <?php
 
-namespace Drubo\Filesystem;
+namespace Drubo\Config\Filesystem;
 
 use Drubo\DruboAwareInterface;
 use Drubo\DruboAwareTrait;
@@ -8,7 +8,7 @@ use Drubo\DruboAwareTrait;
 /**
  * Filesystem configuration list class for drubo.
  */
-class FilesystemConfigList implements FilesystemConfigListInterface, DruboAwareInterface  {
+abstract class FilesystemConfigList implements FilesystemConfigListInterface, DruboAwareInterface  {
 
   use DruboAwareTrait;
 
@@ -23,7 +23,7 @@ class FilesystemConfigList implements FilesystemConfigListInterface, DruboAwareI
    * Constructor.
    */
   public function __construct() {
-    // Convert all filesystem config list items to object instances.
+    // Convert all items to object instances.
     array_walk($this->list, [$this, 'convertItemToObject']);
 
     // Sort files by path (to ensure correct processing order).
@@ -34,13 +34,13 @@ class FilesystemConfigList implements FilesystemConfigListInterface, DruboAwareI
   }
 
   /**
-   * Array callback; Convert filesystem config list item to object.
+   * Array callback; Convert filesystem configuration item to object.
    *
    * @param array $data
    *   The filesystem config list item data.
    */
   protected function convertItemToObject(array &$data) {
-    $data = new FilesystemConfigListItem($data);
+    $data = new FilesystemConfigItem($data);
   }
 
   /**
@@ -79,14 +79,14 @@ class FilesystemConfigList implements FilesystemConfigListInterface, DruboAwareI
   }
 
   /**
-   * Array callback; Sort filesystem config list items by paths.
+   * Array callback; Sort filesystem configuration items by paths.
    *
-   * @param FilesystemConfigListItemInterface $a
+   * @param FilesystemConfigItemInterface $a
    *   The filesystem config list item data.
-   * @param FilesystemConfigListItemInterface $b
+   * @param FilesystemConfigItemInterface $b
    */
-  protected function sortItemsByPaths(FilesystemConfigListItemInterface $a, FilesystemConfigListItemInterface $b) {
-    return strcasecmp($a->symlink() ? $a->symlink() : $a->path(), $b->symlink() ? $b->symlink() : $b->path());
+  protected function sortItemsByPaths(FilesystemConfigItemInterface $a, FilesystemConfigItemInterface $b) {
+    return strcasecmp($a->symlink() ?: $a->path(), $b->symlink() ?: $b->path());
   }
 
   /**

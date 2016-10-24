@@ -1,11 +1,11 @@
 <?php
 
-namespace Drubo\Filesystem;
+namespace Drubo\Config\Filesystem;
 
 /**
- * Interface for drubo filesystem configuration list item classes.
+ * Interface for drubo filesystem configuration item classes.
  */
-interface FilesystemConfigListItemInterface {
+interface FilesystemConfigItemInterface {
 
   /**
    * Filesystem item should be created?

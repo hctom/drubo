@@ -1,6 +1,6 @@
 <?php
 
-namespace Drubo\Filesystem;
+namespace Drubo\Config\Filesystem;
 
 use Drubo\DruboAwareInterface;
 use Drubo\DruboAwareTrait;
@@ -8,7 +8,7 @@ use Drubo\DruboAwareTrait;
 /**
  * Filesystem configuration list item class for drubo.
  */
-class FilesystemConfigListItem implements FilesystemConfigListItemInterface, DruboAwareInterface {
+abstract class FilesystemConfigItem implements FilesystemConfigItemInterface, DruboAwareInterface {
 
   use DruboAwareTrait;
 

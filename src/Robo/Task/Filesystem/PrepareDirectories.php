@@ -2,7 +2,7 @@
 
 namespace Drubo\Robo\Task\Filesystem;
 
-use Drubo\Filesystem\Directory\DirectoryConfigList;
+use Drubo\Config\Filesystem\Directory\DirectoryConfigList;
 use Drubo\Robo\Task\BaseTask;
 use Robo\Common\BuilderAwareTrait;
 use Robo\Contract\BuilderAwareInterface;
@@ -17,7 +17,7 @@ class PrepareDirectories extends BaseTask implements BuilderAwareInterface {
   /**
    * Return filesystem directory configuration list iterator.
    *
-   * @return \Drubo\Filesystem\Directory\DirectoryConfigListInterface
+   * @return \Drubo\Config\Filesystem\Directory\DirectoryConfigListInterface
    *   The filesystem directory configuration list iterator.
    */
   protected function iterator() {

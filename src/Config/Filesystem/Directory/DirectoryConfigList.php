@@ -1,8 +1,8 @@
 <?php
 
-namespace Drubo\Filesystem\Directory;
+namespace Drubo\Config\Filesystem\Directory;
 
-use Drubo\Filesystem\FilesystemConfigList;
+use Drubo\Config\Filesystem\FilesystemConfigList;
 
 /**
  * Filesystem directory configuration list class for drubo.
@@ -25,7 +25,7 @@ class DirectoryConfigList extends FilesystemConfigList implements DirectoryConfi
    * {@inheritdoc}
    */
   protected function convertItemToObject(array &$data) {
-    $data = new DirectoryConfigListItem($data);
+    $data = new DirectoryConfigItem($data);
   }
 
 }

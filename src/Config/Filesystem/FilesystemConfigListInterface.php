@@ -1,6 +1,6 @@
 <?php
 
-namespace Drubo\Filesystem;
+namespace Drubo\Config\Filesystem;
 
 /**
  * Interface for drubo filesystem configuration list classes.
@@ -10,14 +10,14 @@ interface FilesystemConfigListInterface extends \Iterator, \Countable {
   /**
    * {@inheritdoc}
    *
-   * @return FilesystemConfigListItemInterface
+   * @return FilesystemConfigItemInterface
    */
   public function current();
 
   /**
    * {@inheritdoc}
    *
-   * @return FilesystemConfigListItemInterface
+   * @return FilesystemConfigItemInterface
    */
   public function next();
 
