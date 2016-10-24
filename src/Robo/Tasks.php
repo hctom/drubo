@@ -47,7 +47,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
    * @application-config-unaware
    */
   public function druboInit() {
-    /** @var \Robo\Collection\CollectionBuilder $collection */
+    /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
     $collectionBuilder = $this->collectionBuilder();
 
     $collectionBuilder
