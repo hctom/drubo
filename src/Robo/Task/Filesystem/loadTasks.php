@@ -13,4 +13,13 @@ trait loadTasks {
     return $this->task(PrepareDirectories::class);
   }
 
+  /**
+   * Prepare filesystem files.
+   *
+   * @return PrepareFiles
+   */
+  protected function taskPrepareFilesystemFiles() {
+    return $this->task(PrepareFiles::class);
+  }
+
 }
