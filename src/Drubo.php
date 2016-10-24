@@ -122,9 +122,7 @@ class Drubo {
     $config->setSchema($container->get('drubo.environment.config.schema'));
 
     // Set environment (if not 'none').
-    if ($environment !== EnvironmentInterface::NONE) {
-      $config->setEnvironment($environment);
-    }
+    $config->setEnvironment($environment == EnvironmentInterface::NONE ? NULL : $environment);
 
     // Load configuration.
     $config->load();
