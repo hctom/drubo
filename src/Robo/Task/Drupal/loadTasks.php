@@ -23,6 +23,15 @@ trait loadTasks {
   }
 
   /**
+   * Diff Drupal configuration .
+   *
+   * @return DiffConfig
+   */
+  protected function taskDiffDrupalConfig() {
+    return $this->task(DiffConfig::class);
+  }
+
+  /**
    * Generate one-time user login URL.
    *
    * @return UserLogin
