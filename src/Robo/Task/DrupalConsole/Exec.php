@@ -66,7 +66,23 @@ abstract class Exec extends EncapsulatedExec {
       $options['verbose'] = NULL;
     }
 
+    // URI.
+    if (($uri = $this->uri())) {
+      $options['uri=' . escapeshellarg($uri)] = NULL;
+    }
+
     return $options;
+  }
+
+  /**
+   * Return URI.
+   *
+   * @return string
+   *   The URI.
+   */
+  protected function uri() {
+    return $this->projectConfig
+      ->get('uri');
   }
 
   /**
