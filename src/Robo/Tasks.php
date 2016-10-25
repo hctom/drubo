@@ -31,17 +31,6 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
   }
 
   /**
-   * Dump application config values.
-   *
-   * @option string $format The output format
-   */
-  public function applicationConfig($options = ['format' => 'yaml']) {
-    return $this->getDrubo()
-      ->getApplicationConfig()
-      ->get();
-  }
-
-  /**
    * Compare environment configuration values.
    *
    * @param string $environmentTo An optional environment identifier for the
@@ -103,6 +92,17 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       ->toArray();
 
     return $environments;
+  }
+
+  /**
+   * Dump project configuration values.
+   *
+   * @option string $format The output format
+   */
+  public function projectConfig($options = ['format' => 'yaml']) {
+    return $this->getDrubo()
+      ->getApplicationConfig()
+      ->get();
   }
 
   /**
