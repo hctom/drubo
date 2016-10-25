@@ -16,8 +16,7 @@ abstract class Exec extends EncapsulatedExec {
    *   Whether to use/force ANSI output (--ansi) or not (--no-ansi).
    */
   protected function ansi() {
-    return $this->getDrubo()
-      ->getEnvironmentConfig()
+    return $this->environmentConfig()
       ->get('drupalconsole.ansi');
   }
 
@@ -25,8 +24,7 @@ abstract class Exec extends EncapsulatedExec {
    * {@inheritdoc}
    */
   protected function binary() {
-    return $this->getDrubo()
-      ->getEnvironmentConfig()
+    return $this->environmentConfig()
       ->get('drupalconsole.path');
   }
 
@@ -37,8 +35,7 @@ abstract class Exec extends EncapsulatedExec {
    *   Whether debug mode is enabled or not (--no-debug).
    */
   protected function debug() {
-    return $this->getDrubo()
-      ->getEnvironmentConfig()
+    return $this->environmentConfig()
       ->get('drupalconsole.debug');
   }
 
@@ -81,7 +78,7 @@ abstract class Exec extends EncapsulatedExec {
    *   The URI.
    */
   protected function uri() {
-    return $this->projectConfig
+    return $this->projectConfig()
       ->get('uri');
   }
 
@@ -92,8 +89,7 @@ abstract class Exec extends EncapsulatedExec {
    *   Whether to use verbose output (--verbose).
    */
   protected function verbose() {
-    return $this->getDrubo()
-      ->getEnvironmentConfig()
+    return $this->environmentConfig()
       ->get('drupalconsole.verbose');
   }
 
@@ -101,8 +97,7 @@ abstract class Exec extends EncapsulatedExec {
    * {@inheritdoc}
    */
   protected function workingDirectory() {
-    return $this->getDrubo()
-      ->getEnvironmentConfig()
+    return $this->environmentConfig()
       ->get('filesystem.directories.docroot.path');
   }
 

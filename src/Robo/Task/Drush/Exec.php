@@ -13,8 +13,7 @@ abstract class Exec extends EncapsulatedExec {
    * {@inheritdoc}
    */
   protected function binary() {
-    return $this->getDrubo()
-      ->getEnvironmentConfig()
+    return $this->environmentConfig()
       ->get('drush.path');
   }
 
@@ -22,8 +21,7 @@ abstract class Exec extends EncapsulatedExec {
    * {@inheritdoc}
    */
   protected function workingDirectory() {
-    return $this->getDrubo()
-      ->getEnvironmentConfig()
+    return $this->environmentConfig()
       ->get('filesystem.directories.docroot.path');
   }
 

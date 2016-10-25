@@ -20,4 +20,26 @@ abstract class BaseTask extends RoboBaseTask implements DruboAwareInterface {
 
   }
 
+  /**
+   * Return environment configuration service.
+   *
+   * @return \Drubo\Config\Environment\EnvironmentConfigInterface
+   *   The environment configuration service object.
+   */
+  protected function environmentConfig() {
+    return $this->getDrubo()
+      ->getEnvironmentConfig();
+  }
+
+  /**
+   * Return project configuration service.
+   *
+   * @return \Drubo\Config\Project\ProjectConfigInterface
+   *   The project configuration service object.
+   */
+  protected function projectConfig() {
+    return $this->getDrubo()
+      ->getProjectConfig();
+  }
+
 }

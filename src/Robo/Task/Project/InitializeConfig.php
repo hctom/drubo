@@ -20,13 +20,6 @@ class InitializeConfig extends BaseTask implements BuilderAwareInterface {
   use BuilderAwareTrait;
 
   /**
-   * Project configuration.
-   *
-   * @var \Drubo\Config\Project\ProjectConfig
-   */
-  protected $projectConfig;
-
-  /**
    * Input object.
    *
    * @var \Symfony\Component\Console\Input\InputInterface
@@ -51,9 +44,6 @@ class InitializeConfig extends BaseTask implements BuilderAwareInterface {
    * Constructor.
    */
   public function __construct() {
-    $this->projectConfig = $this->getDrubo()
-      ->getProjectConfig();
-
     $this->input = $this->getDrubo()
       ->getInput();
 
@@ -70,7 +60,7 @@ class InitializeConfig extends BaseTask implements BuilderAwareInterface {
    *   The environment identifier.
    */
   protected function environment() {
-    $oldEnvironment = $this->projectConfig->has('environment') ? $this->projectConfig->get('environment') : NULL;
+    $oldEnvironment = $this->projectConfig()->has('environment') ? $this->projectConfig()->get('environment') : NULL;
 
     $environmentList = $this->getDrubo()
       ->getEnvironmentList()
@@ -125,7 +115,7 @@ class InitializeConfig extends BaseTask implements BuilderAwareInterface {
    *   The URI of the Drupal project.
    */
   protected function uri() {
-    $oldUri = $this->projectConfig->has('uri') ? $this->projectConfig->get('uri') : NULL;
+    $oldUri = $this->projectConfig()->has('uri') ? $this->projectConfig()->get('uri') : NULL;
 
     $autoCompleterValues = [
       'http://',
