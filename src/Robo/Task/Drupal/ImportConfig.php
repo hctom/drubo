@@ -4,6 +4,7 @@ namespace Drubo\Robo\Task\Drupal;
 
 use Drubo\Robo\Task\DrupalConsole\ExecChain;
 use Robo\Exception\TaskException;
+use Robo\Result;
 
 /**
  * Robo task: Import configuration to current Drupal site.
@@ -71,7 +72,35 @@ class ImportConfig extends ExecChain {
   public function run() {
     $this->printTaskInfo('Importing Drupal configuration');
 
-    return parent::run();
+    /** @var Result $result */
+    $result = parent::run();
+
+    if (!$result->wasSuccessful()) {
+      return $result;
+    }
+
+    // Generate diff.
+    ob_start();
+    $result = $this->collectionBuilder()
+      ->taskDiffDrupalConfig()
+      ->run();
+    ob_end_clean();
+
+    if (!$result->wasSuccessful()) {
+      return $result;
+    }
+
+    // All config has been imported?
+    if (!preg_match('/' . preg_quote('There are no changes.') . '/i', $result->getOutputData())) {
+      return $this->collectionBuilder()
+        // Rebuild Drupal caches.
+        ->taskRebuildDrupalCache()
+        // Import Drupal configuration again.
+        ->taskImportDrupalConfig()
+        ->run();
+    }
+
+    return $result;
   }
 
 }
