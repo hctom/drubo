@@ -42,22 +42,6 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
   }
 
   /**
-   * Initialize application.
-   *
-   * @application-config-unaware
-   */
-  public function applicationInit() {
-    /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
-    $collectionBuilder = $this->collectionBuilder();
-
-    $collectionBuilder
-      // Initialize Drubo.
-      ->addTask($this->taskInitializDrubo());
-
-    return $collectionBuilder->run();
-  }
-
-  /**
    * Compare environment configuration values.
    *
    * @param string $environmentTo An optional environment identifier for the
@@ -119,6 +103,22 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       ->toArray();
 
     return $environments;
+  }
+
+  /**
+   * Initialize project.
+   *
+   * @application-config-unaware
+   */
+  public function projectInit() {
+    /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
+    $collectionBuilder = $this->collectionBuilder();
+
+    $collectionBuilder
+      // Initialize Drubo.
+      ->addTask($this->taskInitializDrubo());
+
+    return $collectionBuilder->run();
   }
 
   /**
