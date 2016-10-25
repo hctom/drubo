@@ -78,6 +78,6 @@ $ vendor/bin/robo list
 #### ```site:update```
 
 [composer]: https://getcomposer.org/
-[config]: https://github.com/hctom/drubo/blob/master/config.default.yml
+[config]: config.default.yml
 [drupal]: https://drupal.org/
 [robo]: http://robo.li/
