@@ -5,7 +5,7 @@ namespace Drubo\Robo\Task\Project;
 trait loadTasks {
 
   /**
-   * Initialize Drubo.
+   * Initialize drubo.
    *
    * @return InitializeConfig
    */
