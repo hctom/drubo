@@ -9,6 +9,7 @@ use Symfony\Component\Console\Helper\SymfonyQuestionHelper;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
+use Symfony\Component\Validator\Constraints\Url;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -136,7 +137,19 @@ class InitializeConfig extends BaseTask implements BuilderAwareInterface {
     }
 
     $question = (new Question('Enter URI', $oldUri))
-      ->setAutocompleterValues($autoCompleterValues);
+      ->setAutocompleterValues($autoCompleterValues)
+      ->setValidator(function($v) {
+        $violations = $this->getDrubo()
+          ->getValidator()
+          ->validate($v, new Url());
+
+        /** @var \Symfony\Component\Validator\ConstraintViolationInterface $violation */
+        foreach ($violations as $violation) {
+          throw new \RuntimeException($violation->getMessage());
+        }
+
+        return $v;
+      });
 
     return $this->questionHelper
       ->ask($this->input, $this->output, $question);

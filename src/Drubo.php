@@ -15,6 +15,7 @@ use League\Container\ContainerInterface;
 use Robo\Robo;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Validator\Validation;
 
 /**
  * Helper class for drubo.
@@ -184,6 +185,17 @@ class Drubo {
   }
 
   /**
+   * Return validator service.
+   *
+   * @return \Symfony\Component\Validator\Validator\ValidatorInterface
+   *   The validator service object.
+   */
+  public function getValidator() {
+    return $this->getContainer()
+      ->get('drubo.validator');
+  }
+
+  /**
    * Return current working directory.
    *
    * @return string
@@ -218,6 +230,9 @@ class Drubo {
 
     // Register project configuration schema service.
     $container->add('drubo.project.config.schema', new ProjectConfigSchema());
+
+    // Register validator service.
+    $container->add('drubo.validator', Validation::createValidator());
 
     return $this;
   }
