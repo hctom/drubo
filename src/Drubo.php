@@ -29,11 +29,11 @@ class Drubo {
   protected static $instance;
 
   /**
-   * Whether drubo has been initialized already.
+   * Whether drubo has been set up already.
    *
    * @var bool
    */
-  protected $initialized;
+  protected $setup;
 
   /**
    * Return path converted to absolute path (if necessary).
@@ -192,34 +192,6 @@ class Drubo {
   public function getWorkingDirectory() {
     return getcwd();
   }
-
-  /**
-   * Initialize drubo.
-   *
-   * @return static
-   *
-   * @throws \LogicException
-   */
-  public function initialize() {
-    // Has already been initialized?
-    if ($this->initialized) {
-      throw new \LogicException('drubo has already been initialized');
-    }
-
-    $this
-      // Register default services.
-      ->registerDefaultServices($this->getContainer())
-      // Register event subscriber for configuration.
-      ->registerEventSubscriber(new ConfigSubscriber())
-      // Register event subscriber for console commands.
-      ->registerEventSubscriber(new CommandSubscriber());
-
-    // Set 'initialized' flag.
-    $this->initialized = TRUE;
-
-    return $this;
-  }
-
   /**
    * Register default services.
    *
@@ -265,6 +237,33 @@ class Drubo {
 
     // Register event subscriber.
     $eventDispatcher->addSubscriber($eventSubscriber);
+
+    return $this;
+  }
+
+  /**
+   * Set up drubo.
+   *
+   * @return static
+   *
+   * @throws \LogicException
+   */
+  public function setup() {
+    // Has already been set up?
+    if ($this->setup) {
+      throw new \LogicException('drubo has already been set up');
+    }
+
+    $this
+      // Register default services.
+      ->registerDefaultServices($this->getContainer())
+      // Register event subscriber for configuration.
+      ->registerEventSubscriber(new ConfigSubscriber())
+      // Register event subscriber for console commands.
+      ->registerEventSubscriber(new CommandSubscriber());
+
+    // Set 'setup' flag.
+    $this->setup = TRUE;
 
     return $this;
   }

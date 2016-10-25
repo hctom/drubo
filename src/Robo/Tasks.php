@@ -26,8 +26,8 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
    */
   public function __construct() {
     $this->getDrubo()
-      // Initialize drubo.
-      ->initialize();
+      // Set up drubo.
+      ->setup();
   }
 
   /**
