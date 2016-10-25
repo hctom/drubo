@@ -67,6 +67,19 @@ class ImportConfig extends ExecChain {
   }
 
   /**
+   * Configuration has no changes to import?
+   *
+   * @param \Robo\Result $result
+   *   The result object to check.
+   *
+   * @return bool
+   *   Whether the configuration has no changes to import.
+   */
+  protected function hasNoChanges(Result $result) {
+    return preg_match('/' . preg_quote('There are no changes.') . '/i', $result->getOutputData()) ? TRUE : FALSE;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function run() {
@@ -75,7 +88,7 @@ class ImportConfig extends ExecChain {
     /** @var Result $result */
     $result = parent::run();
 
-    if (!$result->wasSuccessful()) {
+    if (!$result->wasSuccessful() || $this->hasNoChanges($result)) {
       return $result;
     }
 
@@ -86,21 +99,17 @@ class ImportConfig extends ExecChain {
       ->run();
     ob_end_clean();
 
-    if (!$result->wasSuccessful()) {
+    // All config has been imported?
+    if (!$result->wasSuccessful() || $this->hasNoChanges($result)) {
       return $result;
     }
 
-    // All config has been imported?
-    if (!preg_match('/' . preg_quote('There are no changes.') . '/i', $result->getOutputData())) {
-      return $this->collectionBuilder()
-        // Rebuild Drupal caches.
-        ->taskRebuildDrupalCache()
-        // Import Drupal configuration again.
-        ->taskImportDrupalConfig()
-        ->run();
-    }
-
-    return $result;
+    return $this->collectionBuilder()
+      // Rebuild Drupal caches.
+      ->taskRebuildDrupalCache()
+      // Import Drupal configuration again.
+      ->taskImportDrupalConfig()
+      ->run();
   }
 
 }
