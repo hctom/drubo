@@ -8,7 +8,6 @@ use Drubo\DruboAwareTrait;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Validator\Constraints\Url;
-use Symfony\Component\Validator\Constraints\UrlValidator;
 
 /**
  * Schema class for drubo project configuration files.
@@ -43,9 +42,14 @@ class ProjectConfigSchema extends ConfigSchema implements ConfigurationInterface
           ->cannotBeEmpty()
           ->validate()
             ->always(function ($v) {
-              // TODO Url validation
-//              $x = new UrlValidator();
-//              $x->validate($v, new Url());
+              $violations = $this->getDrubo()
+                ->getValidator()
+                ->validate($v, new Url());
+
+              /** @var \Symfony\Component\Validator\ConstraintViolationInterface $violation */
+              foreach ($violations as $violation) {
+                throw new \Exception($violation->getMessage());
+              }
 
               return $v;
             })
