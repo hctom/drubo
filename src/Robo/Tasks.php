@@ -17,7 +17,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
   use DruboAwareTrait;
   use \Drubo\Robo\Task\Base\loadTasks;
   use \Drubo\Robo\Task\Database\loadTasks;
-  use \Drubo\Robo\Task\Application\loadTasks;
+  use \Drubo\Robo\Task\Project\loadTasks;
   use \Drubo\Robo\Task\Drupal\loadTasks;
   use \Drubo\Robo\Task\Filesystem\loadTasks;
 
@@ -34,7 +34,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
    * Compare environment configuration values.
    *
    * @param string $environmentTo An optional environment identifier for the
-   *   'to' environment (defaults to environment configured in application
+   *   'to' environment (defaults to environment configured in project
    *   configuration)
    * @param string $environmentFrom An optional environment identifier for the
    *   'from' environment (defaults to no environment, to get default values)
@@ -83,7 +83,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
    *
    * @option string $format The output format
    *
-   * @application-config-unaware
+   * @project-config-unaware
    */
   public function environmentList($options = ['format' => 'list']) {
     // Load available environment identifiers.
@@ -102,7 +102,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
   public function projectConfig($options = ['format' => 'yaml']) {
     // Load configuration.
     $config = $this->getDrubo()
-      ->getApplicationConfig()
+      ->getProjectConfig()
       ->get();
 
     return $config;
@@ -111,15 +111,15 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
   /**
    * Initialize project.
    *
-   * @application-config-unaware
+   * @project-config-unaware
    */
   public function projectInit() {
     /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
     $collectionBuilder = $this->collectionBuilder();
 
     $collectionBuilder
-      // Initialize Drubo.
-      ->addTask($this->taskInitializDrubo());
+      // Initialize project configuration.
+      ->addTask($this->taskInitializeProjectConfig());
 
     return $collectionBuilder->run();
   }

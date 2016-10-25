@@ -2,10 +2,10 @@
 
 namespace Drubo;
 
-use Drubo\Config\Application\ApplicationConfig;
-use Drubo\Config\Application\ApplicationConfigSchema;
 use Drubo\Config\Environment\EnvironmentConfig;
 use Drubo\Config\Environment\EnvironmentConfigSchema;
+use Drubo\Config\Project\ProjectConfig;
+use Drubo\Config\Project\ProjectConfigSchema;
 use Drubo\Environment\Environment;
 use Drubo\Environment\EnvironmentInterface;
 use Drubo\Environment\EnvironmentList;
@@ -55,26 +55,6 @@ class Drubo {
   }
 
   /**
-   * Return application configuration service.
-   *
-   * @return \Drubo\Config\Application\ApplicationConfigInterface
-   *   The application configuration service object.
-   */
-  public function getApplicationConfig() {
-    $container = $this->getContainer();
-
-    /** @var \Drubo\Config\Application\ApplicationConfigInterface $config */
-    $config = $container->get('drubo.application.config');
-
-    // Initialize configuration object.
-    $config
-      ->setSchema($container->get('drubo.application.config.schema'))
-      ->load();
-
-    return $config;
-  }
-
-  /**
    * Return dependency-injection container.
    *
    * @return \League\Container\ContainerInterface|null
@@ -101,7 +81,7 @@ class Drubo {
    *
    * @param string|null $environment
    *   An optional environment identifier (defaults to current environment from
-   *   application configuration).
+   *   project configuration).
    * @return \Drubo\Config\Environment\EnvironmentConfigInterface
    *   The configuration service object with data for the current environment
    *   (if not called with specific environment identifier).
@@ -171,6 +151,26 @@ class Drubo {
   }
 
   /**
+   * Return project configuration service.
+   *
+   * @return \Drubo\Config\Project\ProjectConfigInterface
+   *   The project configuration service object.
+   */
+  public function getProjectConfig() {
+    $container = $this->getContainer();
+
+    /** @var \Drubo\Config\Project\ProjectConfigInterface $config */
+    $config = $container->get('drubo.project.config');
+
+    // Initialize configuration object.
+    $config
+      ->setSchema($container->get('drubo.project.config.schema'))
+      ->load();
+
+    return $config;
+  }
+
+  /**
    * Return singleton instance.
    *
    * @return \Drubo\Drubo
@@ -201,12 +201,6 @@ class Drubo {
    * @return static
    */
   protected function registerDefaultServices(ContainerInterface $container) {
-    // Register application configuration service.
-    $container->add('drubo.application.config', new ApplicationConfig());
-
-    // Register application configuration schema service.
-    $container->add('drubo.application.config.schema', new ApplicationConfigSchema());
-
     // Register environment service.
     $container->add('drubo.environment', new Environment());
 
@@ -218,6 +212,12 @@ class Drubo {
 
     // Register environment list service.
     $container->add('drubo.environment.list', new EnvironmentList());
+
+    // Register project configuration service.
+    $container->add('drubo.project.config', new ProjectConfig());
+
+    // Register project configuration schema service.
+    $container->add('drubo.project.config.schema', new ProjectConfigSchema());
 
     return $this;
   }

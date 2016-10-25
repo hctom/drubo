@@ -18,15 +18,15 @@ class Environment implements EnvironmentInterface, DruboAwareInterface  {
    * {@inheritdoc}
    */
   public function get() {
-    $applicationConfig = $this->getDrubo()
-      ->getApplicationConfig();
+    $projectConfig = $this->getDrubo()
+      ->getProjectConfig();
 
-    if (!$applicationConfig->has('environment')) {
+    if (!$projectConfig->has('environment')) {
       return NULL;
     }
 
     // Environment is set?
-    if (!($environment = $applicationConfig->get('environment'))) {
+    if (!($environment = $projectConfig->get('environment'))) {
       throw new UndefinedEnvironmentException('Undefined environment');
     }
 

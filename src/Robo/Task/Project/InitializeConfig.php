@@ -1,6 +1,6 @@
 <?php
 
-namespace Drubo\Robo\Task\Application;
+namespace Drubo\Robo\Task\Project;
 
 use Drubo\Robo\Task\BaseTask;
 use Robo\Common\BuilderAwareTrait;
@@ -9,23 +9,21 @@ use Symfony\Component\Console\Helper\SymfonyQuestionHelper;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
-use Symfony\Component\Validator\Constraints\Url;
-use Symfony\Component\Validator\Constraints\UrlValidator;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Robo task: Initialize Drubo.
+ * Robo task: Initialize project configuration.
  */
-class Initialize extends BaseTask implements BuilderAwareInterface {
+class InitializeConfig extends BaseTask implements BuilderAwareInterface {
 
   use BuilderAwareTrait;
 
   /**
-   * Application configuration.
+   * Project configuration.
    *
-   * @var \Drubo\Config\Application\ApplicationConfig
+   * @var \Drubo\Config\Project\ProjectConfig
    */
-  protected $applicationConfig;
+  protected $projectConfig;
 
   /**
    * Input object.
@@ -52,8 +50,8 @@ class Initialize extends BaseTask implements BuilderAwareInterface {
    * Constructor.
    */
   public function __construct() {
-    $this->applicationConfig = $this->getDrubo()
-      ->getApplicationConfig();
+    $this->projectConfig = $this->getDrubo()
+      ->getProjectConfig();
 
     $this->input = $this->getDrubo()
       ->getInput();
@@ -71,7 +69,7 @@ class Initialize extends BaseTask implements BuilderAwareInterface {
    *   The environment identifier.
    */
   protected function environment() {
-    $oldEnvironment = $this->applicationConfig->has('environment') ? $this->applicationConfig->get('environment') : NULL;
+    $oldEnvironment = $this->projectConfig->has('environment') ? $this->projectConfig->get('environment') : NULL;
 
     $environmentList = $this->getDrubo()
       ->getEnvironmentList()
@@ -126,7 +124,7 @@ class Initialize extends BaseTask implements BuilderAwareInterface {
    *   The URI of the Drupal project.
    */
   protected function uri() {
-    $oldUri = $this->applicationConfig->has('uri') ? $this->applicationConfig->get('uri') : NULL;
+    $oldUri = $this->projectConfig->has('uri') ? $this->projectConfig->get('uri') : NULL;
 
     $autoCompleterValues = [
       'http://',
@@ -139,18 +137,6 @@ class Initialize extends BaseTask implements BuilderAwareInterface {
 
     $question = (new Question('Enter URI', $oldUri))
       ->setAutocompleterValues($autoCompleterValues);
-//    ->setValidator(new Url());
-
-//      ->setValidator(new UrlValidator());
-//        // TODO Validate URI.
-//      ->setValidator(function($v) {
-//        if (trim($v) === '') {
-//          throw new \Exception('URI is required');
-//        }
-//
-//
-//        return $v;
-//      });
 
     return $this->questionHelper
       ->ask($this->input, $this->output, $question);

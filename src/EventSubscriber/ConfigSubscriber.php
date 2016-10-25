@@ -23,20 +23,20 @@ class ConfigSubscriber implements DruboAwareInterface, EventSubscriberInterface 
   public static function getSubscribedEvents() {
     return [
       ConsoleEvents::COMMAND => [
-        ['applicationConfigExists', 100],
+        ['projectConfigExists', 100],
       ],
     ];
   }
 
   /**
-   * Check whether application configuration exists.
+   * Check whether project configuration exists.
    *
    * @param \Symfony\Component\Console\Event\ConsoleCommandEvent $event
    *   An event object.
    *
    * @throws \Drubo\Exception\ConfigNotFoundException
    */
-  public function applicationConfigExists(ConsoleCommandEvent $event) {
+  public function projectConfigExists(ConsoleCommandEvent $event) {
     $command = $event->getCommand();
 
     // Is default console command?
@@ -49,18 +49,18 @@ class ConfigSubscriber implements DruboAwareInterface, EventSubscriberInterface 
       /** @var \Consolidation\AnnotatedCommand\AnnotationData $annotationData */
       $annotationData = $command->getAnnotationData();
 
-      // Has '@application-config-unaware' annotation?
-      if ($annotationData->has('application-config-unaware')) {
+      // Has '@project-config-unaware' annotation?
+      if ($annotationData->has('project-config-unaware')) {
         return;
       }
     }
 
-    $applicationConfig = $this->getDrubo()
-      ->getApplicationConfig();
+    $projectConfig = $this->getDrubo()
+      ->getProjectConfig();
 
-    // Application configuration exists?
-    if (!$applicationConfig->exists()) {
-      throw new ConfigNotFoundException("No application configuration found - Run 'application:init' first");
+    // Project configuration exists?
+    if (!$projectConfig->exists()) {
+      throw new ConfigNotFoundException("No project configuration found - Run 'project:init' first");
     }
   }
 

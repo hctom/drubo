@@ -1,6 +1,6 @@
 <?php
 
-namespace Drubo\Config\Application;
+namespace Drubo\Config\Project;
 
 use Drubo\Config\Config;
 use Drubo\Config\ConfigLoader;
@@ -10,9 +10,9 @@ use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 
 /**
- * Initialization configuration for drubo.
+ * Project configuration for drubo.
  */
-class ApplicationConfig extends Config implements ApplicationConfigInterface, DruboAwareInterface  {
+class ProjectConfig extends Config implements ProjectConfigInterface, DruboAwareInterface  {
 
   use DruboAwareTrait;
 
@@ -27,7 +27,7 @@ class ApplicationConfig extends Config implements ApplicationConfigInterface, Dr
    * Return configuration file.
    *
    * @return string
-   *   The absolute file path to the application configuration file.
+   *   The absolute file path to the project configuration file.
    */
   protected function file() {
     return $this->workingDirectory() . DIRECTORY_SEPARATOR . '.drubo.yml';
