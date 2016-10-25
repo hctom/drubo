@@ -55,7 +55,7 @@ class ImportConfig extends ExecChain {
   /**
    * Set configuration directory.
    *
-   * @param string $cache
+   * @param string $configDirectory
    *   The path to the directory containing all configuration files to import.
    *
    * @return static
