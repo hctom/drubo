@@ -49,7 +49,7 @@ $ vendor/bin/robo list
 ```
 ## Documentation
 
-* [Configuration][toc.configration]
+* [Configuration][toc.configuration]
 * [Services][toc.services]
 * [Commands][toc.commands]
 * [Helpers][toc.helpers]
@@ -58,6 +58,6 @@ $ vendor/bin/robo list
 [drupal]: https://drupal.org/
 [robo]: http://robo.li/
 [toc.commands]: docs/commands.md
-[toc.configration]: docs/configration.md
+[toc.configuration]: docs/configuration.md
 [toc.helpers]: docs/helpers.md
 [toc.services]: docs/services.md
