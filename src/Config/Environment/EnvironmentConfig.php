@@ -45,7 +45,7 @@ class EnvironmentConfig extends Config implements EnvironmentConfigInterface, Dr
     $paths = [];
 
     // Path candidate for custom global configuration.
-    $paths[] = rtrim($workingDirectory, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . '.drubo';
+    $paths[] = rtrim($workingDirectory, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . '.drubo/config';
 
     // Path candidate for custom environment-specific configuration.
     if (!empty($this->environment)) {
