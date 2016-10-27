@@ -141,7 +141,6 @@ class EnvironmentConfigSchema extends ConfigSchema {
         ->end()
         ->arrayNode('files')
           ->useAttributeAsKey('name')
-          ->requiresAtLeastOneElement()
           ->prototype('array')
             ->validate()
               ->always($this->validateNodeFilesystemItem())

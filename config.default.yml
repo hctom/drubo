@@ -122,8 +122,4 @@ filesystem:
   #   - path: (required) The path to the file to process (either absolute or
   #     relative to the current working directory).
   #   - skip: Whether to skip processing of the file (defaults to false).
-  files:
-    # Site settings file.
-    settings:
-      path: 'docroot/sites/default/settings.local.php'
-      symlink: '.drupal/settings/default.inc'
+  files: []
