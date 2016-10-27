@@ -19,33 +19,34 @@ name).
 
 ---
 
-#### ```environment:compare```
+#### environment:compare
 
 Compare environment-specific configuration values.
 
 ---
 
-#### ```environment:config```
+#### environment:config
 
 Dump all configuration values for the currently used environment.
 
 ---
 
-#### ```environment:list```
+#### environment:list
 
 List all available environment identifiers.
 
 ---
 
-#### ```project:config```
+#### project:config
 
 Dump all project configuration values.
 
 ---
 
-#### ```project:init```
+#### project:init
 
-Initialize project and set up its configuration.
+Initialize project and set up its configuration. You can also use this command 
+to change any of the project configuration later.
 
 ---
 

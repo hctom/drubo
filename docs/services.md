@@ -5,7 +5,7 @@ following services available.
 
 ---
 
-#### ```drubo.environment```
+#### drubo.environment
 
 [```\Drubo\Environment\EnvironmentInterface```][code.EnvironmentInterface]
 
@@ -13,7 +13,7 @@ Returns the currently active environment object.
 
 ---
 
-#### ```drubo.environment.config```
+#### drubo.environment.config
 
 [```\Drubo\Config\Environment\EnvironmentConfigInterface```][code.EnvironmentConfigInterface]
 
@@ -21,7 +21,7 @@ Returns the configuration object for the currently active environment.
 
 ---
 
-#### ```drubo.environment.config.schema```
+#### drubo.environment.config.schema
 
 [```\Drubo\Config\Environment\EnvironmentConfigSchema```][code.EnvironmentConfigSchema]
 
@@ -29,7 +29,7 @@ Returns the schema object for environment-specific configurations.
 
 ---
 
-#### ```drubo.environment.list```
+#### drubo.environment.list
 
 [```\Drubo\Environment\EnvironmentListInterface```][code.EnvironmentListInterface]
 
@@ -39,7 +39,7 @@ environment identifiers for your poject.
 
 ---
 
-#### ```drubo.project.config```
+#### drubo.project.config
 
 [```\Drubo\Config\Project\ProjectConfigInterface```][code.ProjectConfigInterface]
 
@@ -47,7 +47,7 @@ Returns the project configuration object.
 
 ---
 
-#### ```drubo.project.config.schema```
+#### drubo.project.config.schema
 
 [```\Drubo\Config\Project\ProjectConfigSchema```][code.ProjectConfigSchema]
 
@@ -55,7 +55,7 @@ Returns the schema object for project configurations.
 
 ---
 
-#### ```drubo.validator```
+#### drubo.validator
 
 ```\Symfony\Component\Validator\ValidatorInterface```
 

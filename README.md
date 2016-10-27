@@ -36,8 +36,6 @@ Run the following command to initialize your project:
 $ vendor/bin/robo project:init
 ```
 
-You can also use this command to change any of the project configuration later.
-
 #### List available commands
 
 From now on you may run ```vendor/bin/robo``` in your project directory to 
