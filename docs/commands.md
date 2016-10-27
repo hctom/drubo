@@ -13,6 +13,10 @@ $ vendor/bin/robo list
 
 ## Built-in commands
 
+**NOTE:** Run ```vendor/bin/robo help {COMMAND-NAME}``` to get more information 
+about a specific command (replace ```{COMMAND-NAME}```with the actual command 
+name).
+
 #### ```environment:compare```
 
 Compare environment-specific configuration values.
@@ -33,9 +37,6 @@ Dump all project configuration values.
 
 Initialize project and set up its configuration.
 
-**NOTE:** Run ```vendor/bin/robo help {COMMAND-NAME}``` to get more information 
-about a specific command (replace ```{COMMAND-NAME}```with the actual command 
-name).
 
 ## Command configration
 

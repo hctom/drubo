@@ -40,7 +40,7 @@ You can also use this command to change any of the project configuration later.
 
 #### List available commands
 
-From now on you may run ```vendor/bin/robo``` in your working directory to 
+From now on you may run ```vendor/bin/robo``` in your project directory to 
 execute [Robo][robo]-based **drubo** tasks. Use the following command to 
 retrieve a list of all available commands:
 
