@@ -49,4 +49,4 @@ Replace ```{ENVIRONMENT}``` with the actual environment identifier (e.g.
 ```develop```, ```staging``` or ```production```).
 
 [command.project.init]: commands.md#projectinit
-[config]: config.default.yml
+[config]: ../config.default.yml
