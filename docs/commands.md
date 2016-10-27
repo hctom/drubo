@@ -17,26 +17,37 @@ $ vendor/bin/robo list
 about a specific command (replace ```{COMMAND-NAME}```with the actual command 
 name).
 
+---
+
 #### ```environment:compare```
 
 Compare environment-specific configuration values.
+
+---
 
 #### ```environment:config```
 
 Dump all configuration values for the currently used environment.
 
+---
+
 #### ```environment:list```
 
 List all available environment identifiers.
+
+---
 
 #### ```project:config```
 
 Dump all project configuration values.
 
+---
+
 #### ```project:init```
 
 Initialize project and set up its configuration.
 
+---
 
 ## Command configration
 

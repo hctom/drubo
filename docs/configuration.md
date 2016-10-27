@@ -16,6 +16,8 @@ other values that may change between different developers, hosting locations
 etc. - You should run [ ```project:init``` ][command.project.init] everywhere
 instead to setup these specific configuration values.
 
+---
+
 ## Environment configuration
 
 Environment-specific configuration values are loaded based on the configured

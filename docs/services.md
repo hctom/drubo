@@ -3,6 +3,8 @@
 In addition to all services registered by [Robo][robo], **drubo** makes the 
 following services available.
 
+---
+
 #### ```drubo.environment```
 
 [```\Drubo\Environment\EnvironmentInterface```][code.EnvironmentInterface]
