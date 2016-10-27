@@ -18,7 +18,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Validator\Validation;
 
 /**
- * Helper class for drubo.
+ * drubo application class.
  */
 class Drubo {
 
