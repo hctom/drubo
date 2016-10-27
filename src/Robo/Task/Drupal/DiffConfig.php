@@ -18,6 +18,13 @@ class DiffConfig extends Exec {
   protected $configDirectory;
 
   /**
+   * Whether to see the changes in reverse.
+   *
+   * @var bool
+   */
+  protected $reverse;
+
+  /**
    * Constructor.
    */
   public function __construct() {
@@ -25,6 +32,8 @@ class DiffConfig extends Exec {
 
     $this->configDirectory = $this->environmentConfig()
       ->get('filesystem.directories.config.path');
+
+    $this->reverse = FALSE;
   }
 
   /**
@@ -58,6 +67,33 @@ class DiffConfig extends Exec {
    */
   public function configDirectory($configDirectory) {
     $this->configDirectory = $configDirectory;
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function options() {
+    $options = parent::options();
+
+    if (!empty($this->reverse)) {
+      $options['reverse'] = NULL;
+    }
+
+    return $options;
+  }
+
+  /**
+   * Set whether to see the changes in reverse.
+   *
+   * @param bool $reverse
+   *   Whether to see the changes in reverse.
+   *
+   * @return static
+   */
+  public function reverse($reverse) {
+    $this->reverse = $reverse;
 
     return $this;
   }
