@@ -88,32 +88,27 @@ class Drubo {
    *   (if not called with specific environment identifier).
    */
   public function getEnvironmentConfig($environment = NULL) {
-    static $cache = [];
-    $cid = implode(':', [$environment]);
+    $container = $this->getContainer();
 
-    if (!isset($cache[$cid])) {
-      $container = $this->getContainer();
-
-      // Load current environment (if not specified).
-      if (empty($environment)) {
-        $environment = $this->getEnvironment()
-          ->get();
-      }
-
-      /** @var \Drubo\Config\Environment\EnvironmentConfigInterface $config */
-      $config = $container->get('drubo.environment.config');
-
-      // Initialize configuration object.
-      $config->setSchema($container->get('drubo.environment.config.schema'));
-
-      // Set environment (if not 'none').
-      $config->setEnvironment($environment == EnvironmentInterface::NONE ? NULL : $environment);
-
-      // Load configuration.
-      $cache[$cid] = $config->load();
+    // Load current environment (if not specified).
+    if (empty($environment)) {
+      $environment = $this->getEnvironment()
+        ->get();
     }
 
-    return $cache[$cid];
+    /** @var \Drubo\Config\Environment\EnvironmentConfigInterface $config */
+    $config = $container->get('drubo.environment.config');
+
+    // Initialize configuration object.
+    $config->setSchema($container->get('drubo.environment.config.schema'));
+
+    // Set environment (if not 'none').
+    $config->setEnvironment($environment == EnvironmentInterface::NONE ? NULL : $environment);
+
+    // Load configuration.
+    $config->load();
+
+    return $config;
   }
 
   /**
@@ -164,21 +159,17 @@ class Drubo {
    *   The project configuration service object.
    */
   public function getProjectConfig() {
-    static $cache = NULL;
+    $container = $this->getContainer();
 
-    if (!isset($cache)) {
-      $container = $this->getContainer();
+    /** @var \Drubo\Config\Project\ProjectConfigInterface $config */
+    $config = $container->get('drubo.project.config');
 
-      /** @var \Drubo\Config\Project\ProjectConfigInterface $config */
-      $config = $container->get('drubo.project.config');
+    // Initialize configuration object.
+    $config
+      ->setSchema($container->get('drubo.project.config.schema'))
+      ->load();
 
-      // Initialize configuration object.
-      $cache = $config
-        ->setSchema($container->get('drubo.project.config.schema'))
-        ->load();
-    }
-
-    return $cache;
+    return $config;
   }
 
   /**
