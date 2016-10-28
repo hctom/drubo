@@ -159,7 +159,7 @@ class EnvironmentConfigSchema extends ConfigSchema {
           ->prototype('array')
             ->canBeDisabled()
             ->validate()
-              ->always($this->validateNodeFilesystemItem())
+              ->always($this->validateNodeFilesystemItemClosure())
             ->end()
             ->children()
               ->booleanNode('create')->defaultFalse()->end()
@@ -177,7 +177,7 @@ class EnvironmentConfigSchema extends ConfigSchema {
           ->prototype('array')
             ->canBeDisabled()
             ->validate()
-              ->always($this->validateNodeFilesystemItem())
+              ->always($this->validateNodeFilesystemItemClosure())
               ->always($this->sortChildrenByKeyClosure())
             ->end()
             ->children()
@@ -195,8 +195,9 @@ class EnvironmentConfigSchema extends ConfigSchema {
    * Validate 'filesystem.directories.*' or 'filesystem.files.*' item.
    *
    * @return \Closure
+   *   The filesystem item validation closure.
    */
-  protected function validateNodeFilesystemItem() {
+  protected function validateNodeFilesystemItemClosure() {
     return function($v) {
       if (!empty($v['create']) && !empty($v['symlink'])) {
         throw new \Exception("Only one of 'create' and 'symlink' is allowed at once");
