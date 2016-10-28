@@ -30,4 +30,23 @@ abstract class ConfigSchema implements ConfigurationInterface {
     return $treebuilder->root($name, $type, $builder);
   }
 
+  /**
+   * Sort children by key.
+   *
+   * @param mixed $v
+   *   The config value.
+   *
+   * @return \Closure
+   *   The sorting closure.
+   */
+  protected function sortChildrenByKeyClosure() {
+    return function($v) {
+      if (is_array($v)) {
+        ksort($v);
+      }
+
+      return $v;
+    };
+  }
+
 }

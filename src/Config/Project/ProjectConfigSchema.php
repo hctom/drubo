@@ -28,6 +28,9 @@ class ProjectConfigSchema extends ConfigSchema implements ConfigurationInterface
       ->toArray();
 
     $rootNode
+      ->validate()
+        ->always($this->sortChildrenByKeyClosure())
+      ->end()
       ->children()
         ->scalarNode('environment')
           ->isRequired()
