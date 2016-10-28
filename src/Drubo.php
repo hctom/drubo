@@ -118,7 +118,8 @@ class Drubo {
    *   The environment list service object.
    */
   public function getEnvironmentList() {
-    return $this->getContainer()->get('drubo.environment.list');
+    return $this->getContainer()
+      ->get('drubo.environment.list');
   }
 
   /**
