@@ -57,9 +57,10 @@ Returns the schema object for project configurations.
 
 #### drubo.validator
 
-```\Symfony\Component\Validator\ValidatorInterface```
+[```\Symfony\Component\Validator\ValidatorInterface```][code.validatorinterace] 
 
-Returns a [Symfony][symfony] validator object that may be used to perform data validations.
+Returns a [Symfony][symfony] validator object that may be used to perform data 
+validations.
 
 [code.environmentconfiginterface]: ../src/Config/Environment/EnvironmentConfigInterface.php
 [code.environmentconfigschema]: ../src/Config/Environment/EnvironmentConfigSchema.php
@@ -67,5 +68,6 @@ Returns a [Symfony][symfony] validator object that may be used to perform data v
 [code.environmentlistinterface]: ../src/Environment/EnvironmentListInterface.php
 [code.projectconfiginterface]: ../src/ConfigProject/ProjectConfigInterface.php
 [code.projectconfigschema]: ../src/ConfigProject/ProjectConfigSchema.php
+[code.validatorinterace]: https://github.com/symfony/validator/blob/master/Validator/ValidatorInterface.php
 [robo]: http://robo.li/
 [symfony]: https://symfony.com/
