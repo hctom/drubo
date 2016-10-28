@@ -34,8 +34,14 @@ Returns the schema object for environment-specific configurations.
 [```\Drubo\Environment\EnvironmentListInterface```][code.environmentlistinterface]
 
 Returns the environment list object containing all available environment 
-identifiers. Replace this service, if you need more or completely other 
-environment identifiers for your poject.
+identifiers. The default implementation provides the following identifiers:
+
+* ```develop```
+* ```staging```
+* ```production```
+
+Replace this service, if you need more/other environment identifiers for your 
+project.
 
 ---
 
