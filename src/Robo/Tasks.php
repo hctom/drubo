@@ -51,7 +51,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
     /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
     $collectionBuilder = $this->collectionBuilder();
 
-    // Buld diff task.
+    // Build diff task.
     $diffTask = $this->taskDiff()
       ->from(Yaml::dump($from, PHP_INT_MAX, 2))
       ->to(Yaml::dump($to, PHP_INT_MAX, 2));
