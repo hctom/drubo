@@ -83,7 +83,7 @@ class EnvironmentConfigSchema extends ConfigSchema {
   }
 
   /**
-   * Create 'drupalConsole' node.
+   * Create 'drupalconsole' node.
    *
    * @return ArrayNodeDefinition
    *   The 'drupalConsole' node.
