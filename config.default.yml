@@ -95,8 +95,8 @@ filesystem:
       path: 'docroot'
     # Private files directory (disabled by default).
     private:
-      enabled: false
       create: true
+      enabled: false
       mode: 777
       path: 'private'
     # Public files directory.
