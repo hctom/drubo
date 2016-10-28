@@ -39,38 +39,67 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
    *   environment (defaults to no environment / default values)
    * @option string $to An optional environment identifier for the 'to'
    *   environment (defaults to environment configured in project configuration)
+   *
+   * @see \Drubo\Robo\Tasks::environmentCompareBuilder()
    */
   public function environmentCompare($key = NULL, $options = ['from' => NULL, 'to' => NULL]) {
     $environment = $this->getDrubo()
       ->getEnvironment()
       ->get();
 
-    $from = $this->getDrubo()
+    $configFrom = $this->getDrubo()
       ->getEnvironmentConfig($options['from'] ?: EnvironmentInterface::NONE)
       ->get($key);
 
-
-    $fromLabel = $options['from'] && $options['from'] !== EnvironmentInterface::NONE ? $options['from'] : 'defaults';
-
-    $to = $this->getDrubo()
+    $configTo = $this->getDrubo()
       ->getEnvironmentConfig($options['to'])
       ->get($key);
 
-    $toLabel = $options['to'] ? ($options['to'] !== EnvironmentInterface::NONE ? $options['to'] : 'defaults') : $environment;
+    $from = [
+      'data' => Yaml::dump($configFrom, PHP_INT_MAX, 2),
+      'label' => $options['from'] && $options['from'] !== EnvironmentInterface::NONE ? $options['from'] : 'defaults',
+    ];
 
+    $to = [
+      'data' => Yaml::dump($configTo, PHP_INT_MAX, 2),
+      'label' => $options['to'] ? ($options['to'] !== EnvironmentInterface::NONE ? $options['to'] : 'defaults') : $environment
+    ];
+
+    return $this->environmentCompareBuilder($from, $to)
+      ->run();
+  }
+
+  /**
+   * Return collection builder for 'Compare environment configuration values'
+   * command.
+   *
+   * @param array $from
+   *   The 'from' information array with the following keys:
+   *     - data: The data to compare.
+   *     - label: The label to display.
+   * @param array $to
+   *   The 'to' information array with the following keys:
+   *     - data: The data to compare.
+   *     - label: The label to display.
+   *
+   * @return \Robo\Collection\CollectionBuilder
+   *   The collection builder prepopulated with general tasks.
+   */
+  protected function environmentCompareBuilder(array $from, array $to) {
     /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
     $collectionBuilder = $this->collectionBuilder();
 
     // Build diff task.
     $diffTask = $this->taskDiff()
-      ->from(Yaml::dump($from, PHP_INT_MAX, 2), $fromLabel)
-      ->to(Yaml::dump($to, PHP_INT_MAX, 2), $toLabel);
+      ->from($from['data'], $from['label'])
+      ->to($to['data'], $to['label']);
 
     $collectionBuilder
+      ->getCollection()
       // Generate diff.
-      ->addTask($diffTask);
+      ->add($diffTask, 'base.diff');
 
-    return $collectionBuilder->run();
+    return $collectionBuilder;
   }
 
   /**
