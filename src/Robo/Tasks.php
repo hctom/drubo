@@ -94,8 +94,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       ->from($from['data'], $from['label'])
       ->to($to['data'], $to['label']);
 
-    $collectionBuilder
-      ->getCollection()
+    $collectionBuilder->getCollection()
       // Generate diff.
       ->add($diffTask, 'base.diff');
 
@@ -172,8 +171,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
     /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
     $collectionBuilder = $this->collectionBuilder();
 
-    $collectionBuilder
-      ->getCollection()
+    $collectionBuilder->getCollection()
       // Initialize project configuration.
       ->add($this->taskInitializeProjectConfig(), 'project.initializeConfig');
 
