@@ -33,22 +33,23 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
   /**
    * Compare environment configuration values.
    *
-   * @param string $environmentTo An optional environment identifier for the
-   *   'to' environment (defaults to environment configured in project
-   *   configuration)
-   * @param string $environmentFrom An optional environment identifier for the
-   *   'from' environment (defaults to no environment, to get default values)
+   * @param string $key An optional configuraton key (leave empty to diff full
+   *   config)
+   * @option string $from An optional environment identifier for the 'from'
+   *   environment (defaults to no environment / default values)
+   * @option string $to An optional environment identifier for the 'to'
+   *   environment (defaults to environment configured in project configuration)
    */
-  public function environmentCompare($environmentTo = NULL, $environmentFrom = NULL) {
+  public function environmentCompare($key = NULL, $options = ['from' => NULL, 'to' => NULL]) {
     $from = $this->getDrubo()
-      ->getEnvironmentConfig($environmentFrom ?: EnvironmentInterface::NONE)
-      ->get();
+      ->getEnvironmentConfig($options['from'] ?: EnvironmentInterface::NONE)
+      ->get($key);
 
     $to = $this->getDrubo()
-      ->getEnvironmentConfig($environmentTo)
-      ->get();
+      ->getEnvironmentConfig($options['to'])
+      ->get($key);
 
-    $environmentCurrent = $this->getDrubo()
+    $environment = $this->getDrubo()
       ->getEnvironment()
       ->get();
 
@@ -62,9 +63,9 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
 
     $collectionBuilder
       // Display diff information.
-      ->addCode(function() use ($environmentCurrent, $environmentFrom, $environmentTo) {
-        $from = $environmentFrom && $environmentFrom !== EnvironmentInterface::NONE ? $environmentFrom : 'defaults';
-        $to = $environmentTo ? ($environmentTo !== EnvironmentInterface::NONE ? $environmentTo : 'defaults') : $environmentCurrent;
+      ->addCode(function() use ($environment, $options) {
+        $from = $options['from'] && $options['from'] !== EnvironmentInterface::NONE ? $options['from'] : 'defaults';
+        $to = $options['to'] ? ($options['to'] !== EnvironmentInterface::NONE ? $options['to'] : 'defaults') : $environment;
 
         $this->getDrubo()
           ->getOutput()
