@@ -20,10 +20,10 @@
 drubo:
   # Configuration Robo commands. Each command may be configured with the
   # following properties:
-  #   - disabled: Whether the command is disabled (defaults to false).
+  #   - enabled: Whether the command is enabled (defaults to true).
   commands:
-    # Reinstall site command (disabled by default).
-    'site:reinstall': { disabled: true }
+    # 'Reinstall project' command (disabled by default).
+    'site:reinstall': { enabled: false }
 
 # ....................................................................... Drupal
 
