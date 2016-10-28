@@ -1,6 +1,6 @@
 <?php
 
-namespace Drubo\Robo\Task\DrupalConsole;
+namespace Drubo\Robo\Task\Drush;
 
 use Drubo\Robo\Task\Base\EncapsulatedExec;
 
