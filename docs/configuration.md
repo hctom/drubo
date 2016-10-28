@@ -44,10 +44,10 @@ the project directory) in order to override configuration any value(s) within
 the above stated inheritance order:
 
 * ```.drubo/config```: Custom global configuration overrides
-* ```.drubo/config/{ENVIRONMENT}```: Custom environment-specific configuration 
+* ```.drubo/config/[ENVIRONMENT]```: Custom environment-specific configuration 
 overrides 
 
-Replace ```{ENVIRONMENT}``` with the actual environment identifier (e.g. 
+Replace ```[ENVIRONMENT]``` with the actual environment identifier (e.g. 
 ```develop```, ```staging``` or ```production```).
 
 [command.project.init]: commands.md#projectinit
