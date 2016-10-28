@@ -48,6 +48,10 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       ->getEnvironmentConfig($environmentTo)
       ->get();
 
+    $environmentCurrent = $this->getDrubo()
+      ->getEnvironment()
+      ->get();
+
     /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
     $collectionBuilder = $this->collectionBuilder();
 
@@ -57,6 +61,15 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       ->to(Yaml::dump($to, PHP_INT_MAX, 2));
 
     $collectionBuilder
+      // Display diff information.
+      ->addCode(function() use ($environmentCurrent, $environmentFrom, $environmentTo) {
+        $from = $environmentFrom && $environmentFrom !== EnvironmentInterface::NONE ? $environmentFrom : 'defaults';
+        $to = $environmentTo ? ($environmentTo !== EnvironmentInterface::NONE ? $environmentTo : 'defaults') : $environmentCurrent;
+
+        $this->getDrubo()
+          ->getOutput()
+          ->writeln(sprintf("Changes from <info>%s</info> to <info>%s</info>\n", $from, $to));
+      })
       // Generate diff.
       ->addTask($diffTask);
 

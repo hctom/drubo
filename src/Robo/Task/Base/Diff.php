@@ -62,16 +62,22 @@ class Diff extends BaseTask {
    * {@inheritdoc}
    */
   public function run() {
-    $differ = new Differ();
-    $diff = $differ->diff($this->from, $this->to);
+    // No changes?
+    if ($this->from === $this->to) {
+      $this->printTaskInfo('No changes...');
+    }
 
-    // Format diff.
-    $diff = $this->format($diff);
+    // Has changes.
+    else {
+      $differ = new Differ();
+      $diff = $differ->diff($this->from, $this->to);
 
-    // Output diff.
-    $this->getDrubo()
-      ->getOutput()
-      ->writeln($diff);
+      // Format diff.
+      $diff = $this->format($diff);
+
+      // Output diff.
+      $this->printTaskInfo("\n" . $diff);
+    }
 
     return Result::success($this);
   }
