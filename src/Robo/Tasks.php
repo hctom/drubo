@@ -41,36 +41,32 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
    *   environment (defaults to environment configured in project configuration)
    */
   public function environmentCompare($key = NULL, $options = ['from' => NULL, 'to' => NULL]) {
+    $environment = $this->getDrubo()
+      ->getEnvironment()
+      ->get();
+
     $from = $this->getDrubo()
       ->getEnvironmentConfig($options['from'] ?: EnvironmentInterface::NONE)
       ->get($key);
+
+
+    $fromLabel = $options['from'] && $options['from'] !== EnvironmentInterface::NONE ? $options['from'] : 'defaults';
 
     $to = $this->getDrubo()
       ->getEnvironmentConfig($options['to'])
       ->get($key);
 
-    $environment = $this->getDrubo()
-      ->getEnvironment()
-      ->get();
+    $toLabel = $options['to'] ? ($options['to'] !== EnvironmentInterface::NONE ? $options['to'] : 'defaults') : $environment;
 
     /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
     $collectionBuilder = $this->collectionBuilder();
 
     // Build diff task.
     $diffTask = $this->taskDiff()
-      ->from(Yaml::dump($from, PHP_INT_MAX, 2))
-      ->to(Yaml::dump($to, PHP_INT_MAX, 2));
+      ->from(Yaml::dump($from, PHP_INT_MAX, 2), $fromLabel)
+      ->to(Yaml::dump($to, PHP_INT_MAX, 2), $toLabel);
 
     $collectionBuilder
-      // Display diff information.
-      ->addCode(function() use ($environment, $options) {
-        $from = $options['from'] && $options['from'] !== EnvironmentInterface::NONE ? $options['from'] : 'defaults';
-        $to = $options['to'] ? ($options['to'] !== EnvironmentInterface::NONE ? $options['to'] : 'defaults') : $environment;
-
-        $this->getDrubo()
-          ->getOutput()
-          ->writeln(sprintf("Changes from <info>%s</info> to <info>%s</info>\n", $from, $to));
-      })
       // Generate diff.
       ->addTask($diffTask);
 

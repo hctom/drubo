@@ -12,16 +12,16 @@ use SebastianBergmann\Diff\Differ;
 class Diff extends BaseTask {
 
   /**
-   * 'fromt string.
+   * 'from' data/label.
    *
-   * @var string
+   * @var array
    */
   protected $from;
 
   /**
-   * 'to' string.
+   * 'to' data/label.
    *
-   * @var string
+   * @var array
    */
   protected $to;
 
@@ -47,13 +47,18 @@ class Diff extends BaseTask {
   /**
    * Set 'from'.
    *
-   * @param string $from
-   *   The 'from' string.
+   * @param string $data
+   *   The 'from' data.
+   * @param string $label
+   *   The 'from' label (defaults to 'source').
    *
    * @return static
    */
-  public function from($from) {
-    $this->from = $from;
+  public function from($data, $label = 'source') {
+    $this->from = [
+      'data' => $data,
+      'label' => $label,
+    ];
 
     return $this;
   }
@@ -62,21 +67,26 @@ class Diff extends BaseTask {
    * {@inheritdoc}
    */
   public function run() {
+    $this->printTaskInfo(sprintf("Changes from <info>%s</info> to <info>%s</info>", $this->from['label'], $this->to['label']));
+
+//    dump($this->from['data']);
+//    dump($this->to['data']);
+
     // No changes?
-    if ($this->from === $this->to) {
+    if ($this->from['data'] === $this->to['data']) {
       $this->printTaskInfo('No changes...');
     }
 
     // Has changes.
     else {
       $differ = new Differ();
-      $diff = $differ->diff($this->from, $this->to);
+      $diff = $differ->diff($this->from['data'], $this->to['data']);
 
       // Format diff.
       $diff = $this->format($diff);
 
       // Output diff.
-      $this->printTaskInfo("\n" . $diff);
+      $this->printTaskInfo($diff);
     }
 
     return Result::success($this);
@@ -85,13 +95,18 @@ class Diff extends BaseTask {
   /**
    * Set 'to'.
    *
-   * @param string $from
-   *   The 'to' string.
+   * @param string $data
+   *   The 'to' data.
+   * @param string $label
+   *   The 'to' label (defaults to 'target').
    *
    * @return static
    */
-  public function to($to) {
-    $this->to = $to;
+  public function to($data, $label = 'target') {
+    $this->to = [
+      'data' => $data,
+      'label' => $label,
+    ];
 
     return $this;
   }
