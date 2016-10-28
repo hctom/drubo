@@ -79,14 +79,17 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
   /**
    * Dump environment configuration values.
    *
-   * @param string $environment An optional environment identifier
+   * @param string $key An optional configuraton key (leave empty to view full
+   *   config)
+   * @option string $environment An optional environment identifier (defaults to
+   *   the current environment)
    * @option string $format The output format
    */
-  public function environmentConfig($environment = NULL, $options = ['format' => 'yaml']) {
+  public function environmentConfig($key = NULL, $options = ['environment|e' => NULL, 'format' => 'yaml']) {
     // Load configuration.
     $config = $this->getDrubo()
-      ->getEnvironmentConfig($environment)
-      ->get();
+      ->getEnvironmentConfig($options['environment'])
+      ->get($key);
 
     return $config;
   }
