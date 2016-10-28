@@ -7,8 +7,8 @@ DruboHelper::httpAuth()
 ```
 Use this helper method to require HTTP authentication for your project. 
 
-**NOTE:** This only protects things from prying eye that run through PHP. URLs 
-to static files (e.g. images, CSS files etc.) will still be accessible!
+**NOTE: This only protects things from prying eyes that run through PHP. URLs 
+to static files (e.g. images, CSS files etc.) will still be accessible!**
 
 #### Parameters
 
