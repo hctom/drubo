@@ -13,9 +13,13 @@ $ vendor/bin/robo list
 
 ## Built-in commands
 
-**NOTE:** Run ```vendor/bin/robo help {COMMAND-NAME}``` to get more information 
-about a specific command (replace ```{COMMAND-NAME}```with the actual command 
-name).
+**NOTE:** Run the following command in your project directory to get more 
+information about a specific command (replace ```{COMMAND-NAME}```with the 
+actual command name).
+
+```sh
+$ vendor/bin/robo help {COMMAND-NAME}
+```
 
 ---
 
