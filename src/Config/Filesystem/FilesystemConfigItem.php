@@ -44,6 +44,13 @@ abstract class FilesystemConfigItem implements FilesystemConfigItemInterface, Dr
   /**
    * {@inheritdoc}
    */
+  public function enabled() {
+    return !empty($this->data['enabled']);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function mode() {
     return octdec($this->data['mode']);
   }
@@ -54,13 +61,6 @@ abstract class FilesystemConfigItem implements FilesystemConfigItemInterface, Dr
   public function path() {
     return $this->getDrubo()
       ->getAbsolutePath($this->data['path']);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function skip() {
-    return !empty($this->data['skip']);
   }
 
   /**

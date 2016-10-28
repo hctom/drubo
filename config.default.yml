@@ -78,27 +78,27 @@ drush:
 filesystem:
   # Configuration for all directories that need to be set up. Each directory may
   # be configured with the following properties:
+  #   - enabled: Whether to process the directory (defaults to true).
   #   - create: Whether the directory should be created if not exists (defaults
   #     to false)
   #   - mode: The directory mode/permissions (defaults to null)
   #   - path: (required) The path to the directory to process (either absolute
   #     or relative to the project directory).
-  #   - skip: Whether to skip processing of the directory (defaults to false).
   directories:
     # Config 'sync' directory.
     config:
+      enabled: false
       path: '.drupal/config'
-      skip: true
     # Document root directory.
     docroot:
+      enabled: false
       path: 'docroot'
-      skip: true
-    # Private files directory (skipped by default).
+    # Private files directory (disabled by default).
     private:
+      enabled: false
       create: true
       mode: 777
       path: 'private'
-      skip: true
     # Public files directory.
     public:
       create: true
@@ -115,10 +115,10 @@ filesystem:
       path: 'tmp'
   # Configuration for all files that need to be set up. Each file may be
   # configured with the following properties:
+  #   - enabled: Whether to process the file (defaults to true).
   #   - create: Whether the file should be created if not exists (defaults to
   #     false)
   #   - mode: The file mode/permissions (defaults to null)
   #   - path: (required) The path to the file to process (either absolute or
   #     relative to the project directory).
-  #   - skip: Whether to skip processing of the file (defaults to false).
   files: []

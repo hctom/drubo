@@ -16,6 +16,14 @@ interface FilesystemConfigItemInterface {
   public function create();
 
   /**
+   * Filesystem item should be processed?
+   *
+   * @return bool
+   *   Whether to process the filesystem item.
+   */
+  public function enabled();
+
+  /**
    * Return filesystem item mode/permissions.
    *
    * @return number|null
@@ -31,14 +39,6 @@ interface FilesystemConfigItemInterface {
    *   The absolute filesystem item path.
    */
   public function path();
-
-  /**
-   * Filesystem item should be skipped?
-   *
-   * @return bool
-   *   Whether to skip processing of the filesystem item.
-   */
-  public function skip();
 
   /**
    * Return filesystem item symlink target path.

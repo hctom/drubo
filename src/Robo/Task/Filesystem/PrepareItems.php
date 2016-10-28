@@ -65,8 +65,8 @@ abstract class PrepareItems extends BaseTask implements BuilderAwareInterface {
     while($iterator->valid()) {
       $item = $iterator->current();
 
-      // Item should be skipped?
-      if (!$item->skip()) {
+      // Item should be processed?
+      if ($item->enabled()) {
         $collectionBuilder->progressMessage(sprintf('Processing directory: %s', $item->path()));
 
         // Create item (if not exists)?
