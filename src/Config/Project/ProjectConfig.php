@@ -30,16 +30,16 @@ class ProjectConfig extends Config implements ProjectConfigInterface, DruboAware
    *   The absolute file path to the project configuration file.
    */
   protected function file() {
-    return $this->workingDirectory() . DIRECTORY_SEPARATOR . '.drubo.yml';
+    return $this->projectDirectory() . DIRECTORY_SEPARATOR . '.drubo.yml';
   }
 
   /**
    * {@inheritdoc}
    */
   public function load() {
-    $workingDirectory = static::workingDirectory();
+    $projectDirectory = static::projectDirectory();
 
-    $locator = new FileLocator([$workingDirectory]);
+    $locator = new FileLocator([$projectDirectory]);
     $loader = new ConfigLoader($locator);
 
     $file = $this->file();
@@ -57,14 +57,14 @@ class ProjectConfig extends Config implements ProjectConfigInterface, DruboAware
   }
 
   /**
-   * Return current working directory.
+   * Return project directory.
    *
    * @return string
-   *   The absolute path to the current working directory.
+   *   The absolute path to the project directory.
    */
-  protected function workingDirectory() {
+  protected function projectDirectory() {
     return $this->getDrubo()
-      ->getWorkingDirectory();
+      ->getProjectDirectory();
   }
 
 }

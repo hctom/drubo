@@ -39,13 +39,13 @@ class EnvironmentConfig extends Config implements EnvironmentConfigInterface, Dr
    *   An array of directory paths to locate drubo configuration files in.
    */
   protected function getConfigDirectoryCandidates() {
-    $workingDirectory = $this->getDrubo()
-      ->getWorkingDirectory();
+    $projectDirectory = $this->getDrubo()
+      ->getProjectDirectory();
 
     $paths = [];
 
     // Path candidate for custom global configuration.
-    $paths[] = rtrim($workingDirectory, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . '.drubo/config';
+    $paths[] = rtrim($projectDirectory, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . '.drubo/config';
 
     // Path candidate for custom environment-specific configuration.
     if (!empty($this->environment)) {

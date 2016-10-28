@@ -8,7 +8,7 @@
 #   - .drubo/[ENVIRONMENT]/config.yml: (custom environment-specific overrides)
 #
 # Place a config.yml file in one of the following directories (relative to the
-# current working directory) in order to override configuration values:
+# project directory) in order to override configuration values:
 #   - .drubo: Custom global configuration overrides.
 #   - .drubo/[ENVIRONMENT]: Custom environment-specific configuration overrides.
 #     Replace [ENVIRONMENT] with the actual environment identifier
@@ -59,8 +59,8 @@ drupalconsole:
   ansi: true
   # Whether to enable debug mode.
   debug: false
-  # Path to Drupal console binary (either absolute or relative to the current
-  # working directory).
+  # Path to Drupal Console binary (either absolute or relative to the project
+  # directory).
   path: 'bin/drupal'
   # Whether to use verbose output.
   verbose: false
@@ -69,8 +69,7 @@ drupalconsole:
 
 # Configuration for Drush binary that is used in Robo commands/tasks.
 drush:
-  # Path to Drush binary (either absolute or relative to the current working
-  # directory).
+  # Path to Drush binary (either absolute or relative to the project directory).
   path: 'bin/drush'
 
 # ................................................................... Filesystem
@@ -83,7 +82,7 @@ filesystem:
   #     to false)
   #   - mode: The directory mode/permissions (defaults to null)
   #   - path: (required) The path to the directory to process (either absolute
-  #     or relative to the current working directory).
+  #     or relative to the project directory).
   #   - skip: Whether to skip processing of the directory (defaults to false).
   directories:
     # Config 'sync' directory.
@@ -120,6 +119,6 @@ filesystem:
   #     false)
   #   - mode: The file mode/permissions (defaults to null)
   #   - path: (required) The path to the file to process (either absolute or
-  #     relative to the current working directory).
+  #     relative to the project directory).
   #   - skip: Whether to skip processing of the file (defaults to false).
   files: []

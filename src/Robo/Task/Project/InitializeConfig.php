@@ -92,8 +92,8 @@ class InitializeConfig extends BaseTask implements BuilderAwareInterface {
   public function run() {
     $this->printTaskInfo('Initializing Drubo');
 
-    $workingDirectory = $this->getDrubo()
-      ->getWorkingDirectory();
+    $projectDirectory = $this->getDrubo()
+      ->getProjectDirectory();
 
     $data = [
       // Ask for environment.
@@ -103,7 +103,7 @@ class InitializeConfig extends BaseTask implements BuilderAwareInterface {
     ];
 
     return $this->collectionBuilder()
-      ->taskWriteToFile($workingDirectory . DIRECTORY_SEPARATOR . '.drubo.yml')
+      ->taskWriteToFile($projectDirectory . DIRECTORY_SEPARATOR . '.drubo.yml')
       ->text(Yaml::dump($data))
       ->run();
   }

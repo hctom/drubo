@@ -49,7 +49,7 @@ class Drubo {
     $fs = new Filesystem();
 
     if (!$fs->isAbsolutePath($path)) {
-      $path = $this->getWorkingDirectory() . DIRECTORY_SEPARATOR . $path;
+      $path = $this->getProjectDirectory() . DIRECTORY_SEPARATOR . $path;
     }
 
     return $path;
@@ -172,6 +172,16 @@ class Drubo {
   }
 
   /**
+   * Return project directory.
+   *
+   * @return string
+   *   The absolute path to the project directory.
+   */
+  public function getProjectDirectory() {
+    return getcwd();
+  }
+
+  /**
    * Return singleton instance.
    *
    * @return \Drubo\Drubo
@@ -195,15 +205,6 @@ class Drubo {
       ->get('drubo.validator');
   }
 
-  /**
-   * Return current working directory.
-   *
-   * @return string
-   *   The absolute path to the current working directory.
-   */
-  public function getWorkingDirectory() {
-    return getcwd();
-  }
   /**
    * Register default services.
    *
