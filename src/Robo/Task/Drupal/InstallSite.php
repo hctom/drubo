@@ -3,6 +3,7 @@
 namespace Drubo\Robo\Task\Drupal;
 
 use Drubo\Robo\Task\DrupalConsole\Exec;
+use Robo\Result;
 
 /**
  * Robo task: Install a Drupal site.
@@ -74,7 +75,14 @@ class InstallSite extends Exec {
   public function run() {
     $this->printTaskInfo('Installing Drupal site');
 
-    return parent::run();
+    $result = parent::run();
+
+    // Error occured?
+    if (!(!$result->wasSuccessful() || preg_match('/' . preg_quote('Drupal is already installed') . '/i', $result->getOutputData()))) {
+      return $result;
+    }
+
+    return Result::error($this, 'Drupal is already installed');
   }
 
 }
