@@ -128,17 +128,31 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
   /**
    * Initialize project.
    *
+   * @see \Drubo\Robo\Tasks::projectInitCollectionBuilder()
+   *
    * @project-config-unaware
    */
   public function projectInit() {
+    return $this->projectInitCollectionBuilder()
+      ->run();
+  }
+
+  /**
+   * Return collection builder for 'Initialize project' command.
+   *
+   * @return \Robo\Collection\CollectionBuilder
+   *   The collection builder prepopulated with general tasks.
+   */
+  protected function projectInitCollectionBuilder() {
     /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
     $collectionBuilder = $this->collectionBuilder();
 
     $collectionBuilder
+      ->getCollection()
       // Initialize project configuration.
-      ->addTask($this->taskInitializeProjectConfig());
+      ->add($this->taskInitializeProjectConfig(), 'project.initializeConfig');
 
-    return $collectionBuilder->run();
+    return $collectionBuilder;
   }
 
   /**
