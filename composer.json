@@ -1,6 +1,8 @@
 {
   "name": "hctom/drubo",
   "description": "Robo-based task runner for Drupal.",
+  "license": "MIT",
+  "homepage": "https://github.com/hctom/drubo",
   "authors": [
     {
       "name": "hctom (Thomas Keitel)",
