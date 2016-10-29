@@ -4,7 +4,6 @@ namespace Drubo\Robo\Task\Base;
 
 use Drubo\Robo\Task\BaseTask;
 use Robo\Result;
-use SebastianBergmann\Diff\Differ;
 
 /**
  * Robo task: Diff.
@@ -76,7 +75,11 @@ class Diff extends BaseTask {
 
     // Has changes.
     else {
-      $differ = new Differ();
+      /** @var \SebastianBergmann\Diff\Differ $differ */
+      $differ = $this->getDrubo()
+        ->getContainer()
+        ->get('drubo.diff');
+
       $diff = $differ->diff($this->from['data'], $this->to['data']);
 
       // Format diff.

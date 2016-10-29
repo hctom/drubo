@@ -13,6 +13,7 @@ use Drubo\EventSubscriber\CommandSubscriber;
 use Drubo\EventSubscriber\ConfigSubscriber;
 use League\Container\ContainerInterface;
 use Robo\Robo;
+use SebastianBergmann\Diff\Differ;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Validator\Validation;
@@ -215,6 +216,9 @@ class Drubo {
    * @return static
    */
   protected function registerDefaultServices(ContainerInterface $container) {
+    // Register diff service.
+    $container->add('drubo.diff', new Differ());
+
     // Register environment service.
     $container->add('drubo.environment', new Environment());
 
