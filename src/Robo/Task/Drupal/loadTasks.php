@@ -41,24 +41,6 @@ trait loadTasks {
   }
 
   /**
-   * Rebuild and clear Drupal site cache(s).
-   *
-   * @return RebuildCache
-   */
-  protected function taskRebuildDrupalCache() {
-    return $this->task(RebuildCache::class);
-  }
-
-  /**
-   * Rebuild Drupal node access permissions.
-   *
-   * @return RebuildNodeAccessPermissions
-   */
-  protected function taskRebuildDrupalNodeAccessPermissions() {
-    return $this->task(RebuildNodeAccessPermissions::class);
-  }
-
-  /**
    * Import configuration to current Drupal site.
    *
    * @return ImportConfig
@@ -74,6 +56,24 @@ trait loadTasks {
    */
   protected function taskInstallDrupalSite() {
     return $this->task(InstallSite::class);
+  }
+
+  /**
+   * Rebuild and clear Drupal site cache(s).
+   *
+   * @return RebuildCache
+   */
+  protected function taskRebuildDrupalCache() {
+    return $this->task(RebuildCache::class);
+  }
+
+  /**
+   * Rebuild Drupal node access permissions.
+   *
+   * @return RebuildNodeAccessPermissions
+   */
+  protected function taskRebuildDrupalNodeAccessPermissions() {
+    return $this->task(RebuildNodeAccessPermissions::class);
   }
 
   /**
