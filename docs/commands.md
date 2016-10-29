@@ -37,7 +37,7 @@ Dump all configuration values for the currently used environment.
 
 #### environment:list
 
-List all available environment identifiers.
+List all available environment names.
 
 ---
 

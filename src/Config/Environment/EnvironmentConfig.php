@@ -26,11 +26,11 @@ class EnvironmentConfig extends Config implements EnvironmentConfigInterface, Dr
   const FILENAME = 'config.yml';
 
   /**
-   * Environment identifier.
+   * Environment name.
    *
    * @var string
    */
-  protected $environment;
+  protected $environmentName;
 
   /**
    * Return configuration directory candidates.
@@ -48,8 +48,8 @@ class EnvironmentConfig extends Config implements EnvironmentConfigInterface, Dr
     $paths[] = rtrim($projectDirectory, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . '.drubo/config';
 
     // Path candidate for custom environment-specific configuration.
-    if (!empty($this->environment)) {
-      $paths[] = $paths[0] . DIRECTORY_SEPARATOR . $this->environment;
+    if (!empty($this->environmentName)) {
+      $paths[] = $paths[0] . DIRECTORY_SEPARATOR . $this->environmentName;
     }
 
     return $paths;
@@ -90,21 +90,21 @@ class EnvironmentConfig extends Config implements EnvironmentConfigInterface, Dr
   /**
    * {@inheritdoc}
    */
-  public function setEnvironment($environment) {
-    $environment = $environment === EnvironmentInterface::NONE ? NULL : $environment;
+  public function setEnvironmentName($environmentNameName) {
+    $environmentNameName = $environmentNameName === EnvironmentInterface::NONE ? NULL : $environmentNameName;
 
-    if (!empty($environment)) {
+    if (!empty($environmentNameName)) {
       $exists = $this->getDrubo()
         ->getEnvironmentList()
-        ->has($environment);
+        ->has($environmentNameName);
 
       // Environment exists?
       if (!$exists) {
-        throw new InvalidEnvironmentException($environment);
+        throw new InvalidEnvironmentException($environmentNameName);
       }
     }
 
-    $this->environment = $environment;
+    $this->environmentName = $environmentNameName;
 
     return $this;
   }

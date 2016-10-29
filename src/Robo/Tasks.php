@@ -35,17 +35,17 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
    *
    * @param string $key An optional configuraton key (leave empty to diff full
    *   config)
-   * @option string $from An optional environment identifier for the 'from'
+   * @option string $from An optional environment name for the 'from'
    *   environment (defaults to no environment / default values)
-   * @option string $to An optional environment identifier for the 'to'
-   *   environment (defaults to environment configured in project configuration)
+   * @option string $to An optional environment name for the 'to' environment
+   *   (defaults to environment configured in project configuration)
    *
    * @see \Drubo\Robo\Tasks::environmentCompareBuilder()
    */
   public function environmentCompare($key = NULL, $options = ['from' => NULL, 'to' => NULL]) {
-    $environment = $this->getDrubo()
+    $environmentName = $this->getDrubo()
       ->getEnvironment()
-      ->get();
+      ->getName();
 
     $configFrom = $this->getDrubo()
       ->getEnvironmentConfig($options['from'] ?: EnvironmentInterface::NONE)
@@ -62,7 +62,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
 
     $to = [
       'data' => Yaml::dump($configTo, PHP_INT_MAX, 2),
-      'label' => $options['to'] ? ($options['to'] !== EnvironmentInterface::NONE ? $options['to'] : 'defaults') : $environment
+      'label' => $options['to'] ? ($options['to'] !== EnvironmentInterface::NONE ? $options['to'] : 'defaults') : $environmentName,
     ];
 
     return $this->environmentCompareBuilder($from, $to)
@@ -106,8 +106,8 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
    *
    * @param string $key An optional configuraton key (leave empty to view full
    *   config)
-   * @option string $environment An optional environment identifier (defaults to
-   *   the current environment)
+   * @option string $environment An optional environment name (defaults to the
+   *   current environment name)
    * @option string $format The output format
    */
   public function environmentConfig($key = NULL, $options = ['environment|e' => NULL, 'format' => 'yaml']) {
@@ -127,12 +127,12 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
    * @project-config-unaware
    */
   public function environmentList($options = ['format' => 'list']) {
-    // Load available environment identifiers.
-    $environments = $this->getDrubo()
+    // Load available environment names.
+    $environmentNames = $this->getDrubo()
       ->getEnvironmentList()
       ->toArray();
 
-    return $environments;
+    return $environmentNames;
   }
 
   /**

@@ -3,18 +3,18 @@
 namespace Drubo\Exception;
 
 /**
- * Exception: Invalid environment identifier.
+ * Exception: Invalid environment name.
  */
 class InvalidEnvironmentException extends \Exception {
 
   /**
    * Constructor.
    *
-   * @param string $environment
-   *   An environment identifier.
+   * @param string $environmentName
+   *   An environment name.
    */
-  public function __construct($environment) {
-    parent::__construct('Invalid environment: ' . $environment);
+  public function __construct($environmentName) {
+    parent::__construct('Invalid environment: ' . $environmentName);
   }
 
 }

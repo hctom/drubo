@@ -10,13 +10,13 @@ use Drubo\Config\ConfigInterface;
 interface EnvironmentConfigInterface extends ConfigInterface {
 
   /**
-   * Set environment.
+   * Set environment name.
    *
-   * @param string|null $environment
-   *   An environment identifier or NULL.
+   * @param string|null $environmentName
+   *   An environment name or NULL.
    *
    * @return static
    */
-  public function setEnvironment($environment);
+  public function setEnvironmentName($environmentName);
 
 }

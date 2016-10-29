@@ -81,20 +81,20 @@ class Drubo {
   /**
    * Return environment configuration service.
    *
-   * @param string|null $environment
-   *   An optional environment identifier (defaults to current environment from
+   * @param string|null $environmentName
+   *   An optional environment name (defaults to current environment from
    *   project configuration).
    * @return \Drubo\Config\Environment\EnvironmentConfigInterface
    *   The configuration service object with data for the current environment
-   *   (if not called with specific environment identifier).
+   *   (if not called with specific environment name).
    */
-  public function getEnvironmentConfig($environment = NULL) {
+  public function getEnvironmentConfig($environmentName = NULL) {
     $container = $this->getContainer();
 
     // Load current environment (if not specified).
-    if (empty($environment)) {
-      $environment = $this->getEnvironment()
-        ->get();
+    if (empty($environmentName)) {
+      $environmentName = $this->getEnvironment()
+        ->getName();
     }
 
     /** @var \Drubo\Config\Environment\EnvironmentConfigInterface $config */
@@ -104,7 +104,7 @@ class Drubo {
     $config->setSchema($container->get('drubo.environment.config.schema'));
 
     // Set environment (if not 'none').
-    $config->setEnvironment($environment == EnvironmentInterface::NONE ? NULL : $environment);
+    $config->setEnvironmentName($environmentName == EnvironmentInterface::NONE ? NULL : $environmentName);
 
     // Load configuration.
     $config->load();

@@ -13,14 +13,14 @@ interface EnvironmentInterface {
   const NONE = ':none:';
 
   /**
-   * Return environment identifier.
+   * Return environment name.
    *
    * @return string
-   *   The current environment identifier.
+   *   The current environment name.
    *
    * @throws \Drubo\Exception\UndefinedEnvironmentException
    * @throws \Drubo\Exception\InvalidEnvironmentException
    */
-  public function get();
+  public function getName();
 
 }

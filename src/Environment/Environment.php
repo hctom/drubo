@@ -17,7 +17,7 @@ class Environment implements EnvironmentInterface, DruboAwareInterface  {
   /**
    * {@inheritdoc}
    */
-  public function get() {
+  public function getName() {
     $projectConfig = $this->getDrubo()
       ->getProjectConfig();
 

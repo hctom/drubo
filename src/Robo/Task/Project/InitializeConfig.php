@@ -54,10 +54,10 @@ class InitializeConfig extends BaseTask implements BuilderAwareInterface {
   }
 
   /**
-   * Interactively ask for environment identifier.
+   * Interactively ask for environment name.
    *
    * @return string
-   *   The environment identifier.
+   *   The environment name.
    */
   protected function environment() {
     $oldEnvironment = $this->projectConfig()->has('environment') ? $this->projectConfig()->get('environment') : NULL;

@@ -11,8 +11,8 @@
 # project directory) in order to override configuration values:
 #   - .drubo: Custom global configuration overrides.
 #   - .drubo/[ENVIRONMENT]: Custom environment-specific configuration overrides.
-#     Replace [ENVIRONMENT] with the actual environment identifier
-#     (e.g. 'develop', 'staging' or 'production').
+#     Replace [ENVIRONMENT] with the actual environment name (e.g. 'develop',
+#     'staging' or 'production').
 
 # ........................................................................ drubo
 
