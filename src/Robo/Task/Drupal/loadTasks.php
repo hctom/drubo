@@ -41,6 +41,15 @@ trait loadTasks {
   }
 
   /**
+   * Export configuration to 'sync' directory.
+   *
+   * @return ExportConfig
+   */
+  protected function taskExportDrupalConfig() {
+    return $this->task(ExportConfig::class);
+  }
+
+  /**
    * Import configuration to current Drupal site.
    *
    * @return ImportConfig
