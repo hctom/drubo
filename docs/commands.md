@@ -58,17 +58,25 @@ to change any of the project configuration later.
 
 Install project based on delivered files, configuration and settings.
 
+---
+
 ### project:reinstall
 
 Reinstall project based on delivered files, configuration and settings.
+
+---
 
 ### project:update
 
 Update project based on delivered files, configuration and settings.
 
+---
+
 ### project:upgrade
 
 Upgrade project packages while keeping exported configuration in sync.
+
+---
 
 ## Command configration
 
