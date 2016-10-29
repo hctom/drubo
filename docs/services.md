@@ -5,6 +5,14 @@ following services available.
 
 ---
 
+## drubo.diff
+
+[```\SebastianBergmann\Diff\Differ```][code.differ]
+
+Returns a diff engine object.
+
+---
+
 ## drubo.environment
 
 [```\Drubo\Environment\EnvironmentInterface```][code.environmentinterface]
@@ -67,6 +75,7 @@ Returns the schema object for project configurations.
 Returns a [Symfony][symfony] validator object that may be used to perform data 
 validations.
 
+[code.differ]: https://github.com/sebastianbergmann/diff/blob/master/src/Differ.php
 [code.environmentconfiginterface]: ../src/Config/Environment/EnvironmentConfigInterface.php
 [code.environmentconfigschema]: ../src/Config/Environment/EnvironmentConfigSchema.php
 [code.environmentinterface]: ../src/Environment/EnvironmentInterface.php
