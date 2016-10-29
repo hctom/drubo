@@ -176,17 +176,216 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
   }
 
   /**
-   * Install Drupal site.
+   * Install project.
+   *
+   * @see \Drubo\Robo\Tasks::projectInstallCollectionBuilder()
    */
-  public function siteInstall() {
-    // TODO Implement Tasks::siteInstall().
+  public function projectInstall() {
+    return $this->projectInstallCollectionBuilder()
+      ->run();
   }
 
   /**
-   * Update Drupal site.
+   * Return collection builder for 'Install project' command.
+   *
+   * @return \Robo\Collection\CollectionBuilder
+   *   The collection builder prepopulated with general tasks.
    */
-  public function siteUpdate() {
-    // TODO Implement Tasks::siteUpdate().
+  protected function projectInstallCollectionBuilder() {
+    /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
+    $collectionBuilder = $this->collectionBuilder();
+
+    $collectionBuilder->getCollection()
+      // Install latest dependencies.
+      ->add($this->taskComposerInstall()
+        ->optimizeAutoloader(), 'composer.install')
+
+      // Prepare/ensure directories.
+      ->add($this->taskPrepareFilesystemDirectories(), 'filesystem.prepareDirectories')
+
+      // Prepare/ensure files.
+      ->add($this->taskPrepareFilesystemFiles(), 'filesystem.prepareFiles')
+
+      // Install Drupal site.
+      ->add($this->taskInstallDrupalSite(), 'drupal.installSite')
+
+      // Import Drupal configuration.
+      ->add($this->taskImportDrupalConfig(), 'drupal.importConfig')
+
+      // Apply entity schema updates.
+      ->add($this->taskApplyDrupalEntityUpdates(), 'drupal.applyEntityUpdates')
+
+      // Display one-time login URL.
+      ->add($this->taskDrupalUserLogin(), 'drupal.userLogin');
+
+    return $collectionBuilder;
+  }
+
+  /**
+   * Reinstall project.
+   *
+   * @see \Drubo\Robo\Tasks::projectReinstallCollectionBuilder()
+   */
+  public function projectReinstall() {
+    // Show warning.
+    $this->yell(implode("\n", [
+      'REINSTALL REQUESTED',
+      '-------------------',
+      '!!! All data will be lost !!!',
+      'This action cannot be undone',
+    ]), 40, 'red');
+
+    // Ask for confirmation.
+    if (!$this->confirm('Continue')) {
+      return Result::cancelled('Reinstall cancelled...');
+    }
+
+    return $this->projectReinstallCollectionBuilder()
+      ->run();
+  }
+
+  /**
+   * Return collection builder for 'Reinstall project' command.
+   *
+   * @return \Robo\Collection\CollectionBuilder
+   *   The collection builder prepopulated with general tasks.
+   */
+  protected function projectReinstallCollectionBuilder() {
+    /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
+    $collectionBuilder = $this->collectionBuilder();
+
+    $collectionBuilder->getCollection()
+      // Install latest dependencies.
+      ->add($this->taskComposerInstall()
+        ->optimizeAutoloader(), 'composer.install')
+
+      // Prepare/ensure directories.
+      ->add($this->taskPrepareFilesystemDirectories(), 'filesystem.prepareDirectories')
+
+      // Prepare/ensure files.
+      ->add($this->taskPrepareFilesystemFiles(), 'filesystem.prepareFiles')
+
+      // Reinstall Drupal site.
+      ->add($this->taskReinstallDrupalSite(), 'drupal.reinstallSite')
+
+      // Import configuration.
+      ->add($this->taskImportDrupalConfig(), 'drupal.importConfig')
+
+      // Apply entity schema updates.
+      ->add($this->taskApplyDrupalEntityUpdates(), 'drupal.applyEntityUpdates')
+
+      // Display one-time login URL.
+      ->add($this->taskDrupalUserLogin(), 'drupal.userLogin');
+
+    return $collectionBuilder;
+  }
+
+  /**
+   * Update project.
+   *
+   * @see \Drubo\Robo\Tasks::projectUpdateCollectionBuilder()
+   */
+  public function projectUpdate() {
+    return $this->projectUpdateCollectionBuilder()
+      ->run();
+  }
+
+  /**
+   * Return collection builder for 'Update project' command.
+   *
+   * @return \Robo\Collection\CollectionBuilder
+   *   The collection builder prepopulated with general tasks.
+   */
+  protected function projectUpdateCollectionBuilder() {
+    /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
+    $collectionBuilder = $this->collectionBuilder();
+
+    // Build composer install task.
+    $composerInstallTask = $this->taskComposerInstall()
+      ->optimizeAutoloader();
+
+    $collectionBuilder->getCollection()
+      // Install latest dependencies.
+      ->add($composerInstallTask, 'composer.install')
+
+      // Prepare/ensure directories.
+      ->add($this->taskPrepareFilesystemDirectories(), 'filesystem.prepareDirectories')
+
+      // Prepare/ensure files.
+      ->add($this->taskPrepareFilesystemFiles(), 'filesystem.prepareFiles')
+
+      // Apply pending updates.
+      ->add($this->taskApplyPendingDrupalUpdates(), 'drupal.applyPendingUpdates')
+
+      // Import configuration.
+      ->add($this->taskImportDrupalConfig(), 'drupal.importConfig')
+
+      // Apply entity schema updates.
+      ->add($this->taskApplyDrupalEntityUpdates(), 'drupal.applyEntityUpdates')
+
+      // Display one-time login URL.
+      ->add($this->taskDrupalUserLogin(), 'drupal.userLogin');
+
+    return $collectionBuilder;
+  }
+
+  /**
+   * Upgrade project.
+   *
+   * @param array $packageNames An optional array of package names.
+   *
+   * @see \Drubo\Robo\Tasks::projectUpgradeCollectionBuilder()
+   */
+  public function projectUpgrade(array $packageNames) {
+    return $this->projectUpgradeCollectionBuilder($packageNames)
+      ->run();
+  }
+
+  /**
+   * Return collection builder for 'Upgrade project' command.
+   *
+   * @param array $packageNames
+   *   An array of package names.
+   *
+   * @return \Robo\Collection\CollectionBuilder
+   *   The collection builder prepopulated with general tasks.
+   */
+  protected function projectUpgradeCollectionBuilder(array $packageNames) {
+    /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
+    $collectionBuilder = $this->collectionBuilder();
+
+    $collectionBuilder->getCollection()
+      // Install latest dependencies.
+      ->add($this->taskComposerInstall()
+        ->optimizeAutoloader(), 'composer.install')
+
+      // Update packages (dry-run).
+      ->add($this->taskComposerUpdate()
+        ->args($packageNames)
+        ->option('dry-run'), 'composer.update.dryRun')
+
+      // Ask for confirmation to continue.
+      ->addCode(function() {
+        if (!$this->confirm('Continue')) {
+          throw new \RuntimeException('Upgrade cancelled...');
+        }
+      }, 'composer.update.confirm')
+
+      // Update packages.
+      ->add($this->taskComposerUpdate()
+        ->optimizeAutoloader()
+        ->args($packageNames), 'composer.update')
+
+      // Apply pending updates.
+      ->add($this->taskApplyPendingDrupalUpdates(), 'drupal.applyPendingUpdates')
+
+      // Apply entity schema updates.
+      ->add($this->taskApplyDrupalEntityUpdates(), 'drupal.applyEntityUpdates')
+
+      // Export configuration.
+      ->add($this->taskExportDrupalConfig(), 'drupal.exportConfig');
+
+    return $collectionBuilder;
   }
 
 }

@@ -23,7 +23,9 @@ drubo:
   #   - enabled: Whether the command is enabled (defaults to true).
   commands:
     # 'Reinstall project' command (disabled by default).
-    'site:reinstall': { enabled: false }
+    'project:reinstall': { enabled: false }
+    # 'Upgrade project' command (disabled by default).
+    'project:upgrade': { enabled: false }
 
 # ....................................................................... Drupal
 
