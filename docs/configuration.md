@@ -3,6 +3,8 @@
 **drubo** is highly configurable to suit your needs. Configuration is split up 
 into project and environment-specific values.
 
+---
+
 ## Project configuration
 
 The project configuration contains all base configuration values. Use the
@@ -30,12 +32,6 @@ environment name in the project configuration.
 
 See [```config.default.yml```][config] for available configuration options.
 
-### Related commands
-
-* [environment:compare][command.environment.compare]
-* [environment:config][command.environment.config]
-* [environment:list][command.environment.list]
-
 ### Inheritance
 
 Environment-specific configuration values are assembled using the following 
@@ -60,6 +56,12 @@ overrides
 
 Replace ```[ENVIRONMENT]``` with the actual environment name (e.g. ```develop```, 
 ```staging``` or ```production```).
+
+### Related commands
+
+* [environment:compare][command.environment.compare]
+* [environment:config][command.environment.config]
+* [environment:list][command.environment.list]
 
 [command.environment.compare]: commands.md#environmentcompare
 [command.environment.config]: commands.md#environmenconfig
