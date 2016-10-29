@@ -89,14 +89,11 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
     /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
     $collectionBuilder = $this->collectionBuilder();
 
-    // Build diff task.
-    $diffTask = $this->taskDiff()
-      ->from($from['data'], $from['label'])
-      ->to($to['data'], $to['label']);
-
     $collectionBuilder->getCollection()
       // Generate diff.
-      ->add($diffTask, 'base.diff');
+      ->add($this->taskDiff()
+        ->from($from['data'], $from['label'])
+        ->to($to['data'], $to['label']), 'base.diff');
 
     return $collectionBuilder;
   }
