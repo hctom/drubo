@@ -16,6 +16,11 @@ other values that may change between different developers, hosting locations
 etc. - You should run [ ```project:init``` ][command.project.init] everywhere
 instead to setup these specific configuration values.
 
+#### Related commands
+
+* [project:config][command.project.config]
+* [project:init][command.project.init]
+
 ---
 
 ## Environment configuration
@@ -25,8 +30,11 @@ environment name in the project configuration.
 
 See [```config.default.yml```][config] for available configuration options.
 
-Each configuration value may be overridden in global or environment-specific 
-configuration file(s).
+#### Related commands
+
+* [environment:compare]
+* [environment:config]
+* [environment:list]
 
 ### Inheritance
 
@@ -39,6 +47,9 @@ inheritance order:
 
 ### Overrides
 
+Each configuration value may be overridden in global or environment-specific 
+configuration file(s).
+
 Place a ```config.yml``` file in one of the following directories (relative to 
 the project directory) in order to override configuration any value(s) within 
 the above stated inheritance order:
@@ -50,5 +61,9 @@ overrides
 Replace ```[ENVIRONMENT]``` with the actual environment name (e.g. ```develop```, 
 ```staging``` or ```production```).
 
+[command.environment.compare]commands.md#environmentcompare
+[command.environment.config] commands.md#environmenconfig
+[command.environment.list] commands.md#environmentlist
+[command.project.config]: commands.md#projectconfig
 [command.project.init]: commands.md#projectinit
 [config]: ../config.default.yml
