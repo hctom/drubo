@@ -6,7 +6,7 @@
 \Drubo\DruboHelper::httpAuth($username, $password, $realm = NULL);
 ```
 
-#### Parameters
+### Parameters
 
 | Parameter       | Type          | Description                                                       |
 |:----------------|:--------------|:------------------------------------------------------------------|
@@ -19,7 +19,7 @@ Use this helper method to require HTTP authentication for your project.
 **NOTE: This only protects things from prying eyes that run through PHP. URLs 
 to static files (e.g. images, CSS files etc.) will still be accessible!**
 
-#### Example
+### Example
 
 ```php
 <?php
