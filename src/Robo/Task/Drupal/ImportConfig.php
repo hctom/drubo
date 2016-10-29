@@ -85,7 +85,7 @@ class ImportConfig extends ExecChain {
   public function run() {
     $this->printTaskInfo('Importing Drupal configuration');
 
-    /** @var Result $result */
+    /** @var \Robo\Result $result */
     $result = parent::run();
 
     if (!$result->wasSuccessful() || $this->hasNoChanges($result)) {
