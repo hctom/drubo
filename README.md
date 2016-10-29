@@ -1,6 +1,6 @@
 # drubo
 
-[Robo][robo]-based task runner for [Drupal][drupal]
+[Robo][robo]-based task runner for [Drupal][drupal] 8
 
 ---
 
