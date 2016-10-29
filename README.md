@@ -2,6 +2,8 @@
 
 [Robo][robo]-based task runner for [Drupal][drupal]
 
+---
+
 ## Installation
 
 Use [Composer][composer] to add **drubo** to your Drupal project: 
@@ -10,9 +12,11 @@ Use [Composer][composer] to add **drubo** to your Drupal project:
 $ composer require hctom/drubo --sort-packages
 ```
 
+---
+
 ## Getting started
 
-#### Create RoboFile
+### Create RoboFile
 
 To begin you need to create a ```RoboFile.php``` inside your project directory 
 with the following code:
@@ -28,7 +32,7 @@ class RoboFile extends \Drubo\Robo\Tasks {
 This file automatically inherits some useful built-in commands that help you 
 with the setup/maintenance of your Drupal project.
 
-#### Initialize project
+### Initialize project
 
 Run the following command to initialize your project:
 
@@ -36,7 +40,7 @@ Run the following command to initialize your project:
 $ vendor/bin/robo project:init
 ```
 
-#### List available commands
+### List available commands
 
 From now on you may run ```vendor/bin/robo``` in your project directory to 
 execute [Robo][robo]-based **drubo** tasks. Use the following command to 
@@ -45,6 +49,9 @@ retrieve a list of all available commands:
 ```sh
 $ vendor/bin/robo list
 ```
+
+---
+
 ## Documentation
 
 * [Configuration][toc.configuration]
