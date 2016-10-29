@@ -16,7 +16,7 @@ other values that may change between different developers, hosting locations
 etc. - You should run [ ```project:init``` ][command.project.init] everywhere
 instead to setup these specific configuration values.
 
-#### Related commands
+### Related commands
 
 * [project:config][command.project.config]
 * [project:init][command.project.init]
@@ -30,11 +30,11 @@ environment name in the project configuration.
 
 See [```config.default.yml```][config] for available configuration options.
 
-#### Related commands
+### Related commands
 
-* [environment:compare]
-* [environment:config]
-* [environment:list]
+* [environment:compare][command.environment.compare]
+* [environment:config][command.environment.config]
+* [environment:list][command.environment.list]
 
 ### Inheritance
 
@@ -61,9 +61,9 @@ overrides
 Replace ```[ENVIRONMENT]``` with the actual environment name (e.g. ```develop```, 
 ```staging``` or ```production```).
 
-[command.environment.compare]commands.md#environmentcompare
-[command.environment.config] commands.md#environmenconfig
-[command.environment.list] commands.md#environmentlist
+[command.environment.compare]: commands.md#environmentcompare
+[command.environment.config]: commands.md#environmenconfig
+[command.environment.list]: commands.md#environmentlist
 [command.project.config]: commands.md#projectconfig
 [command.project.init]: commands.md#projectinit
 [config]: ../config.default.yml
