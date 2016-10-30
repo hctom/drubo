@@ -8,7 +8,7 @@ use Robo\Exception\TaskException;
 /**
  * Robo task: Export configuration to 'sync' directory.
  */
-class ExportConfig extends Exec {
+class ConfigExport extends Exec {
 
   /**
    * Configuration directory.

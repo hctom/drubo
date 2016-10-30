@@ -43,10 +43,10 @@ trait loadTasks {
   /**
    * Export configuration to 'sync' directory.
    *
-   * @return ExportConfig
+   * @return ConfigExport
    */
   protected function taskExportDrupalConfig() {
-    return $this->task(ExportConfig::class);
+    return $this->task(ConfigExport::class);
   }
 
   /**
