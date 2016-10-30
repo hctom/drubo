@@ -61,10 +61,10 @@ trait loadTasks {
   /**
    * Install a Drupal site.
    *
-   * @return InstallSite
+   * @return SiteInstall
    */
   protected function taskInstallDrupalSite() {
-    return $this->task(InstallSite::class);
+    return $this->task(SiteInstall::class);
   }
 
   /**

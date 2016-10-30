@@ -8,7 +8,7 @@ use Robo\Result;
 /**
  * Robo task: Install a Drupal site.
  */
-class InstallSite extends Exec {
+class SiteInstall extends Exec {
 
   /**
    * {@inheritdoc}
