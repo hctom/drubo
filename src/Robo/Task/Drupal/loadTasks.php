@@ -25,10 +25,10 @@ trait loadTasks {
   /**
    * Diff Drupal configuration .
    *
-   * @return DiffConfig
+   * @return ConfigDiff
    */
   protected function taskDiffDrupalConfig() {
-    return $this->task(DiffConfig::class);
+    return $this->task(ConfigDiff::class);
   }
 
   /**

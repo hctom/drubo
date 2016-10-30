@@ -8,7 +8,7 @@ use Robo\Exception\TaskException;
 /**
  * Robo task: Diff Drupal configuration.
  */
-class DiffConfig extends Exec {
+class ConfigDiff extends Exec {
 
   /**
    * Configuration directory.
