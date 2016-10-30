@@ -3,6 +3,7 @@
 namespace Drubo\Robo\Task\Drupal;
 
 use Drubo\Robo\Task\Drupal\Cache\Rebuild;
+use Drubo\Robo\Task\Drupal\Config\Diff;
 use Drubo\Robo\Task\Drupal\Site\Install;
 use Drubo\Robo\Task\Drupal\Site\Reinstall;
 
@@ -29,10 +30,10 @@ trait loadTasks {
   /**
    * Diff Drupal configuration .
    *
-   * @return ConfigDiff
+   * @return \Drubo\Robo\Task\Drupal\Config\Diff
    */
   protected function taskDiffDrupalConfig() {
-    return $this->task(ConfigDiff::class);
+    return $this->task(Diff::class);
   }
 
   /**

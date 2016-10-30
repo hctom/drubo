@@ -1,6 +1,6 @@
 <?php
 
-namespace Drubo\Robo\Task\Drupal;
+namespace Drubo\Robo\Task\Drupal\Config;
 
 use Drubo\Robo\Task\DrupalConsole\Exec;
 use Robo\Exception\TaskException;
@@ -8,7 +8,7 @@ use Robo\Exception\TaskException;
 /**
  * Robo task: Diff Drupal configuration.
  */
-class ConfigDiff extends Exec {
+class Diff extends Exec {
 
   /**
    * Configuration directory.
