@@ -16,15 +16,6 @@ use Drubo\Robo\Task\Drupal\User\Login;
 trait loadTasks {
 
   /**
-   * Apply pending Drupal update(s).
-   *
-   * @return \Drubo\Robo\Task\Drupal\Update\Execute
-   */
-  protected function taskApplyPendingDrupalUpdates() {
-    return $this->task(Execute::class);
-  }
-
-  /**
    * Diff Drupal configuration .
    *
    * @return \Drubo\Robo\Task\Drupal\Config\Diff
@@ -40,6 +31,15 @@ trait loadTasks {
    */
   protected function taskDrupalUpdateEntities() {
     return $this->task(Entities::class);
+  }
+
+  /**
+   * Apply pending Drupal update(s).
+   *
+   * @return \Drubo\Robo\Task\Drupal\Update\Execute
+   */
+  protected function taskDrupalUpdateExecute() {
+    return $this->task(Execute::class);
   }
 
   /**

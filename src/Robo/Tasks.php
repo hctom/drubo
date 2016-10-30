@@ -315,7 +315,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       ->add($this->taskPrepareFilesystemFiles(), 'filesystem.prepareFiles')
 
       // Apply pending updates.
-      ->add($this->taskApplyPendingDrupalUpdates(), 'drupal.applyPendingUpdates')
+      ->add($this->taskDrupalUpdateExecute(), 'drupal.update.execute')
 
       // Import configuration.
       ->add($this->taskImportDrupalConfig(), 'drupal.importConfig')
@@ -377,7 +377,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
         ->args($packageNames), 'composer.update')
 
       // Apply pending updates.
-      ->add($this->taskApplyPendingDrupalUpdates(), 'drupal.applyPendingUpdates')
+      ->add($this->taskDrupalUpdateExecute(), 'drupal.update.execute')
 
       // Apply entity schema updates.
       ->add($this->taskDrupalUpdateEntities(), 'drupal.update.entities')
