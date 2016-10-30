@@ -34,6 +34,15 @@ trait loadTasks {
   }
 
   /**
+   * Import configuration to current Drupal site.
+   *
+   * @return \Drubo\Robo\Task\Drupal\Config\Import
+   */
+  protected function taskDrupalConfigImport() {
+    return $this->task(Import::class);
+  }
+
+  /**
    * Apply Drupal entity schema updates.
    *
    * @return \Drubo\Robo\Task\Drupal\Update\Entities
@@ -58,15 +67,6 @@ trait loadTasks {
    */
   protected function taskDrupalUserLogin() {
     return $this->task(Login::class);
-  }
-
-  /**
-   * Import configuration to current Drupal site.
-   *
-   * @return \Drubo\Robo\Task\Drupal\Config\Import
-   */
-  protected function taskImportDrupalConfig() {
-    return $this->task(Import::class);
   }
 
   /**

@@ -210,7 +210,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       ->add($this->taskInstallDrupalSite(), 'drupal.installSite')
 
       // Import Drupal configuration.
-      ->add($this->taskImportDrupalConfig(), 'drupal.importConfig')
+      ->add($this->taskDrupalConfigImport(), 'drupal.config.import')
 
       // Apply entity schema updates.
       ->add($this->taskDrupalUpdateEntities(), 'drupal.update.entities')
@@ -269,7 +269,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       ->add($this->taskReinstallDrupalSite(), 'drupal.reinstallSite')
 
       // Import configuration.
-      ->add($this->taskImportDrupalConfig(), 'drupal.importConfig')
+      ->add($this->taskDrupalConfigImport(), 'drupal.config.import')
 
       // Apply entity schema updates.
       ->add($this->taskDrupalUpdateEntities(), 'drupal.update.entities')
@@ -318,7 +318,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       ->add($this->taskDrupalUpdateExecute(), 'drupal.update.execute')
 
       // Import configuration.
-      ->add($this->taskImportDrupalConfig(), 'drupal.importConfig')
+      ->add($this->taskDrupalConfigImport(), 'drupal.config.import')
 
       // Apply entity schema updates.
       ->add($this->taskDrupalUpdateEntities(), 'drupal.update.entities')
