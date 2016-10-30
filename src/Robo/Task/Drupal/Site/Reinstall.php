@@ -1,13 +1,13 @@
 <?php
 
-namespace Drubo\Robo\Task\Drupal;
+namespace Drubo\Robo\Task\Drupal\Site;
 
 use Drubo\Robo\Task\DrupalConsole\ExecChain;
 
 /**
  * Robo task: Reinstall a Drupal site.
  */
-class SiteReinstall extends ExecChain {
+class Reinstall extends ExecChain {
 
   /**
    * {@inheritdoc}
