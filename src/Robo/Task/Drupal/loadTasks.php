@@ -5,6 +5,7 @@ namespace Drubo\Robo\Task\Drupal;
 use Drubo\Robo\Task\Drupal\Cache\Rebuild;
 use Drubo\Robo\Task\Drupal\Config\Diff;
 use Drubo\Robo\Task\Drupal\Config\Export;
+use Drubo\Robo\Task\Drupal\Config\Import;
 use Drubo\Robo\Task\Drupal\Site\Install;
 use Drubo\Robo\Task\Drupal\Site\Reinstall;
 
@@ -58,10 +59,10 @@ trait loadTasks {
   /**
    * Import configuration to current Drupal site.
    *
-   * @return ConfigImport
+   * @return \Drubo\Robo\Task\Drupal\Config\Import
    */
   protected function taskImportDrupalConfig() {
-    return $this->task(ConfigImport::class);
+    return $this->task(Import::class);
   }
 
   /**

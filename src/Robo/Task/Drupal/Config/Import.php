@@ -1,6 +1,6 @@
 <?php
 
-namespace Drubo\Robo\Task\Drupal;
+namespace Drubo\Robo\Task\Drupal\Config;
 
 use Drubo\Robo\Task\DrupalConsole\ExecChain;
 use Robo\Exception\TaskException;
@@ -9,7 +9,7 @@ use Robo\Result;
 /**
  * Robo task: Import configuration to current Drupal site.
  */
-class ConfigImport extends ExecChain {
+class Import extends ExecChain {
 
   /**
    * Configuration directory.
