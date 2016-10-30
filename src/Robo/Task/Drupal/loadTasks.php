@@ -9,6 +9,7 @@ use Drubo\Robo\Task\Drupal\Config\Import;
 use Drubo\Robo\Task\Drupal\Node\AccessRebuild;
 use Drubo\Robo\Task\Drupal\Site\Install;
 use Drubo\Robo\Task\Drupal\Site\Reinstall;
+use Drubo\Robo\Task\Drupal\Update\Execute;
 use Drubo\Robo\Task\Drupal\User\Login;
 
 trait loadTasks {
@@ -25,10 +26,10 @@ trait loadTasks {
   /**
    * Apply pending Drupal update(s).
    *
-   * @return ApplyPendingUpdates
+   * @return \Drubo\Robo\Task\Drupal\Update\Execute
    */
   protected function taskApplyPendingDrupalUpdates() {
-    return $this->task(ApplyPendingUpdates::class);
+    return $this->task(Execute::class);
   }
 
   /**

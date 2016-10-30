@@ -1,6 +1,6 @@
 <?php
 
-namespace Drubo\Robo\Task\Drupal;
+namespace Drubo\Robo\Task\Drupal\Update;
 
 use Drubo\Robo\Task\DrupalConsole\Exec;
 use Robo\Exception\TaskException;
@@ -8,7 +8,7 @@ use Robo\Exception\TaskException;
 /**
  * Robo task: Apply pending Drupal update(s).
  */
-class ApplyPendingUpdates extends Exec {
+class Execute extends Exec {
 
   /**
    * Module name.
