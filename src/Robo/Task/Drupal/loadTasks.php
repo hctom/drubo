@@ -52,6 +52,15 @@ trait loadTasks {
   }
 
   /**
+   * Rebuild Drupal node access permissions.
+   *
+   * @return \Drubo\Robo\Task\Drupal\Node\AccessRebuild
+   */
+  protected function taskDrupalNodeAccessRebuild() {
+    return $this->task(AccessRebuild::class);
+  }
+
+  /**
    * Apply Drupal entity schema updates.
    *
    * @return \Drubo\Robo\Task\Drupal\Update\Entities
@@ -85,15 +94,6 @@ trait loadTasks {
    */
   protected function taskDrupalUserLogin() {
     return $this->task(Login::class);
-  }
-
-  /**
-   * Rebuild Drupal node access permissions.
-   *
-   * @return \Drubo\Robo\Task\Drupal\Node\AccessRebuild
-   */
-  protected function taskRebuildDrupalNodeAccessPermissions() {
-    return $this->task(AccessRebuild::class);
   }
 
   /**
