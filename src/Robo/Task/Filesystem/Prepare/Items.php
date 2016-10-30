@@ -1,6 +1,6 @@
 <?php
 
-namespace Drubo\Robo\Task\Filesystem;
+namespace Drubo\Robo\Task\Filesystem\Prepare;
 
 use Drubo\Config\Filesystem\FilesystemConfigItem;
 use Drubo\Robo\Task\BaseTask;
@@ -11,7 +11,7 @@ use Robo\Contract\BuilderAwareInterface;
 /**
  * Robo task base class: Prepare filesystem items.
  */
-abstract class PrepareItems extends BaseTask implements BuilderAwareInterface {
+abstract class Items extends BaseTask implements BuilderAwareInterface {
 
   use BuilderAwareTrait;
 

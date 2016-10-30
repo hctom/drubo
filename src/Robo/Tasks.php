@@ -201,10 +201,10 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
         ->optimizeAutoloader(), 'composer.install')
 
       // Prepare/ensure directories.
-      ->add($this->taskPrepareFilesystemDirectories(), 'filesystem.prepareDirectories')
+      ->add($this->taskFilesystemPrepareDirectories(), 'filesystem.prepare.firectories')
 
       // Prepare/ensure files.
-      ->add($this->taskPrepareFilesystemFiles(), 'filesystem.prepareFiles')
+      ->add($this->taskFilesystemPrepareFiles(), 'filesystem.prepare.files')
 
       // Install Drupal site.
       ->add($this->taskDrupalSiteInstall(), 'drupal.site.install')
@@ -263,10 +263,10 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
         ->optimizeAutoloader(), 'composer.install')
 
       // Prepare/ensure directories.
-      ->add($this->taskPrepareFilesystemDirectories(), 'filesystem.prepareDirectories')
+      ->add($this->taskFilesystemPrepareDirectories(), 'filesystem.prepare.directories')
 
       // Prepare/ensure files.
-      ->add($this->taskPrepareFilesystemFiles(), 'filesystem.prepareFiles')
+      ->add($this->taskFilesystemPrepareFiles(), 'filesystem.prepare.files')
 
       // Reinstall Drupal site.
       ->add($this->taskDrupalSiteReinstall(), 'drupal.site.reinstall')
@@ -315,10 +315,10 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       ->add($composerInstallTask, 'composer.install')
 
       // Prepare/ensure directories.
-      ->add($this->taskPrepareFilesystemDirectories(), 'filesystem.prepareDirectories')
+      ->add($this->taskFilesystemPrepareDirectories(), 'filesystem.prepare.directories')
 
       // Prepare/ensure files.
-      ->add($this->taskPrepareFilesystemFiles(), 'filesystem.prepareFiles')
+      ->add($this->taskFilesystemPrepareFiles(), 'filesystem.prepare.files')
 
       // Apply pending updates.
       ->add($this->taskDrupalUpdateExecute(), 'drupal.update.execute')

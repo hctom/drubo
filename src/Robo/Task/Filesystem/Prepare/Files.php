@@ -1,38 +1,38 @@
 <?php
 
-namespace Drubo\Robo\Task\Filesystem;
+namespace Drubo\Robo\Task\Filesystem\Prepare;
 
-use Drubo\Config\Filesystem\Directory\DirectoryConfigList;
+use Drubo\Config\Filesystem\File\FileConfigList;
 use Drubo\Config\Filesystem\FilesystemConfigItem;
 use Robo\Collection\CollectionBuilder;
 
 /**
- * Robo task: Prepare filesystem directories.
+ * Robo task: Prepare filesystem files.
  */
-class PrepareDirectories extends PrepareItems {
+class Files extends Items {
 
   /**
    * {@inheritdoc}
    */
   protected function create(CollectionBuilder $collectionBuilder, FilesystemConfigItem $item) {
     $collectionBuilder->taskFilesystemStack()
-      ->mkdir($item->path());
+      ->touch($item->path());
   }
 
   /**
    * {@inheritdoc}
    *
-   * @return \Drubo\Config\Filesystem\Directory\DirectoryConfigListInterface
+   * @return \Drubo\Config\Filesystem\File\FileConfigListInterface
    */
   protected function iterator() {
-    return new DirectoryConfigList();
+    return new FileConfigList();
   }
 
   /**
    * {@inheritdoc}
    */
   public function run() {
-    $this->printTaskInfo('Preparing directories');
+    $this->printTaskInfo('Preparing files');
 
     return parent::run();
   }
