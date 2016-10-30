@@ -8,7 +8,7 @@ use Robo\Exception\TaskException;
 /**
  * Robo task: Rebuild and clear Drupal site cache(s).
  */
-class RebuildCache extends Exec {
+class CacheRebuild extends Exec {
 
   /**
    * Cache.

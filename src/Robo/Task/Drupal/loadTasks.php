@@ -70,10 +70,10 @@ trait loadTasks {
   /**
    * Rebuild and clear Drupal site cache(s).
    *
-   * @return RebuildCache
+   * @return CacheRebuild
    */
   protected function taskRebuildDrupalCache() {
-    return $this->task(RebuildCache::class);
+    return $this->task(CacheRebuild::class);
   }
 
   /**
