@@ -1,6 +1,6 @@
 <?php
 
-namespace Drubo\Robo\Task\Drupal;
+namespace Drubo\Robo\Task\Drupal\Site;
 
 use Drubo\Robo\Task\DrupalConsole\Exec;
 use Robo\Result;
@@ -8,7 +8,7 @@ use Robo\Result;
 /**
  * Robo task: Install a Drupal site.
  */
-class SiteInstall extends Exec {
+class Install extends Exec {
 
   /**
    * {@inheritdoc}

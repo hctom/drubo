@@ -3,6 +3,7 @@
 namespace Drubo\Robo\Task\Drupal;
 
 use Drubo\Robo\Task\Drupal\Cache\Rebuild;
+use Drubo\Robo\Task\Drupal\Site\Install;
 use Drubo\Robo\Task\Drupal\Site\Reinstall;
 
 trait loadTasks {
@@ -64,10 +65,10 @@ trait loadTasks {
   /**
    * Install a Drupal site.
    *
-   * @return SiteInstall
+   * @return \Drubo\Robo\Task\Drupal\Site\Install
    */
   protected function taskInstallDrupalSite() {
-    return $this->task(SiteInstall::class);
+    return $this->task(Install::class);
   }
 
   /**
