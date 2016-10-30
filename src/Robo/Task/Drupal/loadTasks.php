@@ -61,6 +61,24 @@ trait loadTasks {
   }
 
   /**
+   * Install a Drupal site.
+   *
+   * @return \Drubo\Robo\Task\Drupal\Site\Install
+   */
+  protected function taskDrupalSiteInstall() {
+    return $this->task(Install::class);
+  }
+
+  /**
+   * Reinstall a Drupal site.
+   *
+   * @return \Drubo\Robo\Task\Drupal\Site\Reinstall
+   */
+  protected function taskDrupalSiteReinstall() {
+    return $this->task(Reinstall::class);
+  }
+
+  /**
    * Apply Drupal entity schema updates.
    *
    * @return \Drubo\Robo\Task\Drupal\Update\Entities
@@ -79,30 +97,12 @@ trait loadTasks {
   }
 
   /**
-   * Install a Drupal site.
-   *
-   * @return \Drubo\Robo\Task\Drupal\Site\Install
-   */
-  protected function taskDrupalSiteInstall() {
-    return $this->task(Install::class);
-  }
-
-  /**
    * Generate one-time user login URL.
    *
    * @return \Drubo\Robo\Task\Drupal\User\Login
    */
   protected function taskDrupalUserLogin() {
     return $this->task(Login::class);
-  }
-
-  /**
-   * Reinstall a Drupal site.
-   *
-   * @return \Drubo\Robo\Task\Drupal\Site\Reinstall
-   */
-  protected function taskReinstallDrupalSite() {
-    return $this->task(Reinstall::class);
   }
 
 }

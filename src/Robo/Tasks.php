@@ -266,7 +266,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       ->add($this->taskPrepareFilesystemFiles(), 'filesystem.prepareFiles')
 
       // Reinstall Drupal site.
-      ->add($this->taskReinstallDrupalSite(), 'drupal.reinstallSite')
+      ->add($this->taskDrupalSiteReinstall(), 'drupal.site.reinstall')
 
       // Import configuration.
       ->add($this->taskDrupalConfigImport(), 'drupal.config.import')
