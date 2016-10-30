@@ -11,7 +11,7 @@ trait loadTasks {
    *
    * @return \Drubo\Robo\Task\Project\Config\Initialize
    */
-  protected function taskInitializeProjectConfig() {
+  protected function taskProjectConfigInitialize() {
     return $this->task(Initialize::class);
   }
 
