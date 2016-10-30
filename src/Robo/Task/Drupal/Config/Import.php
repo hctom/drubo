@@ -95,7 +95,7 @@ class Import extends ExecChain {
     // Generate diff.
     ob_start();
     $result = $this->collectionBuilder()
-      ->taskDiffDrupalConfig()
+      ->taskDrupalConfigDiff()
       ->run();
     ob_end_clean();
 

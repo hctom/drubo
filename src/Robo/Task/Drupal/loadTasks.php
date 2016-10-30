@@ -16,11 +16,11 @@ use Drubo\Robo\Task\Drupal\User\Login;
 trait loadTasks {
 
   /**
-   * Diff Drupal configuration .
+   * Diff Drupal configuration.
    *
    * @return \Drubo\Robo\Task\Drupal\Config\Diff
    */
-  protected function taskDiffDrupalConfig() {
+  protected function taskDrupalConfigDiff() {
     return $this->task(Diff::class);
   }
 
