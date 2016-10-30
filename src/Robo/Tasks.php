@@ -215,6 +215,9 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       // Apply entity schema updates.
       ->add($this->taskDrupalUpdateEntities(), 'drupal.update.entities')
 
+      // Rebuild node access permissions.
+      ->add($this->taskDrupalNodeAccessRebuild(), 'drupal.node.accessRebuild')
+
       // Display one-time login URL.
       ->add($this->taskDrupalUserLogin(), 'drupal.user.login');
 
@@ -273,6 +276,9 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
 
       // Apply entity schema updates.
       ->add($this->taskDrupalUpdateEntities(), 'drupal.update.entities')
+
+      // Rebuild node access permissions.
+      ->add($this->taskDrupalNodeAccessRebuild(), 'drupal.node.accessRebuild')
 
       // Display one-time login URL.
       ->add($this->taskDrupalUserLogin(), 'drupal.user.login');
