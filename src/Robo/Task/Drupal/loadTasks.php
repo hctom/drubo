@@ -4,6 +4,7 @@ namespace Drubo\Robo\Task\Drupal;
 
 use Drubo\Robo\Task\Drupal\Cache\Rebuild;
 use Drubo\Robo\Task\Drupal\Config\Diff;
+use Drubo\Robo\Task\Drupal\Config\Export;
 use Drubo\Robo\Task\Drupal\Site\Install;
 use Drubo\Robo\Task\Drupal\Site\Reinstall;
 
@@ -48,10 +49,10 @@ trait loadTasks {
   /**
    * Export configuration to 'sync' directory.
    *
-   * @return ConfigExport
+   * @return \Drubo\Robo\Task\Drupal\Config\Export
    */
   protected function taskExportDrupalConfig() {
-    return $this->task(ConfigExport::class);
+    return $this->task(Export::class);
   }
 
   /**
