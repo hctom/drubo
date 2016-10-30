@@ -88,10 +88,10 @@ trait loadTasks {
   /**
    * Reinstall a Drupal site.
    *
-   * @return ReinstallSite
+   * @return SiteReinstall
    */
   protected function taskReinstallDrupalSite() {
-    return $this->task(ReinstallSite::class);
+    return $this->task(SiteReinstall::class);
   }
 
 }

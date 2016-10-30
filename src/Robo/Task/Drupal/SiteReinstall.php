@@ -7,7 +7,7 @@ use Drubo\Robo\Task\DrupalConsole\ExecChain;
 /**
  * Robo task: Reinstall a Drupal site.
  */
-class ReinstallSite extends ExecChain {
+class SiteReinstall extends ExecChain {
 
   /**
    * {@inheritdoc}
