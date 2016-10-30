@@ -216,7 +216,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       ->add($this->taskDrupalUpdateEntities(), 'drupal.update.entities')
 
       // Display one-time login URL.
-      ->add($this->taskDrupalUserLogin(), 'drupal.userLogin');
+      ->add($this->taskDrupalUserLogin(), 'drupal.user.login');
 
     return $collectionBuilder;
   }
@@ -275,7 +275,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       ->add($this->taskDrupalUpdateEntities(), 'drupal.update.entities')
 
       // Display one-time login URL.
-      ->add($this->taskDrupalUserLogin(), 'drupal.userLogin');
+      ->add($this->taskDrupalUserLogin(), 'drupal.user.login');
 
     return $collectionBuilder;
   }
@@ -324,7 +324,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       ->add($this->taskDrupalUpdateEntities(), 'drupal.update.entities')
 
       // Display one-time login URL.
-      ->add($this->taskDrupalUserLogin(), 'drupal.userLogin');
+      ->add($this->taskDrupalUserLogin(), 'drupal.user.login');
 
     return $collectionBuilder;
   }
