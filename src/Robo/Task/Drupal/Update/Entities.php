@@ -1,13 +1,13 @@
 <?php
 
-namespace Drubo\Robo\Task\Drupal;
+namespace Drubo\Robo\Task\Drupal\Update;
 
 use Drubo\Robo\Task\DrupalConsole\Exec;
 
 /**
  * Robo task: Apply Drupal entity schema updates.
  */
-class ApplyEntityUpdates extends Exec {
+class Entities extends Exec {
 
   /**
    * {@inheritdoc}

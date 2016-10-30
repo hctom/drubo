@@ -9,6 +9,7 @@ use Drubo\Robo\Task\Drupal\Config\Import;
 use Drubo\Robo\Task\Drupal\Node\AccessRebuild;
 use Drubo\Robo\Task\Drupal\Site\Install;
 use Drubo\Robo\Task\Drupal\Site\Reinstall;
+use Drubo\Robo\Task\Drupal\Update\Entities;
 use Drubo\Robo\Task\Drupal\Update\Execute;
 use Drubo\Robo\Task\Drupal\User\Login;
 
@@ -17,10 +18,10 @@ trait loadTasks {
   /**
    * Apply Drupal entity schema updates.
    *
-   * @return ApplyEntityUpdates
+   * @return \Drubo\Robo\Task\Drupal\Update\Entities
    */
   protected function taskApplyDrupalEntityUpdates() {
-    return $this->task(ApplyEntityUpdates::class);
+    return $this->task(Entities::class);
   }
 
   /**
