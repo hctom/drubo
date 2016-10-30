@@ -2,15 +2,17 @@
 
 namespace Drubo\Robo\Task\Project;
 
+use Drubo\Robo\Task\Project\Config\Initialize;
+
 trait loadTasks {
 
   /**
-   * Initialize drubo.
+   * Initialize project configuration.
    *
-   * @return InitializeConfig
+   * @return \Drubo\Robo\Task\Project\Config\Initialize
    */
   protected function taskInitializeProjectConfig() {
-    return $this->task(InitializeConfig::class);
+    return $this->task(Initialize::class);
   }
 
 }

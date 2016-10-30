@@ -1,6 +1,6 @@
 <?php
 
-namespace Drubo\Robo\Task\Project;
+namespace Drubo\Robo\Task\Project\Config;
 
 use Drubo\Robo\Task\BaseTask;
 use Robo\Common\BuilderAwareTrait;
@@ -15,7 +15,7 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Robo task: Initialize project configuration.
  */
-class InitializeConfig extends BaseTask implements BuilderAwareInterface {
+class Initialize extends BaseTask implements BuilderAwareInterface {
 
   use BuilderAwareTrait;
 
