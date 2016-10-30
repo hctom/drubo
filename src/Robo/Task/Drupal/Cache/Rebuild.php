@@ -1,6 +1,6 @@
 <?php
 
-namespace Drubo\Robo\Task\Drupal;
+namespace Drubo\Robo\Task\Drupal\Cache;
 
 use Drubo\Robo\Task\DrupalConsole\Exec;
 use Robo\Exception\TaskException;
@@ -8,7 +8,7 @@ use Robo\Exception\TaskException;
 /**
  * Robo task: Rebuild and clear Drupal site cache(s).
  */
-class CacheRebuild extends Exec {
+class Rebuild extends Exec {
 
   /**
    * Cache.

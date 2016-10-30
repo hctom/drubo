@@ -2,6 +2,8 @@
 
 namespace Drubo\Robo\Task\Drupal;
 
+use Drubo\Robo\Task\Drupal\Cache\Rebuild;
+
 trait loadTasks {
 
   /**
@@ -70,10 +72,10 @@ trait loadTasks {
   /**
    * Rebuild and clear Drupal site cache(s).
    *
-   * @return CacheRebuild
+   * @return \Drubo\Robo\Task\Drupal\Cache\Rebuild
    */
   protected function taskRebuildDrupalCache() {
-    return $this->task(CacheRebuild::class);
+    return $this->task(Rebuild::class);
   }
 
   /**
