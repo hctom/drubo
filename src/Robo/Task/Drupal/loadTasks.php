@@ -16,6 +16,15 @@ use Drubo\Robo\Task\Drupal\User\Login;
 trait loadTasks {
 
   /**
+   * Rebuild and clear Drupal site cache(s).
+   *
+   * @return \Drubo\Robo\Task\Drupal\Cache\Rebuild
+   */
+  protected function taskDrupalCacheRebuild() {
+    return $this->task(Rebuild::class);
+  }
+
+  /**
    * Diff Drupal configuration.
    *
    * @return \Drubo\Robo\Task\Drupal\Config\Diff
@@ -76,15 +85,6 @@ trait loadTasks {
    */
   protected function taskDrupalUserLogin() {
     return $this->task(Login::class);
-  }
-
-  /**
-   * Rebuild and clear Drupal site cache(s).
-   *
-   * @return \Drubo\Robo\Task\Drupal\Cache\Rebuild
-   */
-  protected function taskRebuildDrupalCache() {
-    return $this->task(Rebuild::class);
   }
 
   /**

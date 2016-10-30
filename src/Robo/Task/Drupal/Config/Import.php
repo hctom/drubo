@@ -106,7 +106,7 @@ class Import extends ExecChain {
 
     return $this->collectionBuilder()
       // Rebuild Drupal caches.
-      ->taskRebuildDrupalCache()
+      ->taskDrupalCacheRebuild()
       // Import Drupal configuration again.
       ->taskDrupalConfigImport()
       ->run();
