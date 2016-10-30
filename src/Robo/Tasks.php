@@ -383,7 +383,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       ->add($this->taskDrupalUpdateEntities(), 'drupal.update.entities')
 
       // Export configuration.
-      ->add($this->taskExportDrupalConfig(), 'drupal.exportConfig');
+      ->add($this->taskDrupalConfigExport(), 'drupal.config.export');
 
     return $collectionBuilder;
   }

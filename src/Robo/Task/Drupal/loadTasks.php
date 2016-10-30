@@ -25,6 +25,15 @@ trait loadTasks {
   }
 
   /**
+   * Export configuration to 'sync' directory.
+   *
+   * @return \Drubo\Robo\Task\Drupal\Config\Export
+   */
+  protected function taskDrupalConfigExport() {
+    return $this->task(Export::class);
+  }
+
+  /**
    * Apply Drupal entity schema updates.
    *
    * @return \Drubo\Robo\Task\Drupal\Update\Entities
@@ -49,15 +58,6 @@ trait loadTasks {
    */
   protected function taskDrupalUserLogin() {
     return $this->task(Login::class);
-  }
-
-  /**
-   * Export configuration to 'sync' directory.
-   *
-   * @return \Drubo\Robo\Task\Drupal\Config\Export
-   */
-  protected function taskExportDrupalConfig() {
-    return $this->task(Export::class);
   }
 
   /**
