@@ -1,13 +1,13 @@
 <?php
 
-namespace Drubo\Robo\Task\Drupal;
+namespace Drubo\Robo\Task\Drupal\Node;
 
 use Drubo\Robo\Task\DrupalConsole\Exec;
 
 /**
  * Robo task: Rebuild Drupal node access permissions.
  */
-class RebuildNodeAccessPermissions extends Exec {
+class AccessRebuild extends Exec {
 
   /**
    * Process in batch mode.

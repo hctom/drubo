@@ -6,6 +6,7 @@ use Drubo\Robo\Task\Drupal\Cache\Rebuild;
 use Drubo\Robo\Task\Drupal\Config\Diff;
 use Drubo\Robo\Task\Drupal\Config\Export;
 use Drubo\Robo\Task\Drupal\Config\Import;
+use Drubo\Robo\Task\Drupal\Node\AccessRebuild;
 use Drubo\Robo\Task\Drupal\Site\Install;
 use Drubo\Robo\Task\Drupal\Site\Reinstall;
 use Drubo\Robo\Task\Drupal\User\Login;
@@ -87,10 +88,10 @@ trait loadTasks {
   /**
    * Rebuild Drupal node access permissions.
    *
-   * @return RebuildNodeAccessPermissions
+   * @return \Drubo\Robo\Task\Drupal\Node\AccessRebuild
    */
   protected function taskRebuildDrupalNodeAccessPermissions() {
-    return $this->task(RebuildNodeAccessPermissions::class);
+    return $this->task(AccessRebuild::class);
   }
 
   /**
