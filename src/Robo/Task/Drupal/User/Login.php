@@ -1,6 +1,6 @@
 <?php
 
-namespace Drubo\Robo\Task\Drupal;
+namespace Drubo\Robo\Task\Drupal\User;
 
 use Drubo\Robo\Task\DrupalConsole\Exec;
 use Robo\Exception\TaskException;
@@ -8,7 +8,7 @@ use Robo\Exception\TaskException;
 /**
  * Robo task: Generate one-time user login URL.
  */
-class UserLogin extends Exec {
+class Login extends Exec {
 
   /**
    * User ID.

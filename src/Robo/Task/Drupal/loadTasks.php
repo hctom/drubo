@@ -8,6 +8,7 @@ use Drubo\Robo\Task\Drupal\Config\Export;
 use Drubo\Robo\Task\Drupal\Config\Import;
 use Drubo\Robo\Task\Drupal\Site\Install;
 use Drubo\Robo\Task\Drupal\Site\Reinstall;
+use Drubo\Robo\Task\Drupal\User\Login;
 
 trait loadTasks {
 
@@ -41,10 +42,10 @@ trait loadTasks {
   /**
    * Generate one-time user login URL.
    *
-   * @return UserLogin
+   * @return \Drubo\Robo\Task\Drupal\User\Login
    */
   protected function taskDrupalUserLogin() {
-    return $this->task(UserLogin::class);
+    return $this->task(Login::class);
   }
 
   /**
