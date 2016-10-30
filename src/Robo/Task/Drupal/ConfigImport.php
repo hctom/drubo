@@ -9,7 +9,7 @@ use Robo\Result;
 /**
  * Robo task: Import configuration to current Drupal site.
  */
-class ImportConfig extends ExecChain {
+class ConfigImport extends ExecChain {
 
   /**
    * Configuration directory.

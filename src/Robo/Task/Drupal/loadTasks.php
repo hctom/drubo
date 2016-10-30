@@ -52,10 +52,10 @@ trait loadTasks {
   /**
    * Import configuration to current Drupal site.
    *
-   * @return ImportConfig
+   * @return ConfigImport
    */
   protected function taskImportDrupalConfig() {
-    return $this->task(ImportConfig::class);
+    return $this->task(ConfigImport::class);
   }
 
   /**
