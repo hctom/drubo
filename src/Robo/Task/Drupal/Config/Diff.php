@@ -10,12 +10,7 @@ use Robo\Exception\TaskException;
  */
 class Diff extends Exec {
 
-  /**
-   * Configuration directory.
-   *
-   * @var string
-   */
-  protected $configDirectory;
+  use ConfigTrait;
 
   /**
    * Whether to see the changes in reverse.
@@ -55,20 +50,6 @@ class Diff extends Exec {
     $args[] = escapeshellarg($configDirectory);
 
     return $args;
-  }
-
-  /**
-   * Set configuration directory.
-   *
-   * @param string $configDirectory
-   *   The path to the directory containing configuration to diff.
-   *
-   * @return static
-   */
-  public function configDirectory($configDirectory) {
-    $this->configDirectory = $configDirectory;
-
-    return $this;
   }
 
   /**

@@ -11,12 +11,7 @@ use Robo\Result;
  */
 class Import extends ExecChain {
 
-  /**
-   * Configuration directory.
-   *
-   * @var string
-   */
-  protected $configDirectory;
+  use ConfigTrait;
 
   /**
    * Constructor.
@@ -50,20 +45,6 @@ class Import extends ExecChain {
     return [
       'directory' => $configDirectory,
     ];
-  }
-
-  /**
-   * Set configuration directory.
-   *
-   * @param string $configDirectory
-   *   The path to the directory containing all configuration files to import.
-   *
-   * @return static
-   */
-  public function configDirectory($configDirectory) {
-    $this->configDirectory = $configDirectory;
-
-    return $this;
   }
 
   /**

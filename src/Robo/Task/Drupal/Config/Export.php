@@ -10,12 +10,7 @@ use Robo\Exception\TaskException;
  */
 class Export extends Exec {
 
-  /**
-   * Configuration directory.
-   *
-   * @var string
-   */
-  protected $configDirectory;
+  use ConfigTrait;
 
   /**
    * Constructor.
@@ -36,20 +31,6 @@ class Export extends Exec {
     $args[] = 'config:export';
 
     return $args;
-  }
-
-  /**
-   * Set configuration directory.
-   *
-   * @param string $configDirectory
-   *   The path to the directory to export to.
-   *
-   * @return static
-   */
-  public function configDirectory($configDirectory) {
-    $this->configDirectory = $configDirectory;
-
-    return $this;
   }
 
   /**
