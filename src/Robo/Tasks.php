@@ -213,7 +213,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       ->add($this->taskImportDrupalConfig(), 'drupal.importConfig')
 
       // Apply entity schema updates.
-      ->add($this->taskApplyDrupalEntityUpdates(), 'drupal.applyEntityUpdates')
+      ->add($this->taskDrupalUpdateEntities(), 'drupal.update.entities')
 
       // Display one-time login URL.
       ->add($this->taskDrupalUserLogin(), 'drupal.userLogin');
@@ -272,7 +272,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       ->add($this->taskImportDrupalConfig(), 'drupal.importConfig')
 
       // Apply entity schema updates.
-      ->add($this->taskApplyDrupalEntityUpdates(), 'drupal.applyEntityUpdates')
+      ->add($this->taskDrupalUpdateEntities(), 'drupal.update.entities')
 
       // Display one-time login URL.
       ->add($this->taskDrupalUserLogin(), 'drupal.userLogin');
@@ -321,7 +321,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       ->add($this->taskImportDrupalConfig(), 'drupal.importConfig')
 
       // Apply entity schema updates.
-      ->add($this->taskApplyDrupalEntityUpdates(), 'drupal.applyEntityUpdates')
+      ->add($this->taskDrupalUpdateEntities(), 'drupal.update.entities')
 
       // Display one-time login URL.
       ->add($this->taskDrupalUserLogin(), 'drupal.userLogin');
@@ -380,7 +380,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       ->add($this->taskApplyPendingDrupalUpdates(), 'drupal.applyPendingUpdates')
 
       // Apply entity schema updates.
-      ->add($this->taskApplyDrupalEntityUpdates(), 'drupal.applyEntityUpdates')
+      ->add($this->taskDrupalUpdateEntities(), 'drupal.update.entities')
 
       // Export configuration.
       ->add($this->taskExportDrupalConfig(), 'drupal.exportConfig');

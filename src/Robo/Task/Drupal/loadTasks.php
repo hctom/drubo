@@ -16,15 +16,6 @@ use Drubo\Robo\Task\Drupal\User\Login;
 trait loadTasks {
 
   /**
-   * Apply Drupal entity schema updates.
-   *
-   * @return \Drubo\Robo\Task\Drupal\Update\Entities
-   */
-  protected function taskApplyDrupalEntityUpdates() {
-    return $this->task(Entities::class);
-  }
-
-  /**
    * Apply pending Drupal update(s).
    *
    * @return \Drubo\Robo\Task\Drupal\Update\Execute
@@ -40,6 +31,15 @@ trait loadTasks {
    */
   protected function taskDiffDrupalConfig() {
     return $this->task(Diff::class);
+  }
+
+  /**
+   * Apply Drupal entity schema updates.
+   *
+   * @return \Drubo\Robo\Task\Drupal\Update\Entities
+   */
+  protected function taskDrupalUpdateEntities() {
+    return $this->task(Entities::class);
   }
 
   /**
