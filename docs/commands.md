@@ -64,6 +64,10 @@ Install project based on delivered files, configuration and settings.
 
 Reinstall project based on delivered files, configuration and settings.
 
+**NOTE:** This command is disabled by default to prevent accidental execution 
+and data loss. See [```config.default.yml```][config] for details about how to 
+enable the command in a specific environment.
+
 ---
 
 ### project:update
@@ -76,10 +80,15 @@ Update project based on delivered files, configuration and settings.
 
 Upgrade project packages while keeping exported configuration in sync.
 
+**NOTE:** This command is disabled by default to prevent accidental execution 
+and data loss. See [```config.default.yml```][config] for details about how to 
+enable the command in a specific environment.
+
 ---
 
 ## Command configration
 
-See [```config.default.yml```][config] for details.
+Some command properties may be configured in environment-specific configuration
+files. See [```config.default.yml```][config] for details.
 
 [config]: ../config.default.yml
