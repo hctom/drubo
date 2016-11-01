@@ -65,8 +65,8 @@ Install project based on delivered files, configuration and settings.
 Reinstall project based on delivered files, configuration and settings.
 
 **NOTE:** This command is disabled by default to prevent accidental execution 
-and data loss. See [```config.default.yml```][config] for details about how to 
-enable the command in a specific environment.
+and data loss. See ```drubo.commands``` section in [```config.default.yml```][config] 
+for details about how to enable the command in a specific environment.
 
 ---
 
@@ -81,14 +81,15 @@ Update project based on delivered files, configuration and settings.
 Upgrade project packages while keeping exported configuration in sync.
 
 **NOTE:** This command is disabled by default to prevent accidental execution 
-and data loss. See [```config.default.yml```][config] for details about how to 
-enable the command in a specific environment.
+and data loss. See ```drubo.commands``` section in [```config.default.yml```][config] 
+for details about how to enable the command in a specific environment.
 
 ---
 
 ## Command configration
 
 Some command properties may be configured in environment-specific configuration
-files. See [```config.default.yml```][config] for details.
+files. See ```drubo.commands``` section in [```config.default.yml```][config] 
+for details.
 
 [config]: ../config.default.yml
