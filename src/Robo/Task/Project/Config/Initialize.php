@@ -90,7 +90,7 @@ class Initialize extends BaseTask implements BuilderAwareInterface {
    * {@inheritdoc}
    */
   public function run() {
-    $this->printTaskInfo('Initializing Drubo');
+    $this->printTaskInfo('Initializing project configuration');
 
     $projectDirectory = $this->getDrubo()
       ->getProjectDirectory();
