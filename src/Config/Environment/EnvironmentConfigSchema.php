@@ -161,6 +161,7 @@ class EnvironmentConfigSchema extends ConfigSchema {
             ->canBeDisabled()
             ->validate()
               ->always($this->validateNodeFilesystemItemClosure())
+              ->always($this->sortChildrenByKeyClosure())
             ->end()
             ->children()
               ->booleanNode('create')->defaultFalse()->end()
