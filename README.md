@@ -32,6 +32,9 @@ class RoboFile extends \Drubo\Robo\Tasks {
 This file automatically inherits some useful built-in commands that help you 
 with the setup/maintenance of your Drupal project.
 
+**NOTE:** Please ensure that the ```\Drubo\Robo\Tasks``` namespace is used for 
+the extended class - otherwise **drubo** functionality won't be available!
+
 ### Initialize project
 
 Run the following command to initialize your project:
