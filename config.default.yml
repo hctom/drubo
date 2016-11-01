@@ -82,9 +82,11 @@ drush:
 filesystem:
   # Configuration for all directories that need to be set up. Each directory may
   # be configured with the following properties:
-  #   - enabled: Whether to process the directory (defaults to true).
+  #   - clean: Whether to clean the directory during specific command runs (e.g.
+  #     during reinstallation - defaults to false).
   #   - create: Whether the directory should be created if not exists (defaults
   #     to false)
+  #   - enabled: Whether to process the directory (defaults to true).
   #   - mode: The directory mode/permissions (defaults to null)
   #   - path: (required) The path to the directory to process (either absolute
   #     or relative to the project directory).
@@ -99,12 +101,14 @@ filesystem:
       path: 'docroot'
     # Private files directory (disabled by default).
     private:
+      clean: true
       create: true
       enabled: false
       mode: 777
       path: 'private'
     # Public files directory.
     public:
+      clean: true
       create: true
       mode: 744
       path: 'docroot/sites/default/files'
@@ -114,14 +118,15 @@ filesystem:
       path: 'docroot/sites/default'
     # Temporary files directory.
     tmp:
+      clean: true
       create: true
       mode: 777
       path: 'tmp'
   # Configuration for all files that need to be set up. Each file may be
   # configured with the following properties:
-  #   - enabled: Whether to process the file (defaults to true).
   #   - create: Whether the file should be created if not exists (defaults to
   #     false)
+  #   - enabled: Whether to process the file (defaults to true).
   #   - mode: The file mode/permissions (defaults to null)
   #   - path: (required) The path to the file to process (either absolute or
   #     relative to the project directory).

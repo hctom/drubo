@@ -3,41 +3,37 @@
 namespace Drubo\Robo\Task\Filesystem\Prepare;
 
 use Drubo\Config\Filesystem\FilesystemConfigItem;
-use Drubo\Robo\Task\BaseTask;
+use Drubo\Robo\Task\Filesystem\Items as FilesystemItems;
 use Robo\Collection\CollectionBuilder;
-use Robo\Common\BuilderAwareTrait;
-use Robo\Contract\BuilderAwareInterface;
 
 /**
  * Robo task base class: Prepare filesystem items.
  */
-abstract class Items extends BaseTask implements BuilderAwareInterface {
-
-  use BuilderAwareTrait;
+abstract class Items extends FilesystemItems {
 
   /**
    * Create filesystem item.
    *
-   * @param \Robo\Collection\CollectionBuilder $collectionBuilder
-   *   The collection builder.
    * @param \Drubo\Config\Filesystem\FilesystemConfigItem $item
    *   The filesystem configuration item.
+   * @param \Robo\Collection\CollectionBuilder $collectionBuilder
+   *   The collection builder.
    *
    * @return static
    */
-  abstract protected function create(CollectionBuilder $collectionBuilder, FilesystemConfigItem $item);
+  abstract protected function create(FilesystemConfigItem $item, CollectionBuilder $collectionBuilder);
 
   /**
    * Change mode/permissions of filesystem item.
    *
-   * @param \Robo\Collection\CollectionBuilder $collectionBuilder
-   *   The collection builder.
    * @param \Drubo\Config\Filesystem\FilesystemConfigItem $item
    *   The filesystem configuration item.
+   * @param \Robo\Collection\CollectionBuilder $collectionBuilder
+   *   The collection builder.
    *
    * @return static
    */
-  protected function mode(CollectionBuilder $collectionBuilder, FilesystemConfigItem $item) {
+  protected function mode(FilesystemConfigItem $item, CollectionBuilder $collectionBuilder) {
     $collectionBuilder->taskFilesystemStack()
       ->chmod($item->path(), $item->mode());
 
@@ -45,67 +41,40 @@ abstract class Items extends BaseTask implements BuilderAwareInterface {
   }
 
   /**
-   * Return filesystem configuration list iterator.
-   *
-   * @return \Drubo\Config\Filesystem\FilesystemConfigListInterface
-   *   The filesystem configuration list iterator.
-   */
-  abstract protected function iterator();
-
-  /**
    * {@inheritdoc}
    */
-  public function run() {
-    /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
-    $collectionBuilder = $this->collectionBuilder();
+  public function processItem(FilesystemConfigItem $item, CollectionBuilder $collectionBuilder) {
+    $collectionBuilder->progressMessage(sprintf('Processing directory: %s', $item->path()));
 
-    $iterator = $this->iterator();
-
-    // Loop over items and process each one of them.
-    while($iterator->valid()) {
-      $item = $iterator->current();
-
-      // Item should be processed?
-      if ($item->enabled()) {
-        $collectionBuilder->progressMessage(sprintf('Processing directory: %s', $item->path()));
-
-        // Create item (if not exists)?
-        if ($item->create()) {
-          $this->create($collectionBuilder, $item);
-        }
-
-        // Symlink item?
-        elseif ($item->symlink()) {
-          $this->symlink($collectionBuilder, $item);
-        }
-
-        // Change mode/permissions of item?
-        if ($item->mode()) {
-          $this->mode($collectionBuilder, $item);
-        }
-      }
-
-      // Move on to next item.
-      $iterator->next();
+    // Create item (if not exists)?
+    if ($item->create()) {
+      $this->create($item, $collectionBuilder);
     }
 
-    // Reset iterator to its initial state.
-    $iterator->rewind();
+    // Symlink item?
+    elseif ($item->symlink()) {
+      $this->symlink($item, $collectionBuilder);
+    }
 
-    return $collectionBuilder->run();
+    // Change mode/permissions of item?
+    if ($item->mode()) {
+      $this->mode($item, $collectionBuilder);
+    }
+
+    return $this;
   }
 
   /**
    * Symlink filesystem item.
    *
-   * @param \Robo\Collection\CollectionBuilder $collectionBuilder
-   *   The collection builder.
    * @param \Drubo\Config\Filesystem\FilesystemConfigItem $item
    *   The filesystem configuration item.
+   * @param \Robo\Collection\CollectionBuilder $collectionBuilder
+   *   The collection builder.
    *
    * @return static
    */
-  protected function symlink(CollectionBuilder &$collectionBuilder, FilesystemConfigItem $item) {
+  protected function symlink(FilesystemConfigItem $item, CollectionBuilder &$collectionBuilder) {
     $collectionBuilder->taskFilesystemStack()
       ->symlink($item->symlink(), $item->path());
 

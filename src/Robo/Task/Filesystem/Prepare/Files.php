@@ -14,7 +14,7 @@ class Files extends Items {
   /**
    * {@inheritdoc}
    */
-  protected function create(CollectionBuilder $collectionBuilder, FilesystemConfigItem $item) {
+  protected function create(FilesystemConfigItem $item, CollectionBuilder $collectionBuilder) {
     $collectionBuilder->taskFilesystemStack()
       ->touch($item->path());
   }

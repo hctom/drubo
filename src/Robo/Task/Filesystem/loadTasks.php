@@ -2,10 +2,20 @@
 
 namespace Drubo\Robo\Task\Filesystem;
 
-use Drubo\Robo\Task\Filesystem\Prepare\Directories;
+use Drubo\Robo\Task\Filesystem\Clean\Directories as CleanDicrectories;
+use Drubo\Robo\Task\Filesystem\Prepare\Directories as PrepareDicrectories;
 use Drubo\Robo\Task\Filesystem\Prepare\Files;
 
 trait loadTasks {
+
+  /**
+   * Clean filesystem directories.
+   *
+   * @return \Drubo\Robo\Task\Filesystem\Clean\Directories
+   */
+  protected function taskFilesystemCleanDirectories() {
+    return $this->task(CleanDicrectories::class);
+  }
 
   /**
    * Prepare filesystem directories.
@@ -13,7 +23,7 @@ trait loadTasks {
    * @return \Drubo\Robo\Task\Filesystem\Prepare\Directories
    */
   protected function taskFilesystemPrepareDirectories() {
-    return $this->task(Directories::class);
+    return $this->task(PrepareDicrectories::class);
   }
 
   /**

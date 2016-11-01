@@ -9,4 +9,11 @@ use Drubo\Config\Filesystem\FilesystemConfigItem;
  */
 class DirectoryConfigItem extends FilesystemConfigItem implements DirectoryConfigItemInterface {
 
+  /**
+   * {@inheritdoc}
+   */
+  public function clean() {
+    return !empty($this->data['clean']);
+  }
+
 }
