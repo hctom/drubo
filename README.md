@@ -66,6 +66,7 @@ structure should be used:
 <project directory>
  ├─ .drubo
  |   ├─ config
+ |   └─ ...
  ├─ drupal
  |   ├─ config
  |   └─ ...
