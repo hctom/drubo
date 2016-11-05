@@ -53,6 +53,8 @@ retrieve a list of all available commands:
 $ vendor/bin/robo list
 ```
 
+See [commands][toc.commands] for details about built-in commands.
+
 ---
 
 ## Documentation
