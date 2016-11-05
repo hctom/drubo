@@ -47,8 +47,8 @@ Each configuration value may be overridden in global or environment-specific
 configuration file(s).
 
 Place a ```config.yml``` file in one of the following directories (relative to 
-the project directory) in order to override configuration any value(s) within 
-the above stated inheritance order:
+the project directory) in order to override any configuration value(s) in the 
+above stated inheritance order:
 
 * ```.drubo/config```: Custom global configuration overrides
 * ```.drubo/config/[ENVIRONMENT]```: Custom environment-specific configuration 
