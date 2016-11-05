@@ -27,11 +27,19 @@ $ vendor/bin/robo help <command>
 
 Compare environment-specific configuration values.
 
+```bash
+$ vendor/bin/robo environment:compare
+```
+
 ---
 
 ### environment:config
 
-Dump all configuration values for the currently used environment.
+Dump all configuration values for the current environment.
+
+```bash
+$ vendor/bin/robo environment:config
+```
 
 ---
 
@@ -39,11 +47,19 @@ Dump all configuration values for the currently used environment.
 
 List all available environment names.
 
+```bash
+$ vendor/bin/robo environment:list
+```
+
 ---
 
 ### project:config
 
 Dump all project configuration values.
+
+```bash
+$ vendor/bin/robo project:config
+```
 
 ---
 
@@ -52,17 +68,29 @@ Dump all project configuration values.
 Initialize project and set up its configuration. You can also use this command 
 to change any of the project configuration later.
 
+```bash
+$ vendor/bin/robo project:init
+```
+
 ---
 
 ### project:install
 
 Install project based on delivered files, configuration and settings.
 
+```bash
+$ vendor/bin/robo project:install
+```
+
 ---
 
 ### project:reinstall
 
 Reinstall project based on delivered files, configuration and settings.
+
+```bash
+$ vendor/bin/robo project:reinstall
+```
 
 **NOTE:** This command is disabled by default to prevent accidental execution 
 and data loss. See ```drubo.commands``` section in [```config.default.yml```][config] 
@@ -74,11 +102,19 @@ for details about how to enable the command in a specific environment.
 
 Update project based on delivered files, configuration and settings.
 
+```bash
+$ vendor/bin/robo project:update
+```
+
 ---
 
 ### project:upgrade
 
 Upgrade project packages while keeping exported configuration in sync.
+
+```bash
+$ vendor/bin/robo project:upgrade
+```
 
 **NOTE:** This command is disabled by default to prevent accidental execution 
 and data loss. See ```drubo.commands``` section in [```config.default.yml```][config] 
