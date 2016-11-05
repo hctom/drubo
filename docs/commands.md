@@ -7,7 +7,7 @@ number of additional commands to extend **drubo** with missing functionality.
 Run the following command in your poject directory to get a list of all 
 available commands:
 
-```sh
+```bash
 $ vendor/bin/robo list
 ```
 
@@ -17,7 +17,7 @@ $ vendor/bin/robo list
 information about a specific command (replace ```<command>```with the 
 actual command name).
 
-```sh
+```bash
 $ vendor/bin/robo help <command>
 ```
 

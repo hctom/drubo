@@ -8,7 +8,7 @@
 
 Use [Composer][composer] to add **drubo** to your Drupal project: 
 
-```sh
+```bash
 $ composer require hctom/drubo --sort-packages
 ```
 
@@ -39,7 +39,7 @@ the extended class - otherwise **drubo** functionality won't be available!
 
 Run the following command to initialize your project:
 
-```sh
+```bash
 $ vendor/bin/robo project:init
 ```
 
@@ -49,7 +49,7 @@ From now on you may run ```vendor/bin/robo``` in your project directory to
 execute [Robo][robo]-based **drubo** tasks. Use the following command to 
 retrieve a list of all available commands:
 
-```sh
+```bash
 $ vendor/bin/robo list
 ```
 
