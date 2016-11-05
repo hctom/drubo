@@ -57,6 +57,34 @@ See [commands][toc.commands] documentation for details about built-in commands.
 
 ---
 
+## Recommended project structure
+
+In order to have **drubo** work out of the box, the following directory 
+structure should be used:
+
+```
+<project directory>
+ ├─ .drubo
+ |   ├─ config
+ ├─ drupal
+ |   ├─ config
+ |   └─ ...
+ ├─ docroot
+ ├─ private
+ ├─ tmp
+ ├─ vendor
+ └─ ...
+```
+
+If you intend to use another structure, configure custom paths in your 
+environment-specific configuration file(s). 
+
+See [configuration][toc.configuration] documentation for details about overriding 
+configuration values (also have a look at ```filesystem``` section in
+[```config.default.yml```][config]).
+
+---
+
 ## Documentation
 
 * [Configuration][toc.configuration]
@@ -65,6 +93,7 @@ See [commands][toc.commands] documentation for details about built-in commands.
 * [Helpers][toc.helpers]
 
 [composer]: https://getcomposer.org/
+[config]: config.default.yml
 [drupal]: https://drupal.org/
 [robo]: http://robo.li/
 [toc.commands]: docs/commands.md
