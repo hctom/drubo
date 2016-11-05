@@ -17,7 +17,7 @@ Returns a diff engine object.
 
 [```\Drubo\Environment\EnvironmentInterface```][code.environmentinterface]
 
-Returns the currently active environment object.
+Returns the current active environment object.
 
 ---
 
@@ -25,7 +25,7 @@ Returns the currently active environment object.
 
 [```\Drubo\Config\Environment\EnvironmentConfigInterface```][code.environmentconfiginterface]
 
-Returns the configuration object for the currently active environment.
+Returns the configuration object for the current active environment.
 
 ---
 
