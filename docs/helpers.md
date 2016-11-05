@@ -14,7 +14,9 @@
 | ```$password``` | String        | The required password.                                            |
 | ```$realm```    | String / Null | _(optional)_ The authentication realm (defaults to ```Drupal```). |
 
-Use this helper method to require HTTP authentication for your project. 
+Use this helper method to require HTTP authentication for your project. Just 
+add it to your ```settings.php``` file to protect your Drupal site from 
+unauthorized access (e.g. in staging environments). 
 
 **NOTE: This only protects things from prying eyes that run through PHP. URLs 
 to static files (e.g. images, CSS files etc.) will still be accessible!**
