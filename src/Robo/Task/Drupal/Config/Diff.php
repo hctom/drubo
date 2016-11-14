@@ -47,7 +47,7 @@ class Diff extends Exec {
     $configDirectory = $this->getDrubo()
       ->getAbsolutePath($this->configDirectory);
 
-    $args[] = escapeshellarg($configDirectory);
+    $args[] = $configDirectory;
 
     return $args;
   }

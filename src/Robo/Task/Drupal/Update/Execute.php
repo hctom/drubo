@@ -47,10 +47,10 @@ class Execute extends Exec {
       throw new TaskException($this, 'No module name specified');
     }
 
-    $args[] = escapeshellarg($this->module);
+    $args[] = $this->module;
 
     if (!empty($this->updateN)) {
-      $args[] = escapeshellarg($this->updateN);
+      $args[] = $this->updateN;
     }
 
     return $args;

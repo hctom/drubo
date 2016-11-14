@@ -22,7 +22,7 @@ class Install extends Exec {
       ->get('drupal.site.profile');
 
     if ($siteProfile) {
-      $args[] = escapeshellarg($siteProfile);
+      $args[] = $siteProfile;
     }
 
     return $args;

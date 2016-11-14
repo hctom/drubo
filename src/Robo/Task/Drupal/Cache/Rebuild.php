@@ -40,7 +40,7 @@ class Rebuild extends Exec {
       throw new TaskException($this, 'No cache specified');
     }
 
-    $args[] = escapeshellarg($this->cache);
+    $args[] = $this->cache;
 
     return $args;
   }

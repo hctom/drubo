@@ -40,7 +40,7 @@ class Login extends Exec {
       throw new TaskException($this, 'No user ID specified');
     }
 
-    $args[] = escapeshellarg($this->userId);
+    $args[] = $this->userId;
 
     return $args;
   }

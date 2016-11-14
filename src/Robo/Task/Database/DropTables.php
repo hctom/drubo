@@ -40,7 +40,7 @@ class DropTables extends Exec {
       throw new TaskException($this, 'No database specified');
     }
 
-    $args[] = escapeshellarg($this->database);
+    $args[] = $this->database;
 
     return $args;
   }
