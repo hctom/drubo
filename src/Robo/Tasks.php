@@ -65,7 +65,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       'label' => $options['to'] ? ($options['to'] !== EnvironmentInterface::NONE ? $options['to'] : 'defaults') : $environmentName,
     ];
 
-    return $this->environmentCompareBuilder($from, $to)
+    return $this->environmentCompareCollectionBuilder($from, $to)
       ->run();
   }
 
@@ -85,7 +85,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
    * @return \Robo\Collection\CollectionBuilder
    *   The collection builder prepopulated with general tasks.
    */
-  protected function environmentCompareBuilder(array $from, array $to) {
+  protected function environmentCompareCollectionBuilder(array $from, array $to) {
     /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
     $collectionBuilder = $this->collectionBuilder();
 
