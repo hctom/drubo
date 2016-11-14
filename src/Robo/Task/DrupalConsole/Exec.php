@@ -65,7 +65,7 @@ abstract class Exec extends EncapsulatedExec {
 
     // URI.
     if (($uri = $this->uri())) {
-      $options['uri=' . escapeshellarg($uri)] = NULL;
+      $options['uri=' . $this->escape($uri)] = NULL;
     }
 
     return $options;

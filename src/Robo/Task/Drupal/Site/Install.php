@@ -38,32 +38,32 @@ class Install extends Exec {
 
     // Administrator account e-mail address.
     if (($accountMail = $config->get('drupal.account.mail'))) {
-      $options['account-mail=' . escapeshellarg($accountMail)] = NULL;
+      $options['account-mail=' . $this->escape($accountMail)] = NULL;
     }
 
     // Administrator account name.
     if (($accountName = $config->get('drupal.account.name'))) {
-      $options['account-name=' . escapeshellarg($accountName)] = NULL;
+      $options['account-name=' . $this->escape($accountName)] = NULL;
     }
 
     // Administrator account password.
     if (($accountPassword = $config->get('drupal.account.pass'))) {
-      $options['account-pass=' . escapeshellarg($accountPassword)] = NULL;
+      $options['account-pass=' . $this->escape($accountPassword)] = NULL;
     }
 
     // Site language.
     if (($siteLanguage = $config->get('drupal.site.language'))) {
-      $options['langcode=' . escapeshellarg($siteLanguage)] = NULL;
+      $options['langcode=' . $this->escape($siteLanguage)] = NULL;
     }
 
     // Site e-mail address.
     if (($siteMail = $config->get('drupal.site.mail'))) {
-      $options['site-mail=' . escapeshellarg($siteMail)] = NULL;
+      $options['site-mail=' . $this->escape($siteMail)] = NULL;
     }
 
     // Site name.
     if (($siteName = $config->get('drupal.site.name'))) {
-      $options['site-name=' . escapeshellarg($siteName)] = NULL;
+      $options['site-name=' . $this->escape($siteName)] = NULL;
     }
 
     return $options;

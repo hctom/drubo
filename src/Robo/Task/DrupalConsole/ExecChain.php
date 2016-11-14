@@ -50,7 +50,7 @@ abstract class ExecChain extends Exec {
       ->getPackageDirectory();
 
     // Path to chain file.
-    $options['file=' . escapeshellarg($this->chainFile($packageDirectory))] = NULL;
+    $options['file=' . $this->escape($this->chainFile($packageDirectory))] = NULL;
 
     // Placeholder values (if any).
     if (($placeholders = $this->chainFilePlaceholderValues())) {
@@ -58,7 +58,7 @@ abstract class ExecChain extends Exec {
         $value = $placeholder . ':' . $value;
       }
 
-      $options['placeholder=' . escapeshellarg(implode(' ', $placeholders))] = NULL;
+      $options['placeholder=' . $this->escape(implode(' ', $placeholders))] = NULL;
     }
 
     return $options;

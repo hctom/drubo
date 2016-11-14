@@ -47,7 +47,7 @@ class Export extends Exec {
     $configDirectory = $this->getDrubo()
       ->getAbsolutePath($this->configDirectory);
 
-    $options['directory=' . escapeshellarg($configDirectory)] = NULL;
+    $options['directory=' . $this->escape($configDirectory)] = NULL;
 
     return $options;
   }

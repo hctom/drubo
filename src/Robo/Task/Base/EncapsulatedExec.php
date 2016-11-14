@@ -6,6 +6,7 @@ use Drubo\Robo\Task\BaseTask;
 use Robo\Common\BuilderAwareTrait;
 use Robo\Contract\BuilderAwareInterface;
 use Robo\Exception\TaskException;
+use Robo\Task\Base\Exec;
 
 /**
  * Robo task base class for encapsulated command executions.
@@ -91,6 +92,21 @@ abstract class EncapsulatedExec extends BaseTask implements BuilderAwareInterfac
     }
 
     return $this->exec;
+  }
+
+  /**
+   * Escape command value.
+   *
+   * @param string $value
+   *   The value to escape.
+   *
+   * @return string
+   *   The escaped value.
+   *
+   * @see \Robo\Task\Base\Exec::escape()
+   */
+  protected function escape($value) {
+    return Exec::escape($value);
   }
 
   /**
