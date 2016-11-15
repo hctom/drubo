@@ -147,6 +147,31 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
   }
 
   /**
+   * Demonstrate project.
+   *
+   * @see \Drubo\Robo\Tasks::projectDemoCollectionBuilder()
+   */
+  public function projectDemo() {
+    return $this->projectDemoCollectionBuilder()
+      ->run();
+  }
+
+  /**
+   * Return collection builder for 'Demonstrate project' command.
+   *
+   * @return \Robo\Collection\CollectionBuilder
+   *   The collection builder prepopulated with general tasks.
+   */
+  protected function projectDemoCollectionBuilder() {
+    /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
+    $collectionBuilder = $this->collectionBuilder();
+
+    // Do nothing... projects should override this method to suit their needs.
+
+    return $collectionBuilder;
+  }
+
+  /**
    * Initialize project.
    *
    * @see \Drubo\Robo\Tasks::projectInitCollectionBuilder()
