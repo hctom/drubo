@@ -6,8 +6,9 @@ use Drubo\Robo\Task\Drupal\Cache\Rebuild;
 use Drubo\Robo\Task\Drupal\Config\Diff;
 use Drubo\Robo\Task\Drupal\Config\Export;
 use Drubo\Robo\Task\Drupal\Config\Import;
+use Drubo\Robo\Task\Drupal\Module\Install as ModuleInstall;
 use Drubo\Robo\Task\Drupal\Node\AccessRebuild;
-use Drubo\Robo\Task\Drupal\Site\Install;
+use Drubo\Robo\Task\Drupal\Site\Install as SiteInstall;
 use Drubo\Robo\Task\Drupal\Site\Reinstall;
 use Drubo\Robo\Task\Drupal\Update\Entities;
 use Drubo\Robo\Task\Drupal\Update\Execute;
@@ -52,6 +53,15 @@ trait loadTasks {
   }
 
   /**
+   * Install Drupal module(s).
+   *
+   * @return \Drubo\Robo\Task\Drupal\Module\Install
+   */
+  protected function taskDrupalModuleInstall() {
+    return $this->task(ModuleInstall::class);
+  }
+
+  /**
    * Rebuild Drupal node access permissions.
    *
    * @return \Drubo\Robo\Task\Drupal\Node\AccessRebuild
@@ -66,7 +76,7 @@ trait loadTasks {
    * @return \Drubo\Robo\Task\Drupal\Site\Install
    */
   protected function taskDrupalSiteInstall() {
-    return $this->task(Install::class);
+    return $this->task(SiteInstall::class);
   }
 
   /**
