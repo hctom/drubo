@@ -32,8 +32,11 @@ trait ConfigTaskTrait {
 
   /**
    * {@inheritdoc}
+   *
+   * @see \Drubo\Robo\Task\BaseTask::validate()
    */
   protected function validate() {
+    /** @var \Robo\Result $result */
     $result = parent::validate();
 
     if ($result->wasSuccessful()) {
