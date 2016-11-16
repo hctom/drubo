@@ -2,18 +2,18 @@
 
 namespace Drubo\Robo\Task\Drupal;
 
-use Drubo\Robo\Task\Drupal\Cache\Rebuild;
-use Drubo\Robo\Task\Drupal\Config\Diff;
-use Drubo\Robo\Task\Drupal\Config\Export;
-use Drubo\Robo\Task\Drupal\Config\Import;
+use Drubo\Robo\Task\Drupal\Cache\Rebuild as CacheRebuild;
+use Drubo\Robo\Task\Drupal\Config\Diff as ConfigDiff;
+use Drubo\Robo\Task\Drupal\Config\Export as ConfigExport;
+use Drubo\Robo\Task\Drupal\Config\Import as ConfigImport;
 use Drubo\Robo\Task\Drupal\Module\Install as ModuleInstall;
 use Drubo\Robo\Task\Drupal\Module\Uninstall as ModuleUninstall;
-use Drubo\Robo\Task\Drupal\Node\AccessRebuild;
+use Drubo\Robo\Task\Drupal\Node\AccessRebuild as NodeAccessRebuild;
 use Drubo\Robo\Task\Drupal\Site\Install as SiteInstall;
-use Drubo\Robo\Task\Drupal\Site\Reinstall;
-use Drubo\Robo\Task\Drupal\Update\Entities;
-use Drubo\Robo\Task\Drupal\Update\Execute;
-use Drubo\Robo\Task\Drupal\User\Login;
+use Drubo\Robo\Task\Drupal\Site\Reinstall as SiteReinstall;
+use Drubo\Robo\Task\Drupal\Update\Entities as UpdateEntities;
+use Drubo\Robo\Task\Drupal\Update\Execute as UpdateExecute;
+use Drubo\Robo\Task\Drupal\User\Login as UserLogin;
 
 trait loadTasks {
 
@@ -23,7 +23,7 @@ trait loadTasks {
    * @return \Drubo\Robo\Task\Drupal\Cache\Rebuild
    */
   protected function taskDrupalCacheRebuild() {
-    return $this->task(Rebuild::class);
+    return $this->task(CacheRebuild::class);
   }
 
   /**
@@ -32,7 +32,7 @@ trait loadTasks {
    * @return \Drubo\Robo\Task\Drupal\Config\Diff
    */
   protected function taskDrupalConfigDiff() {
-    return $this->task(Diff::class);
+    return $this->task(ConfigDiff::class);
   }
 
   /**
@@ -41,7 +41,7 @@ trait loadTasks {
    * @return \Drubo\Robo\Task\Drupal\Config\Export
    */
   protected function taskDrupalConfigExport() {
-    return $this->task(Export::class);
+    return $this->task(ConfigExport::class);
   }
 
   /**
@@ -50,7 +50,7 @@ trait loadTasks {
    * @return \Drubo\Robo\Task\Drupal\Config\Import
    */
   protected function taskDrupalConfigImport() {
-    return $this->task(Import::class);
+    return $this->task(ConfigImport::class);
   }
 
   /**
@@ -77,7 +77,7 @@ trait loadTasks {
    * @return \Drubo\Robo\Task\Drupal\Node\AccessRebuild
    */
   protected function taskDrupalNodeAccessRebuild() {
-    return $this->task(AccessRebuild::class);
+    return $this->task(NodeAccessRebuild::class);
   }
 
   /**
@@ -95,7 +95,7 @@ trait loadTasks {
    * @return \Drubo\Robo\Task\Drupal\Site\Reinstall
    */
   protected function taskDrupalSiteReinstall() {
-    return $this->task(Reinstall::class);
+    return $this->task(SiteReinstall::class);
   }
 
   /**
@@ -104,7 +104,7 @@ trait loadTasks {
    * @return \Drubo\Robo\Task\Drupal\Update\Entities
    */
   protected function taskDrupalUpdateEntities() {
-    return $this->task(Entities::class);
+    return $this->task(UpdateEntities::class);
   }
 
   /**
@@ -113,7 +113,7 @@ trait loadTasks {
    * @return \Drubo\Robo\Task\Drupal\Update\Execute
    */
   protected function taskDrupalUpdateExecute() {
-    return $this->task(Execute::class);
+    return $this->task(UpdateExecute::class);
   }
 
   /**
@@ -122,7 +122,7 @@ trait loadTasks {
    * @return \Drubo\Robo\Task\Drupal\User\Login
    */
   protected function taskDrupalUserLogin() {
-    return $this->task(Login::class);
+    return $this->task(UserLogin::class);
   }
 
 }
