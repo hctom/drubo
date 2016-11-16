@@ -44,6 +44,8 @@ class Initialize extends BaseTask implements BuilderAwareInterface {
    * Constructor.
    */
   public function __construct() {
+    parent::__construct();
+
     $this->input = $this->getDrubo()
       ->getInput();
 
