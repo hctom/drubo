@@ -9,6 +9,7 @@ commands:
       account-mail: '%{{account_mail}}'
       account-name: '%{{account_name}}'
       account-pass: '%{{account_pass}}'
+      db-type: '%{{db_type}}'
       langcode: '%{{langcode}}'
       site-mail: '%{{site_mail}}'
       site-name: '%{{site_name}}'

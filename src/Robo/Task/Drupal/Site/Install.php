@@ -80,6 +80,9 @@ class Install extends Exec {
       $options['site-name=' . $this->escape($siteName)] = NULL;
     }
 
+    // TODO db-type is required option
+    $options['db-type=' . $this->escape('mysql')];
+
     return $options;
   }
 

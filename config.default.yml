@@ -22,6 +22,9 @@ drubo:
   # following properties:
   #   - enabled: Whether the command is enabled (defaults to true).
   commands:
+    # 'Build project' command (disabled by default).
+    'project:build':
+      enabled: false
     # 'Start project demostration' command (disabled by default).
     'project:demo:start':
       enabled: false

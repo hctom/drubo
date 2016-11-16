@@ -133,6 +133,82 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
   }
 
   /**
+   * Build project.
+   *
+   * @see \Drubo\Robo\Tasks::projectBuildCollectionBuilder()
+   */
+  public function projectBuild() {
+    $environmentList = $this->getDrubo()
+      ->getEnvironmentList();
+
+    // Get remote origin URL.
+    $originUrl = trim($this->taskGitStack()
+      ->exec('config remote.origin.url')
+      ->printed(FALSE)
+      ->run()
+      ->getOutputData());
+
+    // Get current branch name.
+    $currentBranch = trim($this->taskGitStack()
+      ->exec('rev-parse --symbolic-full-name --abbrev-ref HEAD')
+      ->printed(FALSE)
+      ->run()
+      ->getOutputData());
+
+    // Determine builds.
+    $builds = [];
+    foreach ($environmentList as $environmentName) {
+      $config = $this->getDrubo()
+        ->getEnvironmentConfig($environmentName);
+
+      if ($config->has('build.branch')) {
+        $builds[$environmentName] = $config->get('build.branch');
+      }
+    }
+
+    dump($builds);
+
+    // Show warning.
+    $this->yell('BUILD REQUESTED', 40, 'blue');
+
+    $this->say('Branch: <info>' . $currentBranch . '</info>');
+    $this->say('Origin: <info>' . $originUrl . '</info>');
+
+    // Ask for confirmation.
+    if (!$this->confirm('Continue')) {
+      return Result::cancelled('Build cancelled...');
+    }
+
+    return $this->projectBuildCollectionBuilder($originUrl, $currentBranch, $builds)
+      ->run();
+  }
+
+  /**
+   * TODO Return collection builder for 'Build project' command.
+   *
+   * // TODO Param docs
+   *
+   * @return \Robo\Collection\CollectionBuilder
+   *   The collection builder prepopulated with general tasks.
+   */
+  protected function projectBuildCollectionBuilder($originalUrl, $currentBranch, $builds) {
+    /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
+    $collectionBuilder = $this->collectionBuilder();
+
+    dump($collectionBuilder->tmpDir('build'));
+
+    $collectionBuilder->getCollection()
+      // Validate composer.json
+      ->add($this->taskComposerValidate(), 'composer.validate')
+      // Create project clone.
+      ->add($this->taskProjectBuildCreateClone(), 'project.build.clone');
+
+
+
+    return $collectionBuilder;
+  }
+
+  /**
    * Dump project configuration values.
    *
    * @option string $format The output format

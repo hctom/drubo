@@ -27,6 +27,8 @@ class Reinstall extends ExecChain {
       'account_name' => $config->get('drupal.account.name'),
       'account_pass' => $config->get('drupal.account.pass'),
       'database' => 'default',
+      // TODO db-type is required option
+      'db_type' => 'mysql',
       'langcode' => $config->get('drupal.site.language'),
       'profile' => $config->get('drupal.site.profile'),
       'site_mail' => $config->get('drupal.site.mail'),
