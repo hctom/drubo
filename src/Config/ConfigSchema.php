@@ -5,11 +5,27 @@ namespace Drubo\Config;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Validation;
 
 /**
  * Schema base class for drubo configuration files.
  */
 abstract class ConfigSchema implements ConfigurationInterface {
+
+  /**
+   * Validator object.
+   *
+   * @var \Symfony\Component\Validator\ValidatorInterface
+   */
+  protected $validator;
+
+  /**
+   * Constructor.
+   */
+  public function __construct() {
+    $this->validator = Validation::createValidator();
+  }
 
   /**
    * Create and return configuration schema node.
@@ -43,6 +59,31 @@ abstract class ConfigSchema implements ConfigurationInterface {
     return function($v) {
       if (is_array($v)) {
         ksort($v);
+      }
+
+      return $v;
+    };
+  }
+
+  /**
+   * Validate e-mail address.
+   *
+   * @param mixed $v
+   *   The config value.
+   *
+   * @return \Closure
+   *   The validation closure.
+   */
+  protected function validateMailClosure() {
+    return function($v) {
+      if (!empty($v)) {
+        $violations = $this->validator
+          ->validate($v, [new Email()]);
+
+        /** @var \Symfony\Component\Validator\ConstraintViolationInterface $violation */
+        foreach ($violations as $violation) {
+          throw new \RuntimeException($violation->getMessage());
+        }
       }
 
       return $v;
