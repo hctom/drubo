@@ -9,7 +9,7 @@ use Drubo\Robo\Task\DrupalConsole\Exec;
  */
 class Install extends Exec {
 
-  use ModuleTrait;
+  use ModuleTaskTrait;
 
   /**
    * {@inheritdoc}

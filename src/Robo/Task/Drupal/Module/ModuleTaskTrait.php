@@ -7,7 +7,7 @@ use Robo\Result;
 /**
  * Trait for module task classes.
  */
-trait ModuleTrait {
+trait ModuleTaskTrait {
 
   /**
    * Module list.

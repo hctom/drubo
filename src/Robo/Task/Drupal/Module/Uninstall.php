@@ -9,7 +9,7 @@ use Drubo\Robo\Task\DrupalConsole\Exec;
  */
 class Uninstall extends Exec {
 
-  use ModuleTrait;
+  use ModuleTaskTrait;
 
   /**
    * {@inheritdoc}
