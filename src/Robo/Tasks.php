@@ -399,11 +399,8 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
         ->option('dry-run'), 'composer.update.dryRun')
 
       // Ask for confirmation to continue.
-      ->addCode(function() {
-        if (!$this->confirm('Continue')) {
-          throw new \RuntimeException('Upgrade cancelled...');
-        }
-      }, 'composer.update.confirm')
+      ->add($this->taskConfirmationQuestion()
+        ->messageCancelled('Upgrade cancelled...'), 'composer.update.confirm')
 
       // Update packages.
       ->add($this->taskComposerUpdate()
