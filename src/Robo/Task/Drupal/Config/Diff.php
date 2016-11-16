@@ -12,7 +12,7 @@ class Diff extends Exec {
   use ConfigTrait;
 
   /**
-   * Whether to see the changes in reverse.
+   * Whether to see the changes in reverse (defaults to FALSE).
    *
    * @var bool
    */

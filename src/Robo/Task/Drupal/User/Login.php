@@ -11,7 +11,7 @@ use Robo\Result;
 class Login extends Exec {
 
   /**
-   * User ID.
+   * User ID (defaults to '1').
    *
    * @var int
    */

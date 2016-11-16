@@ -11,7 +11,7 @@ use Robo\Result;
 class Execute extends Exec {
 
   /**
-   * Module name.
+   * Module name (defaults to 'all').
    *
    * @var string
    */

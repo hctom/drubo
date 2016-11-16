@@ -11,7 +11,7 @@ use Robo\Result;
 class Rebuild extends Exec {
 
   /**
-   * Cache.
+   * Cache (defaults to 'all').
    *
    * @var string
    */
