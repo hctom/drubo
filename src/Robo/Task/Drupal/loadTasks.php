@@ -6,6 +6,7 @@ use Drubo\Robo\Task\Drupal\Cache\Rebuild as CacheRebuild;
 use Drubo\Robo\Task\Drupal\Config\Diff as ConfigDiff;
 use Drubo\Robo\Task\Drupal\Config\Export as ConfigExport;
 use Drubo\Robo\Task\Drupal\Config\Import as ConfigImport;
+use Drubo\Robo\Task\Drupal\Migrate\Import as MigrateImport;
 use Drubo\Robo\Task\Drupal\Module\Install as ModuleInstall;
 use Drubo\Robo\Task\Drupal\Module\Uninstall as ModuleUninstall;
 use Drubo\Robo\Task\Drupal\Node\AccessRebuild as NodeAccessRebuild;
@@ -51,6 +52,15 @@ trait loadTasks {
    */
   protected function taskDrupalConfigImport() {
     return $this->task(ConfigImport::class);
+  }
+
+  /**
+   * Import Drupal migration(s).
+   *
+   * @return \Drubo\Robo\Task\Drupal\Migrate\Import
+   */
+  protected function taskDrupalMigrateImport() {
+    return $this->task(MigrateImport::class);
   }
 
   /**
