@@ -31,6 +31,20 @@ class Install extends Exec {
   /**
    * {@inheritdoc}
    */
+  protected function doRun() {
+    $result = parent::doRun();
+
+    // Error occured?
+    if (!(!$result->wasSuccessful() || preg_match('/' . preg_quote('Drupal is already installed') . '/i', $result->getOutputData()))) {
+      return $result;
+    }
+
+    return Result::error($this, 'Drupal is already installed');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   protected function options() {
     $options = parent::options();
 
@@ -72,17 +86,8 @@ class Install extends Exec {
   /**
    * {@inheritdoc}
    */
-  public function run() {
-    $this->printTaskInfo('Installing Drupal site');
-
-    $result = parent::run();
-
-    // Error occured?
-    if (!(!$result->wasSuccessful() || preg_match('/' . preg_quote('Drupal is already installed') . '/i', $result->getOutputData()))) {
-      return $result;
-    }
-
-    return Result::error($this, 'Drupal is already installed');
+  protected function title() {
+    return 'Installing Drupal site';
   }
 
 }

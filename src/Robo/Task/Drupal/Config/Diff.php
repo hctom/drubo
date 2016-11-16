@@ -3,7 +3,6 @@
 namespace Drubo\Robo\Task\Drupal\Config;
 
 use Drubo\Robo\Task\DrupalConsole\Exec;
-use Robo\Exception\TaskException;
 
 /**
  * Robo task: Diff Drupal configuration.
@@ -37,16 +36,11 @@ class Diff extends Exec {
   protected function arguments() {
     $args = parent::arguments();
 
-    $args[] = 'config:diff';
-
-    if (empty($this->configDirectory)) {
-      throw new TaskException($this, 'No configuration directory specified');
-    }
-
     // Use absolute path for configuration directory.
     $configDirectory = $this->getDrubo()
       ->getAbsolutePath($this->configDirectory);
 
+    $args[] = 'config:diff';
     $args[] = $configDirectory;
 
     return $args;
@@ -82,10 +76,8 @@ class Diff extends Exec {
   /**
    * {@inheritdoc}
    */
-  public function run() {
-    $this->printTaskInfo('Diffing Drupal configuration');
-
-    return parent::run();
+  protected function title() {
+    return 'Diffing Drupal configuration';
   }
 
 }

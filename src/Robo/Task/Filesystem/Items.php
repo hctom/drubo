@@ -16,29 +16,9 @@ abstract class Items extends BaseTask implements BuilderAwareInterface {
   use BuilderAwareTrait;
 
   /**
-   * Return filesystem configuration list iterator.
-   *
-   * @return \Drubo\Config\Filesystem\FilesystemConfigListInterface
-   *   The filesystem configuration list iterator.
-   */
-  abstract protected function iterator();
-
-  /**
-   * Process filesystem configuration item.
-   *
-   * @param \Drubo\Config\Filesystem\FilesystemConfigItem $item
-   *   The item to process.
-   * @param \Robo\Collection\CollectionBuilder $collectionBuilder
-   *   The collection builder.
-   *
-   * @return static
-   */
-  abstract protected function processItem(FilesystemConfigItem $item, CollectionBuilder $collectionBuilder);
-
-  /**
    * {@inheritdoc}
    */
-  public function run() {
+  protected function doRun() {
     /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
     $collectionBuilder = $this->collectionBuilder();
 
@@ -62,5 +42,25 @@ abstract class Items extends BaseTask implements BuilderAwareInterface {
 
     return $collectionBuilder->run();
   }
+
+  /**
+   * Return filesystem configuration list iterator.
+   *
+   * @return \Drubo\Config\Filesystem\FilesystemConfigListInterface
+   *   The filesystem configuration list iterator.
+   */
+  abstract protected function iterator();
+
+  /**
+   * Process filesystem configuration item.
+   *
+   * @param \Drubo\Config\Filesystem\FilesystemConfigItem $item
+   *   The item to process.
+   * @param \Robo\Collection\CollectionBuilder $collectionBuilder
+   *   The collection builder.
+   *
+   * @return static
+   */
+  abstract protected function processItem(FilesystemConfigItem $item, CollectionBuilder $collectionBuilder);
 
 }

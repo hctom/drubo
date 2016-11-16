@@ -31,10 +31,8 @@ class Files extends Items {
   /**
    * {@inheritdoc}
    */
-  public function run() {
-    $this->printTaskInfo('Preparing files');
-
-    return parent::run();
+  protected function title() {
+    return 'Preparing files';
   }
 
 }

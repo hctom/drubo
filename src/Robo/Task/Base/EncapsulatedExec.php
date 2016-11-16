@@ -5,7 +5,7 @@ namespace Drubo\Robo\Task\Base;
 use Drubo\Robo\Task\BaseTask;
 use Robo\Common\BuilderAwareTrait;
 use Robo\Contract\BuilderAwareInterface;
-use Robo\Exception\TaskException;
+use Robo\Result;
 use Robo\Task\Base\Exec;
 
 /**
@@ -47,26 +47,11 @@ abstract class EncapsulatedExec extends BaseTask implements BuilderAwareInterfac
    *
    * @return \Robo\Task\Base\Exec
    *   The command object.
-   *
-   * @throws \Robo\Exception\TaskException
    */
   protected function command() {
     if (!$this->exec) {
-      $binary = $this->binary();
-
-      // No binary path specified?
-      if (empty($binary)) {
-        throw new TaskException($this, 'No binary path specified');
-      }
-
-      // Use absolute path for binary.
       $binary = $this->getDrubo()
-        ->getAbsolutePath($binary);
-
-      // Binary is not executable?
-      if (!is_executable($binary)) {
-        throw new TaskException($this, 'Binary is not executable');
-      }
+        ->getAbsolutePath($this->binary());
 
       // Instantiate encapsulated command.
       $this->exec = $this->collectionBuilder()
@@ -92,6 +77,13 @@ abstract class EncapsulatedExec extends BaseTask implements BuilderAwareInterfac
     }
 
     return $this->exec;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function doRun() {
+    return $this->command()->run();
   }
 
   /**
@@ -122,8 +114,28 @@ abstract class EncapsulatedExec extends BaseTask implements BuilderAwareInterfac
   /**
    * {@inheritdoc}
    */
-  public function run() {
-    return $this->command()->run();
+  protected function validate() {
+    $result = parent::validate();
+
+    if ($result->wasSuccessful()) {
+      $binary = $this->binary();
+
+      // No binary path specified?
+      if (empty($binary)) {
+        return Result::error($this, 'No binary path specified');
+      }
+
+      // Use absolute path for binary.
+      $binary = $this->getDrubo()
+        ->getAbsolutePath($binary);
+
+      // Binary is not executable?
+      if (!is_executable($binary)) {
+        return Result::error($this, 'Binary is not executable');
+      }
+    }
+
+    return $result;
   }
 
   /**

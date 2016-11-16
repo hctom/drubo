@@ -31,10 +31,8 @@ class Directories extends Items {
   /**
    * {@inheritdoc}
    */
-  public function run() {
-    $this->printTaskInfo('Preparing directories');
-
-    return parent::run();
+  protected function title() {
+    return 'Preparing directories';
   }
 
 }

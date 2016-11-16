@@ -3,7 +3,6 @@
 namespace Drubo\Robo\Task\Drupal\Config;
 
 use Drubo\Robo\Task\DrupalConsole\Exec;
-use Robo\Exception\TaskException;
 
 /**
  * Robo task: Export configuration to 'sync' directory.
@@ -39,10 +38,6 @@ class Export extends Exec {
   protected function options() {
     $options = parent::options();
 
-    if (empty($this->configDirectory)) {
-      throw new TaskException($this, 'No configuration directory specified');
-    }
-
     // Use absolute path for configuration directory.
     $configDirectory = $this->getDrubo()
       ->getAbsolutePath($this->configDirectory);
@@ -55,10 +50,8 @@ class Export extends Exec {
   /**
    * {@inheritdoc}
    */
-  public function run() {
-    $this->printTaskInfo('Exporting Drupal configuration');
-
-    return parent::run();
+  protected function title() {
+    return 'Exporting Drupal configuration';
   }
 
 }

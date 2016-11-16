@@ -3,7 +3,6 @@
 namespace Drubo\Robo\Task\Drupal\Config;
 
 use Drubo\Robo\Task\DrupalConsole\ExecChain;
-use Robo\Exception\TaskException;
 use Robo\Result;
 
 /**
@@ -34,10 +33,6 @@ class Import extends ExecChain {
    * {@inheritdoc}
    */
   protected function chainFilePlaceholderValues() {
-    if (empty($this->configDirectory)) {
-      throw new TaskException($this, 'No configuration directory specified');
-    }
-
     // Use absolute path for configuration directory.
     $configDirectory = $this->getDrubo()
       ->getAbsolutePath($this->configDirectory);
@@ -48,26 +43,10 @@ class Import extends ExecChain {
   }
 
   /**
-   * Configuration has no changes to import?
-   *
-   * @param \Robo\Result $result
-   *   The result object to check.
-   *
-   * @return bool
-   *   Whether the configuration has no changes to import.
-   */
-  protected function hasNoChanges(Result $result) {
-    return preg_match('/' . preg_quote('There are no changes.') . '/i', $result->getOutputData()) ? TRUE : FALSE;
-  }
-
-  /**
    * {@inheritdoc}
    */
-  public function run() {
-    $this->printTaskInfo('Importing Drupal configuration');
-
-    /** @var \Robo\Result $result */
-    $result = parent::run();
+  protected function doRun() {
+    $result = parent::doRun();
 
     if (!$result->wasSuccessful() || $this->hasNoChanges($result)) {
       return $result;
@@ -91,6 +70,26 @@ class Import extends ExecChain {
       // Import Drupal configuration again.
       ->taskDrupalConfigImport()
       ->run();
+  }
+
+  /**
+   * Configuration has no changes to import?
+   *
+   * @param \Robo\Result $result
+   *   The result object to check.
+   *
+   * @return bool
+   *   Whether the configuration has no changes to import.
+   */
+  protected function hasNoChanges(Result $result) {
+    return preg_match('/' . preg_quote('There are no changes.') . '/i', $result->getOutputData()) ? TRUE : FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function title() {
+    return 'Importing Drupal configuration';
   }
 
 }

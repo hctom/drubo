@@ -50,10 +50,8 @@ class Directories extends Items {
   /**
    * {@inheritdoc}
    */
-  public function run() {
-    $this->printTaskInfo('Cleaning directories');
-
-    return parent::run();
+  protected function title() {
+    return 'Cleaning directories';
   }
 
 }

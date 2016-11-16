@@ -37,10 +37,8 @@ class Reinstall extends ExecChain {
   /**
    * {@inheritdoc}
    */
-  public function run() {
-    $this->printTaskInfo('Reinstalling Drupal site');
-
-    return parent::run();
+  protected function title() {
+    return 'Reinstalling Drupal site';
   }
 
 }

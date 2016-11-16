@@ -45,7 +45,7 @@ class AccessRebuild extends Exec {
    * @return static
    */
   public function batch($batch) {
-    $this->batch = $batch;
+    $this->batch = (bool) $batch;
 
     return $this;
   }
@@ -66,10 +66,8 @@ class AccessRebuild extends Exec {
   /**
    * {@inheritdoc}
    */
-  public function run() {
-    $this->printTaskInfo('Rebuilding node access permissions');
-
-    return parent::run();
+  protected function title() {
+    return 'Rebuilding node access permissions';
   }
 
 }

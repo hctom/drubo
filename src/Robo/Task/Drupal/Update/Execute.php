@@ -3,7 +3,7 @@
 namespace Drubo\Robo\Task\Drupal\Update;
 
 use Drubo\Robo\Task\DrupalConsole\Exec;
-use Robo\Exception\TaskException;
+use Robo\Result;
 
 /**
  * Robo task: Apply pending Drupal update(s).
@@ -35,18 +35,11 @@ class Execute extends Exec {
 
   /**
    * {@inheritdoc}
-   *
-   * @throws \Robo\Exception\TaskException
    */
   protected function arguments() {
     $args = parent::arguments();
 
     $args[] = 'update:execute';
-
-    if (empty($this->module)) {
-      throw new TaskException($this, 'No module name specified');
-    }
-
     $args[] = $this->module;
 
     if (!empty($this->updateN)) {
@@ -74,10 +67,23 @@ class Execute extends Exec {
   /**
    * {@inheritdoc}
    */
-  public function run() {
-    $this->printTaskInfo('Applying pending update(s)');
+  protected function title() {
+    return 'Applying pending update(s)';
+  }
 
-    return parent::run();
+  /**
+   * {@inheritdoc}
+   */
+  protected function validate() {
+    $result = parent::validate();
+
+    if ($result->wasSuccessful()) {
+      if (empty($this->module)) {
+        return Result::error($this, 'No module name specified');
+      }
+    }
+
+    return $result;
   }
 
   /**

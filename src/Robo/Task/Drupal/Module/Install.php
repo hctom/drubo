@@ -3,7 +3,6 @@
 namespace Drubo\Robo\Task\Drupal\Module;
 
 use Drubo\Robo\Task\DrupalConsole\Exec;
-use Robo\Exception\TaskException;
 
 /**
  * Robo task: Install Drupal module(s).
@@ -20,10 +19,6 @@ class Install extends Exec {
 
     $args[] = 'module:install';
 
-    if (empty($this->modules)) {
-      throw new TaskException($this, 'No module(s) specified');
-    }
-
     foreach ($this->modules as $module) {
       $args[] = $module;
     }
@@ -34,10 +29,8 @@ class Install extends Exec {
   /**
    * {@inheritdoc}
    */
-  public function run() {
-    $this->printTaskInfo('Installing Drupal module(s)');
-
-    return parent::run();
+  protected function title() {
+    return 'Installing Drupal module(s)';
   }
 
 }

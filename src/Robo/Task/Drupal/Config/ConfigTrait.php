@@ -2,6 +2,8 @@
 
 namespace Drubo\Robo\Task\Drupal\Config;
 
+use Robo\Result;
+
 /**
  * Trait for config task classes.
  */
@@ -26,6 +28,21 @@ trait ConfigTrait {
     $this->configDirectory = $configDirectory;
 
     return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function validate() {
+    $result = parent::validate();
+
+    if ($result->wasSuccessful()) {
+      if (empty($this->configDirectory)) {
+        return Result::error($this, 'No configuration directory specified');
+      }
+    }
+
+    return $result;
   }
 
 }

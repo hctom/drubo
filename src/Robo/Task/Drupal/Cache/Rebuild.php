@@ -3,7 +3,7 @@
 namespace Drubo\Robo\Task\Drupal\Cache;
 
 use Drubo\Robo\Task\DrupalConsole\Exec;
-use Robo\Exception\TaskException;
+use Robo\Result;
 
 /**
  * Robo task: Rebuild and clear Drupal site cache(s).
@@ -35,11 +35,6 @@ class Rebuild extends Exec {
     $args = parent::arguments();
 
     $args[] = 'cache:rebuild';
-
-    if (empty($this->cache)) {
-      throw new TaskException($this, 'No cache specified');
-    }
-
     $args[] = $this->cache;
 
     return $args;
@@ -62,10 +57,23 @@ class Rebuild extends Exec {
   /**
    * {@inheritdoc}
    */
-  public function run() {
-    $this->printTaskInfo('Rebuilding Drupal cache(s)');
+  protected function title() {
+    return 'Rebuilding Drupal cache(s)';
+  }
 
-    return parent::run();
+  /**
+   * {@inheritdoc}
+   */
+  protected function validate() {
+    $result = parent::validate();
+
+    if ($result->wasSuccessful()) {
+      if (empty($this->cache)) {
+        return Result::error($this, 'No cache specified');
+      }
+    }
+
+    return $result;
   }
 
 }

@@ -3,7 +3,7 @@
 namespace Drubo\Robo\Task\Drupal\User;
 
 use Drubo\Robo\Task\DrupalConsole\Exec;
-use Robo\Exception\TaskException;
+use Robo\Result;
 
 /**
  * Robo task: Generate one-time user login URL.
@@ -28,21 +28,21 @@ class Login extends Exec {
 
   /**
    * {@inheritdoc}
-   *
-   * @throws \Robo\Exception\TaskException
    */
   protected function arguments() {
     $args = parent::arguments();
 
     $args[] = 'user:login:url';
-
-    if (empty($this->userId)) {
-      throw new TaskException($this, 'No user ID specified');
-    }
-
     $args[] = $this->userId;
 
     return $args;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function title() {
+    return 'Generating one-time login URL';
   }
 
   /**
@@ -62,10 +62,16 @@ class Login extends Exec {
   /**
    * {@inheritdoc}
    */
-  public function run() {
-    $this->printTaskInfo('Generating one-time login URL');
+  protected function validate() {
+    $result = parent::validate();
 
-    return parent::run();
+    if ($result->wasSuccessful()) {
+      if (empty($this->userId)) {
+        return Result::error($this, 'No user ID specified');
+      }
+    }
+
+    return $result;
   }
 
 }

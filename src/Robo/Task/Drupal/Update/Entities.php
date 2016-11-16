@@ -23,10 +23,8 @@ class Entities extends Exec {
   /**
    * {@inheritdoc}
    */
-  public function run() {
-    $this->printTaskInfo('Applying Drupal entity schema updates');
-
-    return parent::run();
+  protected function title() {
+    return 'Applying Drupal entity schema updates';
   }
 
 }

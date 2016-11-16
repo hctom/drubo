@@ -3,7 +3,7 @@
 namespace Drubo\Robo\Task\Database;
 
 use Drubo\Robo\Task\DrupalConsole\Exec;
-use Robo\Exception\TaskException;
+use Robo\Result;
 
 /**
  * Robo task: Drop all database tables.
@@ -28,18 +28,11 @@ class DropTables extends Exec {
 
   /**
    * {@inheritdoc}
-   *
-   * @throws \Robo\Exception\TaskException
    */
   protected function arguments() {
     $args = parent::arguments();
 
     $args[] = 'database:drop';
-
-    if (empty($this->database)) {
-      throw new TaskException($this, 'No database specified');
-    }
-
     $args[] = $this->database;
 
     return $args;
@@ -62,10 +55,23 @@ class DropTables extends Exec {
   /**
    * {@inheritdoc}
    */
-  public function run() {
-    $this->printTaskInfo('Dropping all database tables');
+  protected function title() {
+    return 'Dropping all database tables';
+  }
 
-    return parent::run();
+  /**
+   * {@inheritdoc}
+   */
+  protected function validate() {
+    $result = parent::validate();
+
+    if ($result->wasSuccessful()) {
+      if (empty($this->database)) {
+        return Result::error($this, 'No database specified');
+      }
+    }
+
+    return $result;
   }
 
 }

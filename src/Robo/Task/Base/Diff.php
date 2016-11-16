@@ -65,12 +65,12 @@ class Diff extends BaseTask {
   /**
    * {@inheritdoc}
    */
-  public function run() {
-    $info = sprintf("Changes from <info>%s</info> to <info>%s</info>", $this->from['label'], $this->to['label']);
+  protected function doRun() {
+    $output = '';
 
     // No changes?
     if ($this->from['data'] === $this->to['data']) {
-      $info .= "\nNo changes...";
+      $output .= "\nNo changes...";
     }
 
     // Has changes.
@@ -86,12 +86,19 @@ class Diff extends BaseTask {
       $diff = $this->format($diff);
 
       // Output diff.
-      $info .= "\n" . $diff;
+      $output .= "\n" . $diff;
     }
 
-    $this->printTaskInfo($info);
+    $this->printTaskInfo($output);
 
     return Result::success($this);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function title() {
+    return sprintf("Changes from <info>%s</info> to <info>%s</info>", $this->from['label'], $this->to['label']);
   }
 
   /**

@@ -54,6 +54,26 @@ class Initialize extends BaseTask implements BuilderAwareInterface {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  protected function doRun() {
+    $projectDirectory = $this->getDrubo()
+      ->getProjectDirectory();
+
+    $data = [
+      // Ask for environment.
+      'environment' => $this->environment(),
+      // Ask for URI.
+      'uri' => $this->uri(),
+    ];
+
+    return $this->collectionBuilder()
+      ->taskWriteToFile($projectDirectory . DIRECTORY_SEPARATOR . '.drubo.yml')
+      ->text(Yaml::dump($data))
+      ->run();
+  }
+
+  /**
    * Interactively ask for environment name.
    *
    * @return string
@@ -89,23 +109,8 @@ class Initialize extends BaseTask implements BuilderAwareInterface {
   /**
    * {@inheritdoc}
    */
-  public function run() {
-    $this->printTaskInfo('Initializing project configuration');
-
-    $projectDirectory = $this->getDrubo()
-      ->getProjectDirectory();
-
-    $data = [
-      // Ask for environment.
-      'environment' => $this->environment(),
-      // Ask for URI.
-      'uri' => $this->uri(),
-    ];
-
-    return $this->collectionBuilder()
-      ->taskWriteToFile($projectDirectory . DIRECTORY_SEPARATOR . '.drubo.yml')
-      ->text(Yaml::dump($data))
-      ->run();
+  protected function title() {
+    return 'Initializing project configuration';
   }
 
   /**
