@@ -9,7 +9,7 @@ use Drubo\Robo\Task\DrupalConsole\Exec;
  */
 class Diff extends Exec {
 
-  use ConfigTrait;
+  use ConfigTaskTrait;
 
   /**
    * Whether to see the changes in reverse (defaults to FALSE).

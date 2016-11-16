@@ -10,7 +10,7 @@ use Robo\Result;
  */
 class Import extends ExecChain {
 
-  use ConfigTrait;
+  use ConfigTaskTrait;
 
   /**
    * Constructor.

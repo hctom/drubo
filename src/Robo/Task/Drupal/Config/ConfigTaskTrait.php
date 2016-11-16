@@ -7,7 +7,7 @@ use Robo\Result;
 /**
  * Trait for config task classes.
  */
-trait ConfigTrait {
+trait ConfigTaskTrait {
 
   /**
    * Configuration directory.

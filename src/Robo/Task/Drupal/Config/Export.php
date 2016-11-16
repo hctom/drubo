@@ -9,7 +9,7 @@ use Drubo\Robo\Task\DrupalConsole\Exec;
  */
 class Export extends Exec {
 
-  use ConfigTrait;
+  use ConfigTaskTrait;
 
   /**
    * Constructor.
