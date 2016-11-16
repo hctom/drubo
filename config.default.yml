@@ -22,8 +22,11 @@ drubo:
   # following properties:
   #   - enabled: Whether the command is enabled (defaults to true).
   commands:
-    # 'Demonstrate project' command (disabled by default).
-    'project:demo':
+    # 'Start project demostration' command (disabled by default).
+    'project:demo:start':
+      enabled: false
+    # 'Stop project demostration' command (disabled by default).
+    'project:demo:stop':
       enabled: false
     # 'Reinstall project' command (disabled by default).
     'project:reinstall':

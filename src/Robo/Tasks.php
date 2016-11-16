@@ -147,22 +147,51 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
   }
 
   /**
-   * Demonstrate project.
+   * Start project demonstration.
    *
-   * @see \Drubo\Robo\Tasks::projectDemoCollectionBuilder()
+   * @command project:demo:start
+   *
+   * @see \Drubo\Robo\Tasks::projectDemoStartCollectionBuilder()
    */
-  public function projectDemo() {
-    return $this->projectDemoCollectionBuilder()
+  public function projectDemoStart() {
+    return $this->projectDemoStartCollectionBuilder()
       ->run();
   }
 
   /**
-   * Return collection builder for 'Demonstrate project' command.
+   * Return collection builder for 'Start project demostration' command.
    *
    * @return \Robo\Collection\CollectionBuilder
    *   The collection builder prepopulated with general tasks.
    */
-  protected function projectDemoCollectionBuilder() {
+  protected function projectDemoStartCollectionBuilder() {
+    /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
+    $collectionBuilder = $this->collectionBuilder();
+
+    // Do nothing... projects should override this method to suit their needs.
+
+    return $collectionBuilder;
+  }
+
+  /**
+   * Stop project demonstration.
+   *
+   * @command project:demo:stop
+   *
+   * @see \Drubo\Robo\Tasks::projectDemoStopCollectionBuilder()
+   */
+  public function projectDemoStop() {
+    return $this->projectDemoStopCollectionBuilder()
+      ->run();
+  }
+
+  /**
+   * Return collection builder for 'Stop project demostration' command.
+   *
+   * @return \Robo\Collection\CollectionBuilder
+   *   The collection builder prepopulated with general tasks.
+   */
+  protected function projectDemoStopCollectionBuilder() {
     /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
     $collectionBuilder = $this->collectionBuilder();
 
