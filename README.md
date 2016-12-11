@@ -67,7 +67,7 @@ structure should be used:
  ├─ .drubo
  |   ├─ config
  |   └─ ...
- ├─ drupal
+ ├─ .drupal
  |   ├─ config
  |   └─ ...
  ├─ docroot
