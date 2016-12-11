@@ -85,10 +85,9 @@ See [configuration][toc.configuration] documentation for details about overridin
 configuration values (also have a look at ```filesystem``` section in
 [```config.default.yml```][config]).
 
-**drubo** searches for vendor binaries in the ```bin``` directory (relative to 
-the project directory) by default. To tell [Composer][composer] to use that 
-specific directory for binaries, use the following snippet in your 
-```composer.json```:
+**drubo** searches for vendor binaries in ```bin``` by default (relative to the 
+project directory) . Use the following snippet in your ```composer.json``` to 
+tell [Composer][composer] to use that specific directory for binaries :
 
 ```
 "config": {
