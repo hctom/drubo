@@ -434,6 +434,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       // Update packages.
       ->add($this->taskComposerUpdate()
         ->optimizeAutoloader()
+        ->option('with-dependencies')
         ->args($packageNames), 'composer.update')
 
       // Apply pending updates.
