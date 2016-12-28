@@ -87,7 +87,7 @@ configuration values (also have a look at ```filesystem``` section in
 
 **drubo** searches for vendor binaries in ```bin``` by default (relative to the 
 project directory) . Use the following snippet in your ```composer.json``` to 
-tell [Composer][composer] to use that specific directory for binaries :
+tell [Composer][composer] to use that specific directory for binaries:
 
 ```
 "config": {
