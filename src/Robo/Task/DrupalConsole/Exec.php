@@ -45,9 +45,9 @@ abstract class Exec extends EncapsulatedExec {
   protected function options() {
     $options = parent::options();
 
-    // Disable debug mode?
-    if (!$this->debug()) {
-      $options['no-debug'] = NULL;
+    // Enable debug mode?
+    if ($this->debug()) {
+      $options['debug'] = NULL;
     }
 
     // Use/force ANSI output.
