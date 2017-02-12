@@ -425,6 +425,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       // Update packages (dry-run).
       ->add($this->taskComposerUpdate()
         ->args($packageNames)
+        ->option('with-dependencies')
         ->option('dry-run'), 'composer.update.dryRun')
 
       // Ask for confirmation to continue.
