@@ -54,11 +54,9 @@ abstract class ExecChain extends Exec {
 
     // Placeholder values (if any).
     if (($placeholders = $this->chainFilePlaceholderValues())) {
-      foreach ($placeholders as $placeholder => &$value) {
-        $value = $placeholder . ':' . $value;
+      foreach ($placeholders as $placeholder => $value) {
+        $options['placeholder=' . $this->escape($placeholder . ':' . $value)] = NULL;
       }
-
-      $options['placeholder=' . $this->escape(implode(' ', $placeholders))] = NULL;
     }
 
     return $options;
