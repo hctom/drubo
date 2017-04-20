@@ -2,7 +2,7 @@
 
 namespace Drubo\Robo\Task\Filesystem;
 
-use Drubo\Robo\Task\Filesystem\Clean\Directories as CleanDicrectories;
+use Drubo\Robo\Task\Filesystem\Clean\Directories as CleanDirectories;
 use Drubo\Robo\Task\Filesystem\Prepare\Directories as PrepareDicrectories;
 use Drubo\Robo\Task\Filesystem\Prepare\Files;
 
@@ -14,7 +14,7 @@ trait loadTasks {
    * @return \Drubo\Robo\Task\Filesystem\Clean\Directories
    */
   protected function taskFilesystemCleanDirectories() {
-    return $this->task(CleanDicrectories::class);
+    return $this->task(CleanDirectories::class);
   }
 
   /**
