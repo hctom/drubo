@@ -2,7 +2,7 @@
 
 namespace Drubo\Robo\Task\Filesystem;
 
-use Drubo\Config\Filesystem\FilesystemConfigItem;
+use Drubo\Config\Filesystem\FilesystemConfigItemInterface;
 use Drubo\Robo\Task\BaseTask;
 use Robo\Collection\CollectionBuilder;
 use Robo\Common\BuilderAwareTrait;
@@ -61,6 +61,6 @@ abstract class Items extends BaseTask implements BuilderAwareInterface {
    *
    * @return static
    */
-  abstract protected function processItem(FilesystemConfigItem $item, CollectionBuilder $collectionBuilder);
+  abstract protected function processItem(FilesystemConfigItemInterface $item, CollectionBuilder $collectionBuilder);
 
 }

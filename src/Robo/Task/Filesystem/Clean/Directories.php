@@ -2,8 +2,9 @@
 
 namespace Drubo\Robo\Task\Filesystem\Clean;
 
+use Drubo\Config\Filesystem\Directory\DirectoryConfigItemInterface;
 use Drubo\Config\Filesystem\Directory\DirectoryConfigList;
-use Drubo\Config\Filesystem\FilesystemConfigItem;
+use Drubo\Config\Filesystem\FilesystemConfigItemInterface;
 use Drubo\Robo\Task\Filesystem\Items;
 use Robo\Collection\CollectionBuilder;
 
@@ -15,14 +16,14 @@ class Directories extends Items {
   /**
    * Clean filesystem directory.
    *
-   * @param \Drubo\Config\Filesystem\FilesystemConfigItem $item
+   * @param \Drubo\Config\Filesystem\Directory\DirectoryConfigItemInterface $item
    *   The filesystem configuration item.
    * @param \Robo\Collection\CollectionBuilder $collectionBuilder
    *   The collection builder.
    *
    * @return static
    */
-  protected function clean(FilesystemConfigItem $item, CollectionBuilder $collectionBuilder) {
+  protected function clean(DirectoryConfigItemInterface $item, CollectionBuilder $collectionBuilder) {
     $collectionBuilder->taskCleanDir([$item->path()]);
   }
 
@@ -38,7 +39,7 @@ class Directories extends Items {
   /**
    * {@inheritdoc}
    */
-  protected function processItem(FilesystemConfigItem $item, CollectionBuilder $collectionBuilder) {
+  protected function processItem(FilesystemConfigItemInterface $item, CollectionBuilder $collectionBuilder) {
     // Clean directory?
     if ($item->clean()) {
       $this->clean($item, $collectionBuilder);

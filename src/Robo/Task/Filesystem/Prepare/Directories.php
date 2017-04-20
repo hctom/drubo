@@ -3,7 +3,7 @@
 namespace Drubo\Robo\Task\Filesystem\Prepare;
 
 use Drubo\Config\Filesystem\Directory\DirectoryConfigList;
-use Drubo\Config\Filesystem\FilesystemConfigItem;
+use Drubo\Config\Filesystem\FilesystemConfigItemInterface;
 use Robo\Collection\CollectionBuilder;
 
 /**
@@ -14,7 +14,7 @@ class Directories extends Items {
   /**
    * {@inheritdoc}
    */
-  protected function create(FilesystemConfigItem $item, CollectionBuilder $collectionBuilder) {
+  protected function create(FilesystemConfigItemInterface $item, CollectionBuilder $collectionBuilder) {
     $collectionBuilder->taskFilesystemStack()
       ->mkdir($item->path());
   }
