@@ -63,19 +63,35 @@ $ vendor/bin/robo project:config
 
 ---
 
-### project:demo
+### project:demo:start
 
-Demonstrate project functionality.
+Start demonstration of project functionality.
 
 ```bash
-$ vendor/bin/robo project:demo
+$ vendor/bin/robo project:demo:start
 ```
 
 **NOTE:** This command is disabled and performs no tasks by default. Override 
-```projectDemoCollectionBuilder()``` method in your ```RoboFile``` class to add
-tasks that suit your demonstration needs. See ```drubo.commands``` section in 
-[```config.default.yml```][config] for details about how to enable the command 
-in a specific environment.
+```projectDemoStartCollectionBuilder()``` method in your ```RoboFile``` class to 
+add tasks that suit your demonstration needs. See ```drubo.commands``` section 
+in [```config.default.yml```][config] for details about how to enable the 
+command in a specific environment.
+
+---
+
+### project:demo:stop
+
+Stop demonstration of project functionality.
+
+```bash
+$ vendor/bin/robo project:demo:stop
+```
+
+**NOTE:** This command is disabled and performs no tasks by default. Override 
+```projectDemoStopCollectionBuilder()``` method in your ```RoboFile``` class to 
+add tasks that suit your demonstration needs. See ```drubo.commands``` section 
+in [```config.default.yml```][config] for details about how to enable the 
+command in a specific environment.
 
 ---
 
