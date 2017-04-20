@@ -66,6 +66,7 @@ class DropTables extends Exec {
     $result = parent::validate();
 
     if ($result->wasSuccessful()) {
+      // No database specified?
       if (empty($this->database)) {
         return Result::error($this, 'No database specified');
       }
