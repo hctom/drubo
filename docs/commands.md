@@ -11,6 +11,12 @@ available commands:
 $ vendor/bin/robo list
 ```
 
+## Command configration
+
+Some command properties may be configured in environment-specific configuration
+files. See ```drubo.commands``` section in [```config.default.yml```][config] 
+for details.
+
 ## Built-in commands
 
 **NOTE:** Run the following command in your project directory to get more 
@@ -151,13 +157,5 @@ $ vendor/bin/robo project:upgrade
 **NOTE:** This command is disabled by default to prevent accidental execution 
 and data loss. See ```drubo.commands``` section in [```config.default.yml```][config] 
 for details about how to enable the command in a specific environment.
-
----
-
-## Command configration
-
-Some command properties may be configured in environment-specific configuration
-files. See ```drubo.commands``` section in [```config.default.yml```][config] 
-for details.
 
 [config]: ../config.default.yml
