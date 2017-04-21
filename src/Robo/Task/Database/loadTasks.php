@@ -13,4 +13,13 @@ trait loadTasks {
     return $this->task(DropTables::class);
   }
 
+  /**
+   * Dump structure and contents of a given database.
+   *
+   * @return Dump
+   */
+  protected function taskDatabaseDump() {
+    return $this->task(Dump::class);
+  }
+
 }
