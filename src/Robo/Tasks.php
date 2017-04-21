@@ -255,7 +255,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
         ->optimizeAutoloader(), 'composer.install')
 
       // Prepare/ensure directories.
-      ->add($this->taskFilesystemPrepareDirectories(), 'filesystem.prepare.firectories')
+      ->add($this->taskFilesystemPrepareDirectories(), 'filesystem.prepare.directories')
 
       // Prepare/ensure files.
       ->add($this->taskFilesystemPrepareFiles(), 'filesystem.prepare.files')
