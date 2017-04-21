@@ -9,7 +9,7 @@ trait loadTasks {
    *
    * @return DropTables
    */
-  protected function taskDropDatabaseTables() {
+  protected function taskDatabaseDropTables() {
     return $this->task(DropTables::class);
   }
 
