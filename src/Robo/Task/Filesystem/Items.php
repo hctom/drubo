@@ -30,7 +30,7 @@ abstract class Items extends BaseTask implements BuilderAwareInterface {
 
       // Item should be processed?
       if ($item->enabled()) {
-        $this->processItem($item, $collectionBuilder);
+        $this->processItem($iterator->key(), $item, $collectionBuilder);
       }
 
       // Move on to next item.
@@ -54,6 +54,8 @@ abstract class Items extends BaseTask implements BuilderAwareInterface {
   /**
    * Process filesystem configuration item.
    *
+   * @param string $key
+   *   The configuration key of the item to process.
    * @param \Drubo\Config\Filesystem\FilesystemConfigItem $item
    *   The item to process.
    * @param \Robo\Collection\CollectionBuilder $collectionBuilder
@@ -61,6 +63,6 @@ abstract class Items extends BaseTask implements BuilderAwareInterface {
    *
    * @return static
    */
-  abstract protected function processItem(FilesystemConfigItemInterface $item, CollectionBuilder $collectionBuilder);
+  abstract protected function processItem($key, FilesystemConfigItemInterface $item, CollectionBuilder $collectionBuilder);
 
 }

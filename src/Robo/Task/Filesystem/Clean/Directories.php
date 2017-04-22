@@ -39,7 +39,7 @@ class Directories extends Items {
   /**
    * {@inheritdoc}
    */
-  protected function processItem(FilesystemConfigItemInterface $item, CollectionBuilder $collectionBuilder) {
+  protected function processItem($key, FilesystemConfigItemInterface $item, CollectionBuilder $collectionBuilder) {
     // Clean directory?
     if ($item->clean()) {
       $this->clean($item, $collectionBuilder);

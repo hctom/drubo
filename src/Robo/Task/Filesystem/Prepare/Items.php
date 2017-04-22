@@ -43,7 +43,7 @@ abstract class Items extends FilesystemItems {
   /**
    * {@inheritdoc}
    */
-  public function processItem(FilesystemConfigItemInterface $item, CollectionBuilder $collectionBuilder) {
+  public function processItem($key, FilesystemConfigItemInterface $item, CollectionBuilder $collectionBuilder) {
     $collectionBuilder->progressMessage(sprintf('Processing directory: %s', $item->path()));
 
     // Create item (if not exists)?
