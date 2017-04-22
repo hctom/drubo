@@ -26,7 +26,7 @@ class Import extends ExecChain {
    * {@inheritdoc}
    */
   protected function chainFile($packageDirectory) {
-    return $packageDirectory . '/.drupalconsole/chain/config/import.yml';
+    return $packageDirectory . '/.drupalconsole/drupal/chain/config/import.yml';
   }
 
   /**
