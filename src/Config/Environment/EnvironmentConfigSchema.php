@@ -176,6 +176,7 @@ class EnvironmentConfigSchema extends ConfigSchema {
               ->always($this->sortChildrenByKeyClosure())
             ->end()
             ->children()
+              ->booleanNode('backup')->defaultFalse()->end()
               ->booleanNode('clean')->defaultFalse()->end()
               ->booleanNode('create')->defaultFalse()->end()
               ->scalarNode('mode')->defaultNull()->end()

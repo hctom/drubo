@@ -88,6 +88,7 @@ drush:
 filesystem:
   # Configuration for all directories that need to be set up. Each directory may
   # be configured with the following properties:
+  #   - backup: Whether to include the directory in backups - defaults to false).
   #   - clean: Whether to clean the directory during specific command runs (e.g.
   #     during reinstallation - defaults to false).
   #   - create: Whether the directory should be created if not exists (defaults
@@ -112,6 +113,7 @@ filesystem:
       path: 'docroot'
     # Private files directory (disabled by default).
     private:
+      backup: true
       clean: true
       create: true
       enabled: false
@@ -119,6 +121,7 @@ filesystem:
       path: 'private'
     # Public files directory.
     public:
+      backup: true
       clean: true
       create: true
       mode: 744

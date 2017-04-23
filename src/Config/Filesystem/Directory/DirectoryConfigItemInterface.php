@@ -10,6 +10,14 @@ use Drubo\Config\Filesystem\FilesystemConfigItemInterface;
 interface DirectoryConfigItemInterface extends FilesystemConfigItemInterface {
 
   /**
+   * Directory should be included in backups?
+   *
+   * @return bool
+   *   Whether to include the directory in backups.
+   */
+  public function backup();
+
+  /**
    * Directory should be cleaned?
    *
    * @return bool

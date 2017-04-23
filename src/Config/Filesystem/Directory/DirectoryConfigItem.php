@@ -12,6 +12,13 @@ class DirectoryConfigItem extends FilesystemConfigItem implements DirectoryConfi
   /**
    * {@inheritdoc}
    */
+  public function backup() {
+    return !empty($this->data['backup']);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function clean() {
     return !empty($this->data['clean']);
   }
