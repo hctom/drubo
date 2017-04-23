@@ -59,6 +59,36 @@ $ vendor/bin/robo environment:list
 
 ---
 
+### project:backup:delete
+
+Delete project backup.
+
+```bash
+$ vendor/bin/robo project:backup:delete
+```
+
+---
+
+### project:backup:create
+
+Create project backup.
+
+```bash
+$ vendor/bin/robo project:backup:create
+```
+
+---
+
+### project:backup:restore
+
+Restore project backup.
+
+```bash
+$ vendor/bin/robo project:backup:restore
+```
+
+---
+
 ### project:config
 
 Dump all project configuration values.
