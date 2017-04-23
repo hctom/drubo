@@ -1,0 +1,11 @@
+commands:
+  -
+    command: database:drop
+    arguments:
+      database: '%{{database}}'
+  -
+    command: database:restore
+    arguments:
+      database: '%{{database}}'
+    options:
+      file: '%{{file}}'

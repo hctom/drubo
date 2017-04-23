@@ -2,6 +2,9 @@
 
 namespace Drubo\Robo\Task\Database;
 
+use Drubo\Robo\Task\Database\Dump\Create as DumpCreate;
+use Drubo\Robo\Task\Database\Dump\Restore as DumpRestore;
+
 trait loadTasks {
 
   /**
@@ -16,10 +19,19 @@ trait loadTasks {
   /**
    * Dump structure and contents of a given database.
    *
-   * @return Dump
+   * @return \Drubo\Robo\Task\Database\Dump\Create
    */
-  protected function taskDatabaseDump() {
-    return $this->task(Dump::class);
+  protected function taskDatabaseDumpCreate() {
+    return $this->task(DumpCreate::class);
+  }
+
+  /**
+   * Restore structure and contents of a given database from dump file.
+   *
+   * @return \Drubo\Robo\Task\Database\Dump\Restore
+   */
+  protected function taskDatabaseDumpRestore() {
+    return $this->task(DumpRestore::class);
   }
 
 }

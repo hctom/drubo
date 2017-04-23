@@ -1,6 +1,6 @@
 <?php
 
-namespace Drubo\Robo\Task\Database;
+namespace Drubo\Robo\Task\Database\Dump;
 
 use Drubo\Robo\Task\DrupalConsole\Exec;
 use Robo\Result;
@@ -8,7 +8,7 @@ use Robo\Result;
 /**
  * Robo task: Dump database structure and contents.
  */
-class Dump extends Exec {
+class Create extends Exec {
 
   /**
    * Database identifier.
@@ -18,7 +18,7 @@ class Dump extends Exec {
   protected $database;
 
   /**
-   * Dump file path.
+   * Database dump file path.
    *
    * @var string
    */
@@ -49,8 +49,7 @@ class Dump extends Exec {
    * Set database.
    *
    * @param string $database
-   *   The identifier of the database whose structure and contents should be
-   *   dumped.
+   *   The identifier of the database to process.
    *
    * @return static
    */
@@ -61,16 +60,16 @@ class Dump extends Exec {
   }
 
   /**
-   * Set dump file path.
+   * Set database dump file path.
    *
    * @param string $file
-   *   The path to the dump file to create.
+   *   The path to the database dump file.
    *
    * @return static
    */
   public function file($file) {
     $this->file = $this->getDrubo()
-    ->getAbsolutePath($file);
+      ->getAbsolutePath($file);
 
     return $this;
   }
@@ -78,7 +77,7 @@ class Dump extends Exec {
   /**
    * {@inheritdoc}
    */
-  protected function options() {
+  public function options() {
     $options = parent::options();
 
     $options['file'] = $this->file;
@@ -105,9 +104,9 @@ class Dump extends Exec {
         return Result::error($this, 'No database specified');
       }
 
-      // No dump file path specified?
-      if (empty($this->file)) {
-        return Result::error($this, 'No dump file path specified');
+      // No database dump file path specified?
+      elseif (empty($this->file)) {
+        return Result::error($this, 'No database dump file path specified');
       }
     }
 
