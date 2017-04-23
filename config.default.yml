@@ -97,6 +97,11 @@ filesystem:
   #   - path: (required) The path to the directory to process (either absolute
   #     or relative to the project directory).
   directories:
+    # Backup directory.
+    backup:
+      create: true
+      mode: 777
+      path: '.drupal/backup'
     # Config 'sync' directory.
     config:
       enabled: false
