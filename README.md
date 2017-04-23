@@ -68,6 +68,7 @@ structure should be used:
  |   ├─ config
  |   └─ ...
  ├─ .drupal
+ |   ├─ backup
  |   ├─ config
  |   └─ ...
  ├─ bin
