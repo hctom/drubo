@@ -2,6 +2,7 @@
 
 namespace Drubo;
 
+use Drubo\Backup\BackupManager;
 use Drubo\Config\Environment\EnvironmentConfig;
 use Drubo\Config\Environment\EnvironmentConfigSchema;
 use Drubo\Config\Project\ProjectConfig;
@@ -54,6 +55,17 @@ class Drubo {
     }
 
     return $path;
+  }
+
+  /**
+   * Return backup manager service.
+   *
+   * @return \Drubo\Backup\BackupManagerInterface
+   *   The backup manager service object.
+   */
+  public function getBackupManager() {
+    return $this->getContainer()
+      ->get('drubo.backup.manager');
   }
 
   /**
@@ -216,6 +228,9 @@ class Drubo {
    * @return static
    */
   protected function registerDefaultServices(ContainerInterface $container) {
+    // Register backup manager service.
+    $container->add('drubo.backup.manager', new BackupManager());
+
     // Register diff service.
     $container->add('drubo.diff', new Differ());
 
