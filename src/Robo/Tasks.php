@@ -2,11 +2,15 @@
 
 namespace Drubo\Robo;
 
+use Drubo\Backup\BackupInfo;
+use Drubo\Backup\BackupInfoInterface;
 use Drubo\DruboAwareInterface;
 use Drubo\DruboAwareTrait;
 use Drubo\Environment\EnvironmentInterface;
 use Robo\Result;
 use Robo\Tasks as RoboTasks;
+use Symfony\Component\Console\Helper\SymfonyQuestionHelper;
+use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -130,6 +134,164 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       ->toArray();
 
     return $environmentNames;
+  }
+
+  /**
+   * Create project backup.
+   *
+   * @command project:backup:create
+   */
+  public function projectBackupCreate() {
+    // Prompt for optional backup description.
+    $question = (new Question('Description'))
+      ->setValidator(function($description) {
+        return $description;
+      });
+
+    $description = (new SymfonyQuestionHelper())
+      ->ask($this->input(), $this->output(), $question);
+
+    // Create new backup information object.
+    $backup = new BackupInfo(NULL, $description);
+
+    return $this->projectBackupCreateCollectionBuilder($backup)
+      ->run();
+  }
+
+  /**
+   * Return collection builder for 'Create project backup' command.
+   *
+   * @param \Drubo\Backup\BackupInfoInterface $backup
+   *   A backup information object.
+   *
+   * @return \Robo\Collection\CollectionBuilder
+   *   The collection builder prepopulated with general tasks.
+   */
+  protected function projectBackupCreateCollectionBuilder(BackupInfoInterface $backup) {
+    /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
+    $collectionBuilder = $this->collectionBuilder();
+
+    $collectionBuilder->getCollection()
+      // Create backup directory.
+      ->add($this->taskFilesystemStack()
+        ->mkdir($backup->directoryPath()), 'directory.create');
+
+    // Save description (if any).
+    if (($description = $backup->description())) {
+      $collectionBuilder->getCollection()
+        ->add($this->taskWriteToFile($backup->directoryPath() . DIRECTORY_SEPARATOR . '.description')
+          ->line($description), 'filesystem.write.file');
+    }
+
+    $collectionBuilder->getCollection()
+      // Create database dump.
+      ->add($this->taskDatabaseDumpCreate()
+        ->file($backup->directoryPath() . DIRECTORY_SEPARATOR . 'database.sql'), 'database.dump.create')
+      // Create backup of filesystem directories.
+      ->add($this->taskFilesystemBackupDirectories()
+        ->destination($backup->directoryPath() . DIRECTORY_SEPARATOR . 'filesystem'), 'filesystem.backup.directories.create');
+
+    return $collectionBuilder;
+  }
+
+  /**
+   * Delete project backup.
+   *
+   * @command project:backup:delete
+   */
+  public function projectBackupDelete() {
+    $backupManager = $this->getDrubo()
+      ->getBackupManager();
+
+    // Backups are available?
+    if (!$backupManager->directoryList()) {
+      return Result::cancelled('No backups available');
+    }
+
+    // Interactively select backup to delete.
+    if (!($backup = $backupManager->selectBackup($this->input(), $this->output()))) {
+      return Result::cancelled('No backup selected');
+    }
+
+    // Ask for confirmation.
+    if (!$this->confirm('Delete selected backup')) {
+      return Result::cancelled('Delete backup cancelled...');
+    }
+
+    return $this->projectBackupDeleteCollectionBuilder($backup)
+      ->run();
+  }
+
+  /**
+   * Return collection builder for 'Delete project backup' command.
+   *
+   * @param \Drubo\Backup\BackupInfoInterface $backup
+   *   A backup information object.
+   *
+   * @return \Robo\Collection\CollectionBuilder
+   *   The collection builder prepopulated with general tasks.
+   */
+  protected function projectBackupDeleteCollectionBuilder(BackupInfoInterface $backup) {
+    /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
+    $collectionBuilder = $this->collectionBuilder();
+
+    $collectionBuilder->getCollection()
+      // Delete backup directory and all its content.
+      ->add($this->taskDeleteDir($backup->directoryPath()),'filesystem.delete.directory');
+
+    return $collectionBuilder;
+  }
+
+  /**
+   * Restore project backup.
+   *
+   * @command project:backup:restore
+   */
+  public function projectBackupRestore() {
+    $backupManager = $this->getDrubo()
+      ->getBackupManager();
+
+    // Backups are available?
+    if (!$backupManager->directoryList()) {
+      return Result::cancelled('No backups available');
+    }
+
+    // Interactively select backup to restore.
+    if (!($backup = $backupManager->selectBackup($this->input(), $this->output()))) {
+      return Result::cancelled('No backup selected');
+    }
+
+    // Ask for confirmation.
+    if (!$this->confirm('Restore selected backup')) {
+      return Result::cancelled('Restore backup cancelled...');
+    }
+
+    return $this->projectBackupRestoreCollectionBuilder($backup)
+      ->run();
+  }
+
+  /**
+   * Return collection builder for 'Restore project backup' command.
+   *
+   * @param \Drubo\Backup\BackupInfoInterface $backup
+   *   A backup information object.
+   *
+   * @return \Robo\Collection\CollectionBuilder
+   *   The collection builder prepopulated with general tasks.
+   */
+  protected function projectBackupRestoreCollectionBuilder(BackupInfoInterface $backup) {
+    /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
+    $collectionBuilder = $this->collectionBuilder();
+
+    $collectionBuilder->getCollection()
+      // Restore database dump.
+      ->add($this->taskDatabaseDumpRestore()
+        ->file($backup->directoryPath() . DIRECTORY_SEPARATOR . 'database.sql'), 'database.dump.restore')
+      // Restory backup of filesystem directories.
+      ->add($this->taskFilesystemRestoreDirectories()
+        ->source($backup->directoryPath() . DIRECTORY_SEPARATOR . 'filesystem'), 'filesystem.backup.directories.restore');
+
+    return $collectionBuilder;
   }
 
   /**
