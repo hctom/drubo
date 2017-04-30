@@ -425,6 +425,9 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       // Install Drupal site.
       ->add($this->taskDrupalSiteInstall(), 'drupal.site.install')
 
+      // Rebuild caches.
+      ->add($this->taskDrupalCacheRebuild(), 'drupal.cache.rebuild')
+
       // Import Drupal configuration.
       ->add($this->taskDrupalConfigImport(), 'drupal.config.import')
 
@@ -489,6 +492,9 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
 
       // Reinstall Drupal site.
       ->add($this->taskDrupalSiteReinstall(), 'drupal.site.reinstall')
+
+      // Rebuild caches.
+      ->add($this->taskDrupalCacheRebuild(), 'drupal.cache.rebuild')
 
       // Import configuration.
       ->add($this->taskDrupalConfigImport(), 'drupal.config.import')
