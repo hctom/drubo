@@ -13,7 +13,7 @@
   ],
   "require": {
     "consolidation/robo": "^1.0.0",
-    "drupal/coder": "^2.0",
+    "drupal/coder": "^8.2.0",
     "drupal/console": "^1.0",
     "drush/drush": "8.*",
     "sebastian/diff": "^1.4",
