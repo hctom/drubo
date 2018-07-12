@@ -24,6 +24,7 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
   use \Drubo\Robo\Task\Project\loadTasks;
   use \Drubo\Robo\Task\Drupal\loadTasks;
   use \Drubo\Robo\Task\Filesystem\loadTasks;
+  use \Drubo\Robo\Task\PhpCodeSniffer\loadTasks;
 
   /**
    * Constructor.
@@ -134,6 +135,61 @@ abstract class Tasks extends RoboTasks implements DruboAwareInterface {
       ->toArray();
 
     return $environmentNames;
+  }
+
+  /**
+   * Automatically fix PHP_CodeSniffer errors and warnings in code.
+   *
+   * @command project:phpcs:fix
+   */
+  public function phpCodeSnifferFix() {
+    return $this->phpCodeSnifferFixCollectionBuilder()
+      ->run();
+  }
+
+  /**
+   * Return collection builder for 'Automatically fix PHP_CodeSniffer errors and
+   * warnings in code' command.
+   *
+   * @return \Robo\Collection\CollectionBuilder
+   *   The collection builder prepopulated with general tasks.
+   */
+  protected function phpCodeSnifferFixCollectionBuilder() {
+    /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
+    $collectionBuilder = $this->collectionBuilder();
+
+    $collectionBuilder->getCollection()
+      // Run PHP_CodeSniffer.
+      /*->add($this->taskPhpCodeSnifferRun(), 'phpcs.run')*/;
+
+    return $collectionBuilder;
+  }
+
+  /**
+   * Run PHP_CodeSniffer against code.
+   *
+   * @command project:phpcs:run
+   */
+  public function phpCodeSnifferRun() {
+    return $this->phpCodeSnifferRunCollectionBuilder()
+      ->run();
+  }
+
+  /**
+   * Return collection builder for 'Run PHP_CodeSniffer against code' command.
+   *
+   * @return \Robo\Collection\CollectionBuilder
+   *   The collection builder prepopulated with general tasks.
+   */
+  protected function phpCodeSnifferRunCollectionBuilder() {
+    /** @var \Robo\Collection\CollectionBuilder $collectionBuilder */
+    $collectionBuilder = $this->collectionBuilder();
+
+    $collectionBuilder->getCollection()
+      // Run PHP_CodeSniffer.
+      ->add($this->taskPhpCodeSnifferRun()->codingStandard('Drupal'), 'phpcs.run');
+
+    return $collectionBuilder;
   }
 
   /**

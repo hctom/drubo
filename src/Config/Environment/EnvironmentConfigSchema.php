@@ -28,6 +28,7 @@ class EnvironmentConfigSchema extends ConfigSchema {
         ->append($this->nodeDrupalConsole())
         ->append($this->nodeDrush())
         ->append($this->nodeFilesystem())
+        ->append($this->nodePhpCodeSniffer())
       ->end();
 
     return $treeBuilder;
@@ -204,6 +205,24 @@ class EnvironmentConfigSchema extends ConfigSchema {
             ->end()
           ->end()
         ->end()
+      ->end();
+  }
+
+  /**
+   * Create 'phpcs' node.
+   *
+   * @return ArrayNodeDefinition
+   *   The 'phpcs' node.
+   */
+  protected function nodePhpCodeSniffer() {
+    return $this->createNode('phpcs')
+      ->addDefaultsIfNotSet()
+      ->validate()
+        ->always($this->sortChildrenByKeyClosure())
+      ->end()
+      ->children()
+        ->booleanNode('colors')->end()
+        ->scalarNode('path')->end()
       ->end();
   }
 

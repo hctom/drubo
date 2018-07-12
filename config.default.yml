@@ -145,3 +145,13 @@ filesystem:
   #   - path: (required) The path to the file to process (either absolute or
   #     relative to the project directory).
   files: []
+
+# .............................................................. PHP_CodeSniffer
+
+# Configuration for PHP_CodeSniffer binary that is used in Robo commands/tasks.
+phpcs:
+  # Whether to use/force colors in the output.
+  colors: true
+  # Path to PHP_CodeSniffer binary (either absolute or relative to the project
+  # directory).
+  path: 'bin/phpcs'
